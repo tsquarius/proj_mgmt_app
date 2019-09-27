@@ -43,6 +43,10 @@ group :development, :test do
   gem 'pry-rails'
   gem 'annotate'
   gem 'jquery-rails'
+  gem 'rspec-rails'
+  gem 'faker'
+  gem 'guard-rspec'
+  gem 'spring-commands-rspec'
 end
 
 group :development do
@@ -60,6 +64,8 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'shoulda-matchers'
+  gem 'launchy'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
