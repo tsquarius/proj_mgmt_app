@@ -185,6 +185,8 @@ var destroyCollection = function destroyCollection(collection) {
     });
   };
 };
+window.fetchCollections = fetchCollections;
+window.fetchCollections = fetchCollection;
 
 /***/ }),
 
@@ -370,11 +372,23 @@ function (_React$Component) {
       this.props.submitCollection(collection);
     }
   }, {
+    key: "renderErrors",
+    value: function renderErrors() {
+      var errors = this.props.errors.map(function (err) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          id: err
+        }, err);
+      });
+      return errors;
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "collection-form"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Collection Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "errors-list"
+      }, this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Collection Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.title,
         onChange: this.handleChange('title')
@@ -411,10 +425,12 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(_ref) {
   var entities = _ref.entities,
-      session = _ref.session;
+      session = _ref.session,
+      errors = _ref.errors;
   return {
     currentUser: entities.users[session.userId],
-    type: 'New Collection'
+    type: 'New Collection',
+    errors: errors.collections
   };
 };
 
@@ -666,7 +682,9 @@ function (_React$Component) {
       ;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "session-form"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.props.type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.props.type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "errors-list"
+      }, this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.username,
         onChange: this.updateState('username')
@@ -752,7 +770,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 document.addEventListener("DOMContentLoaded", function () {
   var store;
-  console.log(window.currentUser);
 
   if (window.currentUser) {
     var preloadedState = {

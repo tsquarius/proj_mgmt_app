@@ -52,7 +52,7 @@ class SessionForm extends React.Component {
     return (
       <div className='session-form'>
         <h3>{this.props.type}</h3>
-        <ul>
+        <ul className="errors-list">
           {this.renderErrors()}
         </ul>
         <form>

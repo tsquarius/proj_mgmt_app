@@ -1,5 +1,6 @@
-@collections.each do |collection|
-  json.set! collection.id do
-    json.partial! 'api/collections/collection' , collection: collection
+@collections.each do |col|
+  json.set! col.id do
+    json.partial! 'api/collections/collection', col: col
   end
 end
+

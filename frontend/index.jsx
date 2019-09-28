@@ -11,8 +11,6 @@ import {login, logout} from './actions/session_actions';
 document.addEventListener("DOMContentLoaded", () => {
   let store;
 
-  console.log(window.currentUser);
-
   if (window.currentUser) {
     const preloadedState = {
       session: { userId: window.currentUser.id },

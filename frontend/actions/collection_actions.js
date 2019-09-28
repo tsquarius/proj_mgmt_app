@@ -47,3 +47,7 @@ export const updateCollection = collection => dispatch => Util.patchCollection(c
 export const destroyCollection = collection => dispatch => Util.destroyCollection(collection)
   .then(collection => dispatch(deleteCollection(collection)))
   .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
+
+
+window.fetchCollections = fetchCollections;
+window.fetchCollections = fetchCollection;

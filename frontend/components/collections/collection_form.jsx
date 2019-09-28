@@ -18,10 +18,22 @@ class CollectionForm extends React.Component {
     this.props.submitCollection(collection);
   }
 
+  renderErrors() {
+    const errors = this.props.errors.map(err => 
+      <li id={err}>
+        {err}
+      </li>)
+
+    return errors
+  }
+
   render() {
     return (
       <div className='collection-form'>
         <h3>New Collection</h3>
+        <ul className="errors-list">
+          {this.renderErrors()}
+        </ul>
         <form>
           <label>
             Collection Name:

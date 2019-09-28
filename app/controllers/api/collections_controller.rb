@@ -1,7 +1,7 @@
 class Api::CollectionsController < ApplicationController
 
   def index
-    @collections = Collection.find_by(author_id: params[:user_id])
+    @collections = Collection.where(author_id: params[:user_id])
     render :index
   end
   
