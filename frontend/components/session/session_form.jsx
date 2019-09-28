@@ -18,7 +18,6 @@ class SessionForm extends React.Component {
     e.preventDefault();
     let user = Object.assign({}, this.state);
     this.props.submit(user);
-      // .then(this.props.history.push('/'));
   }
 
   updateState(type) {

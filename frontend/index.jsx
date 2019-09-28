@@ -9,8 +9,24 @@ import {login, logout} from './actions/session_actions';
 
 
 document.addEventListener("DOMContentLoaded", () => {
+  let store;
+
+  console.log(window.currentUser);
+
+  if (window.currentUser) {
+    const preloadedState = {
+      session: { userId: window.currentUser.id },
+      entities: {
+        users: { [window.currentUser.id]: window.currentUser }
+      }
+    };
+    store = configureStore(preloadedState);
+    delete window.currentUser;
+  } else {
+    store = configureStore();
+  }
+
   const root = document.getElementById("root");
-  const store = configureStore();
 
   //temporary for testing
   window.getState = store.getState;

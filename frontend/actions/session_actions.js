@@ -22,15 +22,15 @@ export const receiveErrors = errors => ({
 //thunk actions
 export const login = user => dispatch => Util.postSession(user)
   .then(user=> dispatch(receiveCurrentUser(user)))
-  .fail(err => dispatch(receiveErrors(err)));
+  .fail(err => dispatch(receiveErrors(err.responseJSON)));
 
 export const logout = () => dispatch => Util.deleteSession()
   .then(() => dispatch(logoutCurrentUser()))
-  .fail(err => dispatch(receiveErrors(err)));
+  .fail(err => dispatch(receiveErrors(err.responseJSON)));
 
 export const signup = user => dispatch => Util.postUser(user)
   .then(user => dispatch(receiveCurrentUser(user)))
-  .fail(err => dispatch(receiveErrors(err)));
+  .fail(err => dispatch(receiveErrors(err.responseJSON)));
 
 
 window.login = login;
