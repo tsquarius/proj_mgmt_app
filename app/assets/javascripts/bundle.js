@@ -86,6 +86,108 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/collection_actions.js":
+/*!************************************************!*\
+  !*** ./frontend/actions/collection_actions.js ***!
+  \************************************************/
+/*! exports provided: RECEIVE_COLLECTIONS, RECEIVE_SINGLE_COLLECTION, DELETE_COLLECTION, RECEIVE_COLLECTION_ERRORS, receiveCollections, receiveSingleCollection, deleteCollection, receiveErrors, fetchCollections, fetchCollection, postCollection, updateCollection, destroyCollection */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COLLECTIONS", function() { return RECEIVE_COLLECTIONS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SINGLE_COLLECTION", function() { return RECEIVE_SINGLE_COLLECTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_COLLECTION", function() { return DELETE_COLLECTION; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COLLECTION_ERRORS", function() { return RECEIVE_COLLECTION_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCollections", function() { return receiveCollections; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSingleCollection", function() { return receiveSingleCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCollection", function() { return deleteCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCollections", function() { return fetchCollections; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCollection", function() { return fetchCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postCollection", function() { return postCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateCollection", function() { return updateCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyCollection", function() { return destroyCollection; });
+/* harmony import */ var _util_collection_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/collection_util */ "./frontend/util/collection_util.js");
+
+var RECEIVE_COLLECTIONS = 'RECEIVE_COLLECTION';
+var RECEIVE_SINGLE_COLLECTION = 'RECEIVE_SINGLE_COLLECTION';
+var DELETE_COLLECTION = 'DELETE_COLLECTION';
+var RECEIVE_COLLECTION_ERRORS = 'RECEIVE_COLLECTION_ERRORS'; //regular actions
+
+var receiveCollections = function receiveCollections(collections) {
+  return {
+    type: RECEIVE_COLLECTIONS,
+    collections: collections
+  };
+};
+var receiveSingleCollection = function receiveSingleCollection(collection) {
+  return {
+    type: RECEIVE_SINGLE_COLLECTION,
+    collection: collection
+  };
+};
+var deleteCollection = function deleteCollection(collection) {
+  return {
+    type: DELETE_COLLECTION,
+    collection: collection
+  };
+};
+var receiveErrors = function receiveErrors(errors) {
+  return {
+    type: RECEIVE_COLLECTION_ERRORS,
+    errors: errors
+  };
+}; //thunk actions
+
+var fetchCollections = function fetchCollections(userId) {
+  return function (dispatch) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["fetchCollections"](userId).then(function (collections) {
+      return dispatch(receiveCollections(collections));
+    }).fail(function (errs) {
+      return dispatch(receiveErrors(errs.responseJSON));
+    });
+  };
+};
+var fetchCollection = function fetchCollection(collectionId) {
+  return function (dispatch) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["fetchCollection"](collectionId).then(function (collection) {
+      return dispatch(receiveSingleCollection(collection));
+    }).fail(function (errs) {
+      return dispatch(receiveErrors(errs.responseJSON));
+    });
+  };
+};
+var postCollection = function postCollection(collection) {
+  return function (dispatch) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["postCollection"](collection).then(function (collection) {
+      return dispatch(receiveSingleCollection(collection));
+    }).fail(function (errs) {
+      return dispatch(receiveErrors(errs.responseJSON));
+    });
+  };
+};
+var updateCollection = function updateCollection(collection) {
+  return function (dispatch) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["patchCollection"](collection).then(function (collection) {
+      return dispatch(receiveSingleCollection(collection));
+    }).fail(function (errs) {
+      return dispatch(receiveErrors(errs.responseJSON));
+    });
+  };
+};
+var destroyCollection = function destroyCollection(collection) {
+  return function (dispatch) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["destroyCollection"](collection).then(function (collection) {
+      return dispatch(deleteCollection(collection));
+    }).fail(function (errs) {
+      return dispatch(receiveErrors(errs.responseJSON));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -176,6 +278,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_session_signup_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/session/signup_form_container */ "./frontend/components/session/signup_form_container.js");
 /* harmony import */ var _components_session_login_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/session/login_form_container */ "./frontend/components/session/login_form_container.js");
 /* harmony import */ var _components_nav_user_nav_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/nav/user_nav_container */ "./frontend/components/nav/user_nav_container.js");
+/* harmony import */ var _components_collections_new_form_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/collections/new_form_container */ "./frontend/components/collections/new_form_container.js");
+
 
 
 
@@ -184,7 +288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Project Management App"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_nav_user_nav_container__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Project Management App"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_nav_user_nav_container__WEBPACK_IMPORTED_MODULE_5__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_collections_new_form_container__WEBPACK_IMPORTED_MODULE_6__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
     path: "/login",
     component: _components_session_login_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
@@ -194,6 +298,135 @@ var App = function App() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
+
+/***/ }),
+
+/***/ "./frontend/components/collections/collection_form.jsx":
+/*!*************************************************************!*\
+  !*** ./frontend/components/collections/collection_form.jsx ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var CollectionForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CollectionForm, _React$Component);
+
+  function CollectionForm(props) {
+    var _this;
+
+    _classCallCheck(this, CollectionForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CollectionForm).call(this, props));
+    _this.state = {
+      title: ''
+    }; // need to add flexibility for updating
+
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(CollectionForm, [{
+    key: "handleChange",
+    value: function handleChange(type) {
+      var _this2 = this;
+
+      return function (e) {
+        return _this2.setState(_defineProperty({}, type, e.target.value));
+      };
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var collection = Object.assign({}, this.state);
+      this.props.submitCollection(collection);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "collection-form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Collection Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.title,
+        onChange: this.handleChange('title')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: this.handleSubmit
+      }, "Create")));
+    }
+  }]);
+
+  return CollectionForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+;
+/* harmony default export */ __webpack_exports__["default"] = (CollectionForm);
+
+/***/ }),
+
+/***/ "./frontend/components/collections/new_form_container.js":
+/*!***************************************************************!*\
+  !*** ./frontend/components/collections/new_form_container.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+/* harmony import */ var _collection_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collection_form */ "./frontend/components/collections/collection_form.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var entities = _ref.entities,
+      session = _ref.session;
+  return {
+    currentUser: entities.users[session.userId],
+    type: 'New Collection'
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    submitCollection: function submitCollection(collection) {
+      return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["postCollection"])(collection));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
 
 /***/ }),
 
@@ -442,6 +675,7 @@ function (_React$Component) {
         value: this.state.password,
         onChange: this.updateState('password')
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
         onClick: this.handleClick
       }, this.props.type)));
     }
@@ -547,6 +781,78 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/reducers/collection_errors_reducer.js":
+/*!********************************************************!*\
+  !*** ./frontend/reducers/collection_errors_reducer.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+
+
+var collectionErrorsReducer = function collectionErrorsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COLLECTION_ERRORS"]:
+      return action.errors || ["Something went wrong here..."];
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (collectionErrorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/collections_reducer.js":
+/*!**************************************************!*\
+  !*** ./frontend/reducers/collections_reducer.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+var collectionsReducer = function collectionsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState;
+
+  switch (action.type) {
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COLLECTIONS"]:
+      return Object.assign({}, action.collections);
+
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SINGLE_COLLECTION"]:
+      return Object.assign({}, state, _defineProperty({}, action.collection.id, action.collection));
+
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_COLLECTION"]:
+      var deleteId = action.collection.id;
+      newState = Object.assign({}, state);
+      delete newState[deleteId];
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (collectionsReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -558,10 +864,13 @@ document.addEventListener("DOMContentLoaded", function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _users_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./users_reducer */ "./frontend/reducers/users_reducer.js");
+/* harmony import */ var _collections_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collections_reducer */ "./frontend/reducers/collections_reducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  collections: _collections_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),
@@ -577,10 +886,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
+/* harmony import */ var _collection_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collection_errors_reducer */ "./frontend/reducers/collection_errors_reducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  collections: _collection_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),
@@ -629,7 +941,7 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ERRORS"]:
-      return action.errors;
+      return action.errors || [];
 
     default:
       return state;
@@ -735,6 +1047,63 @@ var configureStore = function configureStore() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
+
+/***/ }),
+
+/***/ "./frontend/util/collection_util.js":
+/*!******************************************!*\
+  !*** ./frontend/util/collection_util.js ***!
+  \******************************************/
+/*! exports provided: fetchCollections, fetchCollection, postCollection, patchCollection, destroyCollection */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCollections", function() { return fetchCollections; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCollection", function() { return fetchCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postCollection", function() { return postCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "patchCollection", function() { return patchCollection; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyCollection", function() { return destroyCollection; });
+// should pull collections based on currentUser
+var fetchCollections = function fetchCollections(userId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/users/".concat(userId, "/collections")
+  });
+}; //should pull collectionId from the history
+
+var fetchCollection = function fetchCollection(collectionId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/collections/".concat(collectionId)
+  });
+}; //via form
+
+var postCollection = function postCollection(collection) {
+  return $.ajax({
+    method: 'POST',
+    url: "/api/collections/",
+    data: {
+      collection: collection
+    }
+  });
+};
+var patchCollection = function patchCollection(collection) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/collections/".concat(collection.id),
+    data: {
+      collection: collection
+    }
+  });
+}; //via button
+
+var destroyCollection = function destroyCollection(collectionId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/collections/".concat(collectionId)
+  });
+};
 
 /***/ }),
 
