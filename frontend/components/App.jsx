@@ -6,20 +6,24 @@ import SignupFormContainer from '../components/session/signup_form_container';
 import LoginFormContainer from '../components/session/login_form_container';
 import UserNavContainer from '../components/nav/user_nav_container';
 import NewCollectionFormContainer from '../components/collections/new_form_container';
-// import CollectionIndexContainer from '../components/collections/collection_index_container';
 import SideNav from '../components/nav/side_nav';
 
 
 const App = () => (
  <div>
-    <header>
-      <h1>Project Management App</h1>
+    <header className='header'>
+      <h1 className='logo'><Link to='/'>Project Management App</Link></h1>
       <UserNavContainer />
-      <SideNav />
-      <ProtectedRoute path='/collection/new' component={NewCollectionFormContainer} />
-      <AuthRoute path='/login' component={LoginFormContainer} />
-      <AuthRoute path='/signup' component={SignupFormContainer} />      
     </header>
+    <main className='main'>
+      <section className='main-nav'>
+        <SideNav />
+      </section>
+      <section className='main-body'>
+        <AuthRoute path='/login' component={LoginFormContainer} />
+        <AuthRoute path='/signup' component={SignupFormContainer} />
+      </section>      
+    </main>
 
 
  </div> 

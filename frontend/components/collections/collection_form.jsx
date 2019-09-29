@@ -30,7 +30,6 @@ class CollectionForm extends React.Component {
   render() {
     return (
       <div className='collection-form'>
-        <h3>New Collection</h3>
         <ul className="errors-list">
           {this.renderErrors()}
         </ul>

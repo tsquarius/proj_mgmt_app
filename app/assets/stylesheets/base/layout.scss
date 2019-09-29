@@ -1,0 +1,91 @@
+#root {
+  font-family: sans-serif;
+  width: 1500px;
+  height: 400px;
+  border: 1px solid black;
+  margin: auto;
+}
+
+.header {
+  display: flex;
+  border: 1px solid blueviolet;
+  justify-content: space-between;
+}
+
+.nav-bar {
+  display: flex;
+  float: right;
+  border: 1px solid black;
+}
+
+.nav-bar div {
+  display: flex;
+  width: 300px;
+  justify-content: space-between;
+}
+
+.nav-bar  p {
+  float: left;
+  padding: 10px 5px;
+  margin: 5px;
+}
+
+.btn-nav {
+  display: inline-block;
+  background: lightgray;
+  border-radius: 7px;
+  border: 1px solid darkgray;
+  padding: 0px 5px;
+  margin: 5px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.btn-nav:hover {
+  background: darkgray;
+  transition: background 0.3s;
+}
+
+.logo {
+  font-size: 40px;
+  float: left;
+  border: 1px solid red;
+  padding: 0 10px;
+}
+
+.main-nav {
+  border: 1px solid orange;
+  width: 20%;
+  height: 350px;
+  font-size: 15px;
+  float: left;
+}
+
+.side-nav-list {
+  padding: 10px 0 0 10px;
+}
+
+.side-nav-list li {
+  padding-bottom: 5px;
+}
+
+.main-body {
+  border: 1px solid greenyellow;
+  width: 79%;
+  float: right;
+}
+
+.btn-link {
+  padding: 5px 0;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.btn-link:hover {
+  color: skyblue;
+  transition: color 0.3s;
+}
+
+.submit {
+  cursor: pointer;
+}
