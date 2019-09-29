@@ -31,7 +31,3 @@ export const logout = () => dispatch => Util.deleteSession()
 export const signup = user => dispatch => Util.postUser(user)
   .then(user => dispatch(receiveCurrentUser(user)))
   .fail(err => dispatch(receiveErrors(err.responseJSON)));
-
-
-window.login = login;
-window.logout = logout;
