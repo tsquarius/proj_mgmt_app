@@ -69,6 +69,10 @@
   padding-bottom: 5px;
 }
 
+.side-nav-list li > span:last-of-type {
+  margin-left: 10px;
+}
+
 .main-body {
   border: 1px solid greenyellow;
   width: 79%;
@@ -88,4 +92,17 @@
 
 .submit {
   cursor: pointer;
+}
+
+.collection-form {
+  border: 1px solid gainsboro;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-right: 5px;
+  background: lavender;
+}
+
+.collection-form form {
+  padding: 5px 10px;
+  display: flex;
 }

@@ -6,7 +6,8 @@ import {collectionArray} from '../../reducers/selectors';
 
 const mapStateToProps = ({session, entities}) => ({
   currentUser: session.userId,
-  collections: collectionArray(entities.collections)
+  collections: collectionArray(entities.collections),
+  form: false
 });
 
 const mapDispatchToProps = dispatch => ({

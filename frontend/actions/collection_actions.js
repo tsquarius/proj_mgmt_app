@@ -40,7 +40,8 @@ export const postCollection = collection => dispatch => Util.postCollection(coll
   .then(collection => dispatch(receiveSingleCollection(collection)))
   .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
 
-export const updateCollection = collection => dispatch => Util.patchCollection(collection)
+export const updateCollection = (collection,collectionId) => dispatch => 
+Util.patchCollection(collection,collectionId)
   .then(collection => dispatch(receiveSingleCollection(collection)))
   .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
 

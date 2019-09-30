@@ -23,10 +23,10 @@ export const postCollection = collection => (
   })
 );
 
-export const patchCollection = collection => (
+export const patchCollection = (collection, collectionId) => (
   $.ajax({
     method: 'PATCH',
-    url: `/api/collections/${collection.id}`,
+    url: `/api/collections/${collectionId}`,
     data: {collection}
   })
 );

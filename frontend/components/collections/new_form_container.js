@@ -4,7 +4,7 @@ import CollectionForm from './collection_form';
 
 const mapStateToProps = ({entities, session, errors}) => ({
   currentUser: entities.users[session.userId],
-  type: 'New Collection',
+  type: 'New',
   errors: errors.collections
 });
 

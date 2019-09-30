@@ -167,9 +167,9 @@ var postCollection = function postCollection(collection) {
     });
   };
 };
-var updateCollection = function updateCollection(collection) {
+var updateCollection = function updateCollection(collection, collectionId) {
   return function (dispatch) {
-    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["patchCollection"](collection).then(function (collection) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["patchCollection"](collection, collectionId).then(function (collection) {
       return dispatch(receiveSingleCollection(collection));
     }).fail(function (errs) {
       return dispatch(receiveErrors(errs.responseJSON));
@@ -276,8 +276,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_session_signup_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/session/signup_form_container */ "./frontend/components/session/signup_form_container.js");
 /* harmony import */ var _components_session_login_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/session/login_form_container */ "./frontend/components/session/login_form_container.js");
 /* harmony import */ var _components_nav_user_nav_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/nav/user_nav_container */ "./frontend/components/nav/user_nav_container.js");
-/* harmony import */ var _components_collections_new_form_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/collections/new_form_container */ "./frontend/components/collections/new_form_container.js");
-/* harmony import */ var _components_nav_side_nav__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/nav/side_nav */ "./frontend/components/nav/side_nav.jsx");
+/* harmony import */ var _components_nav_side_nav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/nav/side_nav */ "./frontend/components/nav/side_nav.jsx");
+/* harmony import */ var _collections_collection_show_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./collections/collection_show_container */ "./frontend/components/collections/collection_show_container.js");
 
 
 
@@ -298,15 +298,19 @@ var App = function App() {
     className: "main"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     className: "main-nav"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_nav_side_nav__WEBPACK_IMPORTED_MODULE_7__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_nav_side_nav__WEBPACK_IMPORTED_MODULE_6__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
     className: "main-body"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
     path: "/login",
     component: _components_session_login_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["AuthRoute"], {
     path: "/signup",
     component: _components_session_signup_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }))));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
+    exact: true,
+    path: "/collection/:collectionId",
+    component: _collections_collection_show_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  })))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -357,10 +361,10 @@ function (_React$Component) {
     _classCallCheck(this, CollectionForm);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CollectionForm).call(this, props));
+    var collection = _this.props.collection;
     _this.state = {
-      title: ''
-    }; // need to add flexibility for updating
-
+      title: collection ? collection.title : ''
+    };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   }
@@ -379,21 +383,34 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       var collection = Object.assign({}, this.state);
-      this.props.submitCollection(collection);
+      var collectionId = this.props.collection.id;
+      this.props.submitCollection(collection, collectionId).then(this.props.history.push('/'));
     }
   }, {
     key: "renderErrors",
     value: function renderErrors() {
       var errors = this.props.errors.map(function (err) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          id: err
+          key: err
         }, err);
       });
       return errors;
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (!this.props.collection) return;
+
+      if (prevProps.match.params.collectionId !== this.props.match.params.collectionId) {
+        this.setState({
+          title: this.props.collection.title
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
+      var type = this.props.type;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "collection-form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
@@ -405,7 +422,7 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
         onClick: this.handleSubmit
-      }, "Create")));
+      }, type)));
     }
   }]);
 
@@ -433,6 +450,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
 /* harmony import */ var _new_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./new_form_container */ "./frontend/components/collections/new_form_container.js");
+/* harmony import */ var _update_form_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./update_form_container */ "./frontend/components/collections/update_form_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -450,6 +468,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -485,10 +504,17 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var collections = this.props.collections;
+      var editIcon = "\uD83D\uDD89";
       var collectionArray = collections.map(function (collection) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: collection.id
-        }, collection.title);
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          className: "btn-link",
+          to: "/collection/".concat(collection.id)
+        }, collection.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+          className: "btn-link",
+          to: "/collection/edit/".concat(collection.id)
+        }, "edit"));
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "side-nav-list"
@@ -496,8 +522,13 @@ function (_React$Component) {
         className: "btn-link",
         to: "/collection/new"
       }, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__["ProtectedRoute"], {
+        exact: true,
         path: "/collection/new",
         component: _new_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_3__["ProtectedRoute"], {
+        exact: true,
+        path: "/collection/edit/:collectionId",
+        component: _update_form_container__WEBPACK_IMPORTED_MODULE_5__["default"]
       }));
     }
   }]);
@@ -532,7 +563,8 @@ var mapStateToProps = function mapStateToProps(_ref) {
       entities = _ref.entities;
   return {
     currentUser: session.userId,
-    collections: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["collectionArray"])(entities.collections)
+    collections: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["collectionArray"])(entities.collections),
+    form: false
   };
 };
 
@@ -559,6 +591,99 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/collections/collection_show.jsx":
+/*!*************************************************************!*\
+  !*** ./frontend/components/collections/collection_show.jsx ***!
+  \*************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var CollectionShow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CollectionShow, _React$Component);
+
+  function CollectionShow() {
+    _classCallCheck(this, CollectionShow);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CollectionShow).apply(this, arguments));
+  }
+
+  _createClass(CollectionShow, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {}
+  }, {
+    key: "render",
+    value: function render() {
+      var collection = this.props.collection;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "collection-show"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, collection ? collection.title : ''));
+    }
+  }]);
+
+  return CollectionShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (CollectionShow);
+
+/***/ }),
+
+/***/ "./frontend/components/collections/collection_show_container.js":
+/*!**********************************************************************!*\
+  !*** ./frontend/components/collections/collection_show_container.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _collection_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection_show */ "./frontend/components/collections/collection_show.jsx");
+
+ // need to load board in here later
+
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var entities = _ref.entities;
+  var match = _ref2.match;
+  return {
+    collection: entities.collections[match.params.collectionId]
+  };
+}; //import fetchCollection && then include the boards in here
+
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {};
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/collections/new_form_container.js":
 /*!***************************************************************!*\
   !*** ./frontend/components/collections/new_form_container.js ***!
@@ -581,7 +706,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
       errors = _ref.errors;
   return {
     currentUser: entities.users[session.userId],
-    type: 'New Collection',
+    type: 'New',
     errors: errors.collections
   };
 };
@@ -590,6 +715,47 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     submitCollection: function submitCollection(collection) {
       return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["postCollection"])(collection));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/collections/update_form_container.js":
+/*!******************************************************************!*\
+  !*** ./frontend/components/collections/update_form_container.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+/* harmony import */ var _collection_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collection_form */ "./frontend/components/collections/collection_form.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var entities = _ref.entities,
+      session = _ref.session,
+      errors = _ref.errors;
+  var match = _ref2.match;
+  return {
+    currentUser: entities.users[session.userId],
+    type: 'Edit',
+    errors: errors.collections,
+    collection: entities.collections[match.params.collectionId]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    submitCollection: function submitCollection(collection, collectionId) {
+      return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["updateCollection"])(collection, collectionId));
     }
   };
 };
@@ -1302,10 +1468,10 @@ var postCollection = function postCollection(collection) {
     }
   });
 };
-var patchCollection = function patchCollection(collection) {
+var patchCollection = function patchCollection(collection, collectionId) {
   return $.ajax({
     method: 'PATCH',
-    url: "/api/collections/".concat(collection.id),
+    url: "/api/collections/".concat(collectionId),
     data: {
       collection: collection
     }
