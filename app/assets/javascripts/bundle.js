@@ -140,9 +140,9 @@ var receiveErrors = function receiveErrors(errors) {
   };
 }; //thunk actions
 
-var fetchCollections = function fetchCollections(userId) {
+var fetchCollections = function fetchCollections() {
   return function (dispatch) {
-    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["fetchCollections"](userId).then(function (collections) {
+    return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["fetchCollections"]().then(function (collections) {
       return dispatch(receiveCollections(collections));
     }).fail(function (errs) {
       return dispatch(receiveErrors(errs.responseJSON));
@@ -490,13 +490,13 @@ function (_React$Component) {
   _createClass(CollectionIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchCollections(this.props.currentUser);
+      this.props.fetchCollections();
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       if (prevProps.collections.length !== this.props.collections.length || prevProps.currentUser !== this.props.currentUser) {
-        this.props.fetchCollections(this.props.currentUser);
+        this.props.fetchCollections();
       } // if (prevProps.collections.slice(-1)[0].title !== this.props.collections.slice(-1)[0].title)
 
     }
@@ -1445,10 +1445,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "patchCollection", function() { return patchCollection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyCollection", function() { return destroyCollection; });
 // should pull collections based on currentUser
-var fetchCollections = function fetchCollections(userId) {
+var fetchCollections = function fetchCollections() {
   return $.ajax({
     method: 'GET',
-    url: "/api/users/".concat(userId, "/collections")
+    url: "/api/collections"
   });
 }; //should pull collectionId from the history
 

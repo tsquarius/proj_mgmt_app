@@ -28,7 +28,7 @@ export const receiveErrors = errors => ({
 });
 
 //thunk actions
-export const fetchCollections = userId => dispatch => Util.fetchCollections(userId)
+export const fetchCollections = () => dispatch => Util.fetchCollections()
   .then(collections => dispatch(receiveCollections(collections)))
   .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
 

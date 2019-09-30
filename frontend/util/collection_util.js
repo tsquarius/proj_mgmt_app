@@ -1,8 +1,8 @@
 // should pull collections based on currentUser
-export const fetchCollections = userId => (
+export const fetchCollections = () => (
   $.ajax({
     method: 'GET',
-    url: `/api/users/${userId}/collections`
+    url: `/api/collections`
   })
 );
 

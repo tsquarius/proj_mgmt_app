@@ -10,9 +10,18 @@
 #
 
 class Collection < ApplicationRecord
+  include Authorship
 
   validates :author_id, :title, presence: true
-  
-  belongs_to :author, foreign_key: :author_id, class_name: 'User'
+  has_many :boards
+
+  # def self.index(userId)
+  #   collections = Collection.where(author_id: userId).joins(:boards)
+    
+  #   allBoards = []
+  #   collections.each do |collection|
+  #   end
+
+  # end
 
 end

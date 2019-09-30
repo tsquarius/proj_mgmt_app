@@ -9,14 +9,14 @@ import UpdateCollectionContainer from './update_form_container';
 class CollectionIndex extends React.Component  {
 
   componentDidMount() {
-    this.props.fetchCollections(this.props.currentUser);
+    this.props.fetchCollections();
   }
   
   componentDidUpdate(prevProps) {
     if ((prevProps.collections.length !== this.props.collections.length) ||
       (prevProps.currentUser !== this.props.currentUser)
     ) {
-      this.props.fetchCollections(this.props.currentUser);
+      this.props.fetchCollections();
     }
     // if (prevProps.collections.slice(-1)[0].title !== this.props.collections.slice(-1)[0].title)
   }

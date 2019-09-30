@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_28_013243) do
+ActiveRecord::Schema.define(version: 2019_09_30_011030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "board_columns", force: :cascade do |t|
+    t.integer "board_id", null: false
+    t.string "title", null: false
+    t.integer "order", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["board_id"], name: "index_board_columns_on_board_id"
+  end
+
+  create_table "boards", force: :cascade do |t|
+    t.integer "author_id", null: false
+    t.string "title", null: false
+    t.integer "collection_id", null: false
+    t.integer "order", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_boards_on_author_id"
+    t.index ["collection_id"], name: "index_boards_on_collection_id"
+  end
 
   create_table "collections", force: :cascade do |t|
     t.integer "author_id", null: false
