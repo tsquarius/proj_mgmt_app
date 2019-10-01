@@ -1,17 +1,23 @@
 import React from 'react';
 import CollectionIndexItem from './collection_index_item';
-import {Switch, Link} from 'react-router-dom';
-import {ProtectedRoute} from '../../util/route_util';
-import NewCollectionFormContainer from './new_form_container';
-import UpdateCollectionContainer from './update_form_container'; 
+import { Link } from 'react-router-dom';
+import FormContainer from '../collections/collection_form_container';
 
+class CollectionIndex extends React.Component {
 
-class CollectionIndex extends React.Component  {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeForm: false,
+      collection: null
+    };
+    this.closeForm = this.closeForm.bind(this);
+  }
 
   componentDidMount() {
     this.props.fetchCollections();
   }
-  
+
   componentDidUpdate(prevProps) {
     if ((prevProps.collections.length !== this.props.collections.length) ||
       (prevProps.currentUser !== this.props.currentUser)
@@ -21,33 +27,59 @@ class CollectionIndex extends React.Component  {
     // if (prevProps.collections.slice(-1)[0].title !== this.props.collections.slice(-1)[0].title)
   }
 
-  render() {
-    const {collections} = this.props;
+  handleDelete(collection) {
+    return e => {
+      e.preventDefault();
+      this.props.destroyCollection(collection);
+    };
+  }
+
+  renderForm(type, collectionId) {
+    return e => {
+      e.preventDefault();
+      if (type === 'update') {
+        this.setState({collectionId: collectionId, activeForm: type});
+      } else {
+        this.setState({collectionId: null, activeForm: type});
+      }
+    };
+  }
+
+  closeForm(e) {
+    e.preventDefault();
+    this.setState({activeForm: false});
+  }
+
+  renderCollections() {
     const editIcon = '\uD83D\uDD89';
-    const collectionArray = collections.map(collection => 
-      <li key={collection.id}>
-        <Link className='btn-link' to={`/collection/${collection.id}`}>{collection.title}</Link>
-        <Link className='btn-link' to ={`/collection/edit/${collection.id}`}>edit</Link>
+    const collectionArray = this.props.collections.map(col =>
+      <li key={col.id}>
+        <Link className='btn-link' to={`/collection/${col.id}`}>{col.title}</Link>
+        <button className='btn-link' onClick={this.renderForm('update', col.id)}>edit</button>
+        <button className='btn-link' onClick={this.handleDelete(col.id)}>delete</button>
       </li>
-      )
+    )
+    return collectionArray;
+  }
+
+  render() {
+    const {activeForm, collectionId} = this.state;
 
     return (
       <ul className='side-nav-list'>
-        {collectionArray}
-        <Link className='btn-link' to='/collection/new'>New Collection</Link>
-        <ProtectedRoute 
-          exact={true} 
-          path='/collection/new' 
-          component={NewCollectionFormContainer} />
-        <ProtectedRoute 
-          exact={true} 
-          path='/collection/edit/:collectionId' 
-          component={UpdateCollectionContainer} />
+        {this.renderCollections()}
+        <button className='btn-link' onClick={this.renderForm('new')}>New Collection</button>
+        <li className={activeForm ? 'collection-form' : 'hide'}>
+          <FormContainer
+            type={activeForm === 'update' ? 'Update' : 'New'}
+            hidden={activeForm === false ? true : false}
+            collectionId={collectionId}
+          />
+          <button onClick={this.closeForm} className="submit">close</button>
+        </li>
       </ul>
     )
   }
-
 }
 
 export default CollectionIndex;
-

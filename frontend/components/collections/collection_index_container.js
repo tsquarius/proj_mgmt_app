@@ -1,17 +1,22 @@
 import {connect} from 'react-redux';
 import CollectionIndex from './collection_index';
 
-import { fetchCollections } from '../../actions/collection_actions';
+import { 
+  fetchCollections, 
+  destroyCollection, 
+} from '../../actions/collection_actions';
 import {collectionArray} from '../../reducers/selectors';
 
-const mapStateToProps = ({session, entities}) => ({
+const mapStateToProps = ({session, entities, errors}) => ({
   currentUser: session.userId,
   collections: collectionArray(entities.collections),
-  form: false
+  errors: errors.collections
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCollections: userId => dispatch(fetchCollections(userId))
+  fetchCollections: userId => dispatch(fetchCollections(userId)),
+  destroyCollection: collectionId => dispatch(destroyCollection(collectionId)),
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(CollectionIndex);

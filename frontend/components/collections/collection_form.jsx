@@ -16,10 +16,18 @@ class CollectionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const collection = Object.assign({}, this.state);
-    const collectionId = this.props.collection.id;
+    const {
+      updateCollection, 
+      postCollection, 
+      collectionId,
+      type
+    } = this.props;
 
-    this.props.submitCollection(collection, collectionId)
-      .then(this.props.history.push('/'));
+    if (type === 'Update') {
+      updateCollection(collection, collectionId);
+    } else {
+      postCollection(collection);
+    }
   }
 
   renderErrors() {
@@ -27,23 +35,22 @@ class CollectionForm extends React.Component {
       <li key={err}>
         {err}
       </li>)
-
     return errors
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.props.collection) return;
-
-    if (prevProps.match.params.collectionId !== 
-      this.props.match.params.collectionId ) {
-        this.setState({title: this.props.collection.title })
+    if (prevProps.collectionId !== 
+      this.props.collectionId ) {
+        const {type, collection} = this.props;
+        this.setState({title: type === 'Update' ? collection.title : '' })
       }
   }
 
   render() {
-    const {type} = this.props;
+    const {type, hidden} = this.props;
+
     return (
-      <div className='collection-form'>
+      <div className={hidden ? 'hide' : '' }>
         <ul className="errors-list">
           {this.renderErrors()}
         </ul>

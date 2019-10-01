@@ -34,6 +34,7 @@ class Api::CollectionsController < ApplicationController
     @collection = Collection.find(params[:id])
     if @collection
       @collection.destroy
+      render :show
     else
       render json: ["The collection you're trying to delete does not exist"], status: 422
     end

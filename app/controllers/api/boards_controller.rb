@@ -34,8 +34,9 @@ class Api::BoardsController < ApplicationController
   
   def destroy
     @board = Board.find(params[:id])
-    if @board.destroy
-      render json: {}
+    if @board
+      @board.destroy
+      render :show
     else
       render json: ['Board cannot be found'], status: 422
     end
