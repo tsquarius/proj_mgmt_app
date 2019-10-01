@@ -9,6 +9,6 @@ Rails.application.routes.draw do
     end
     resources :boards, only: [:show, :destroy, :update]
     resources :users, only: [:show, :create, :index]
-
+    resources :board_columns, only: [:index, :show, :destroy, :update, :create]
   end
 end
