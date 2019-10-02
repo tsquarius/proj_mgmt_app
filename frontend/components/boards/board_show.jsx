@@ -1,5 +1,6 @@
 import React from 'react';
 import BoardFormContainer from './board_form_container';
+import BoardColumnsContainer from '../board_columns/board_columns_show_container';
 
 class BoardShow extends React.Component {
 
@@ -14,7 +15,7 @@ class BoardShow extends React.Component {
     return e => {
       e.preventDefault();
       this.props.updateForm(boardId);
-    }
+    };
   }
 
 
@@ -28,11 +29,11 @@ class BoardShow extends React.Component {
         <section className={(formId === board.id && active) ? '' : 'hide' }>
           <BoardFormContainer board={board} />
         </section>
+
+        <BoardColumnsContainer boardId={board.id} />
+        
       </li>
-
-
     )
-
   }
 
 }

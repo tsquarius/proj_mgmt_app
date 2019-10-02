@@ -39,7 +39,6 @@ class BoardForm extends React.Component {
     this.props.closeForm();
   }
 
-
   render() {
     const {activeForm, board} = this.props;
     const formType = board ? 'Update' : 'Create';
@@ -63,8 +62,6 @@ class BoardForm extends React.Component {
       </form>
     )
   }
-
-
 }
 
 export default BoardForm;
