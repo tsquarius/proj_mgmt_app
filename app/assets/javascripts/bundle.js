@@ -271,6 +271,70 @@ var destroyCollection = function destroyCollection(collection) {
 
 /***/ }),
 
+/***/ "./frontend/actions/form_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/form_actions.js ***!
+  \******************************************/
+/*! exports provided: NEW_COLLECTION_FORM, UPDATE_COLLECTION_FORM, CLOSE_COLLECTION_FORM, NEW_BOARD_FORM, UPDATE_BOARD_FORM, CLOSE_BOARD_FORM, renderNewCollectionForm, renderUpdateCollectionForm, closeCollectionForm, renderNewBoardForm, renderUpdateBoardForm, closeBoardForm */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_COLLECTION_FORM", function() { return NEW_COLLECTION_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_COLLECTION_FORM", function() { return UPDATE_COLLECTION_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_COLLECTION_FORM", function() { return CLOSE_COLLECTION_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_BOARD_FORM", function() { return NEW_BOARD_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_BOARD_FORM", function() { return UPDATE_BOARD_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_BOARD_FORM", function() { return CLOSE_BOARD_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNewCollectionForm", function() { return renderNewCollectionForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderUpdateCollectionForm", function() { return renderUpdateCollectionForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeCollectionForm", function() { return closeCollectionForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNewBoardForm", function() { return renderNewBoardForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderUpdateBoardForm", function() { return renderUpdateBoardForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeBoardForm", function() { return closeBoardForm; });
+var NEW_COLLECTION_FORM = 'OPEN_COLLECTION_FORM';
+var UPDATE_COLLECTION_FORM = 'UPDATE_COLLECTION_FORM';
+var CLOSE_COLLECTION_FORM = 'CLOSE_COLLECTION_FORM';
+var NEW_BOARD_FORM = 'NEW_BOARD_FORM';
+var UPDATE_BOARD_FORM = 'UPDATE_BOARD_FORM';
+var CLOSE_BOARD_FORM = 'CLOSE_BOARD_FORM'; // formType = update/new
+// if update, include collection/board id
+
+var renderNewCollectionForm = function renderNewCollectionForm() {
+  return {
+    type: NEW_COLLECTION_FORM
+  };
+};
+var renderUpdateCollectionForm = function renderUpdateCollectionForm(id) {
+  return {
+    type: UPDATE_COLLECTION_FORM,
+    id: id
+  };
+};
+var closeCollectionForm = function closeCollectionForm() {
+  return {
+    type: CLOSE_COLLECTION_FORM
+  };
+};
+var renderNewBoardForm = function renderNewBoardForm() {
+  return {
+    type: NEW_BOARD_FORM
+  };
+};
+var renderUpdateBoardForm = function renderUpdateBoardForm(id) {
+  return {
+    type: UPDATE_BOARD_FORM,
+    id: id
+  };
+};
+var closeBoardForm = function closeBoardForm() {
+  return {
+    type: CLOSE_BOARD_FORM
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/session_actions.js":
 /*!*********************************************!*\
   !*** ./frontend/actions/session_actions.js ***!
@@ -400,6 +464,233 @@ var App = function App() {
 
 /***/ }),
 
+/***/ "./frontend/components/boards/board_form.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/boards/board_form.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var BoardForm =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(BoardForm, _React$Component);
+
+  function BoardForm(props) {
+    var _this;
+
+    _classCallCheck(this, BoardForm);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BoardForm).call(this, props));
+    var board = _this.props.board;
+    _this.state = {
+      title: board ? board.title : ''
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(BoardForm, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var _this$props = this.props,
+          updateBoard = _this$props.updateBoard,
+          createBoard = _this$props.createBoard,
+          collectionId = _this$props.collectionId;
+      var board = Object.assign({}, this.state);
+
+      if (this.props.board) {
+        updateBoard(this.props.board.id, board);
+      } else {
+        createBoard(collectionId, board);
+      }
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(type) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this2.setState(_defineProperty({}, type, e.target.value));
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var formType = this.props.board ? 'Update' : 'Create';
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        value: this.state.title,
+        onChange: this.handleChange('title')
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: this.handleSubmit
+      }, formType));
+    }
+  }]);
+
+  return BoardForm;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (BoardForm);
+
+/***/ }),
+
+/***/ "./frontend/components/boards/board_form_container.js":
+/*!************************************************************!*\
+  !*** ./frontend/components/boards/board_form_container.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _board_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./board_form */ "./frontend/components/boards/board_form.jsx");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state, _ref) {
+  var collectionId = _ref.collectionId,
+      board = _ref.board;
+  return {
+    collectionId: collectionId,
+    board: board
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    createBoard: function createBoard(collectionId, board) {
+      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["createBoard"])(collectionId, board));
+    },
+    updateBoard: function updateBoard(boardId, board) {
+      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["updateBoard"])(boardId, board));
+    },
+    closeForm: function closeForm() {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_3__["closeBoardForm"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_board_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/boards/board_show.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/boards/board_show.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _board_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_form_container */ "./frontend/components/boards/board_form_container.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+ // pass in deleteForm and board
+
+
+
+var BoardShow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(BoardShow, _React$Component);
+
+  function BoardShow() {
+    _classCallCheck(this, BoardShow);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(BoardShow).apply(this, arguments));
+  }
+
+  _createClass(BoardShow, [{
+    key: "handleDelete",
+    value: function handleDelete(boardId) {
+      var _this = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this.props.deleteBoard(boardId);
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var board = this.props.board;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        key: board.id
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleDelete(board.id)
+      }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        board: board
+      }));
+    }
+  }]);
+
+  return BoardShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (BoardShow);
+
+/***/ }),
+
 /***/ "./frontend/components/collections/collection_form.jsx":
 /*!*************************************************************!*\
   !*** ./frontend/components/collections/collection_form.jsx ***!
@@ -449,10 +740,23 @@ function (_React$Component) {
       title: collection ? collection.title : ''
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CollectionForm, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.collectionId !== this.props.collectionId) {
+        var _this$props = this.props,
+            activeForm = _this$props.activeForm,
+            collection = _this$props.collection;
+        this.setState({
+          title: activeForm === 'update' ? collection.title : ''
+        });
+      }
+    }
+  }, {
     key: "handleChange",
     value: function handleChange(type) {
       var _this2 = this;
@@ -466,17 +770,23 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
       var collection = Object.assign({}, this.state);
-      var _this$props = this.props,
-          updateCollection = _this$props.updateCollection,
-          postCollection = _this$props.postCollection,
-          collectionId = _this$props.collectionId,
-          type = _this$props.type;
+      var _this$props2 = this.props,
+          updateCollection = _this$props2.updateCollection,
+          postCollection = _this$props2.postCollection,
+          collectionId = _this$props2.collectionId,
+          activeForm = _this$props2.activeForm;
 
-      if (type === 'Update') {
-        updateCollection(collection, collectionId);
+      if (activeForm === 'update') {
+        updateCollection(collection, collectionId).then(this.props.closeForm());
       } else {
-        postCollection(collection);
+        postCollection(collection).then(this.props.closeForm());
       }
+    }
+  }, {
+    key: "handleClose",
+    value: function handleClose(e) {
+      e.preventDefault();
+      this.props.closeForm();
     }
   }, {
     key: "renderErrors",
@@ -489,25 +799,12 @@ function (_React$Component) {
       return errors;
     }
   }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (prevProps.collectionId !== this.props.collectionId) {
-        var _this$props2 = this.props,
-            type = _this$props2.type,
-            collection = _this$props2.collection;
-        this.setState({
-          title: type === 'Update' ? collection.title : ''
-        });
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this$props3 = this.props,
-          type = _this$props3.type,
-          hidden = _this$props3.hidden;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: hidden ? 'hide' : ''
+      var activeForm = this.props.activeForm;
+      var type = activeForm === 'update' ? 'Update' : 'New';
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: activeForm ? 'collection-form' : 'hide'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "errors-list"
       }, this.renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Collection Name:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -517,7 +814,10 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
         onClick: this.handleSubmit
-      }, type)));
+      }, type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: this.handleClose
+      }, "Close")));
     }
   }]);
 
@@ -540,18 +840,22 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/collection_actions */ "./frontend/actions/collection_actions.js");
-/* harmony import */ var _collection_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collection_form */ "./frontend/components/collections/collection_form.jsx");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
+/* harmony import */ var _collection_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./collection_form */ "./frontend/components/collections/collection_form.jsx");
 
 
 
 
-var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+
+var mapStateToProps = function mapStateToProps(_ref) {
   var entities = _ref.entities,
-      errors = _ref.errors;
-  var collectionId = _ref2.collectionId;
+      errors = _ref.errors,
+      ui = _ref.ui;
   return {
     errors: errors.collections,
-    collection: entities.collections[collectionId]
+    collection: entities.collections[ui.forms.collections.id],
+    activeForm: ui.forms.collections.form,
+    collectionId: ui.forms.collections.id
   };
 };
 
@@ -562,11 +866,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     postCollection: function postCollection(collection) {
       return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["postCollection"])(collection));
+    },
+    closeForm: function closeForm() {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_2__["closeCollectionForm"])());
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -595,9 +902,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -613,18 +920,10 @@ var CollectionIndex =
 function (_React$Component) {
   _inherits(CollectionIndex, _React$Component);
 
-  function CollectionIndex(props) {
-    var _this;
-
+  function CollectionIndex() {
     _classCallCheck(this, CollectionIndex);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(CollectionIndex).call(this, props));
-    _this.state = {
-      activeForm: false,
-      collection: null
-    };
-    _this.closeForm = _this.closeForm.bind(_assertThisInitialized(_this));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(CollectionIndex).apply(this, arguments));
   }
 
   _createClass(CollectionIndex, [{
@@ -639,47 +938,42 @@ function (_React$Component) {
         this.props.fetchCollections();
       } // if (prevProps.collections.slice(-1)[0].title !== this.props.collections.slice(-1)[0].title)
 
-    }
+    } // modifying collection actions
+
   }, {
     key: "handleDelete",
     value: function handleDelete(collection) {
+      var _this = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this.props.destroyCollection(collection);
+      };
+    }
+  }, {
+    key: "updateForm",
+    value: function updateForm(id) {
       var _this2 = this;
 
       return function (e) {
         e.preventDefault();
 
-        _this2.props.destroyCollection(collection);
+        _this2.props.updateCollection(id);
       };
     }
   }, {
-    key: "renderForm",
-    value: function renderForm(type, collectionId) {
+    key: "newForm",
+    value: function newForm() {
       var _this3 = this;
 
       return function (e) {
         e.preventDefault();
 
-        if (type === 'update') {
-          _this3.setState({
-            collectionId: collectionId,
-            activeForm: type
-          });
-        } else {
-          _this3.setState({
-            collectionId: null,
-            activeForm: type
-          });
-        }
+        _this3.props.newCollection();
       };
-    }
-  }, {
-    key: "closeForm",
-    value: function closeForm(e) {
-      e.preventDefault();
-      this.setState({
-        activeForm: false
-      });
-    }
+    } // end
+
   }, {
     key: "renderCollections",
     value: function renderCollections() {
@@ -694,7 +988,7 @@ function (_React$Component) {
           to: "/collection/".concat(col.id)
         }, col.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn-link",
-          onClick: _this4.renderForm('update', col.id)
+          onClick: _this4.updateForm(col.id)
         }, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "btn-link",
           onClick: _this4.handleDelete(col.id)
@@ -705,24 +999,12 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          activeForm = _this$state.activeForm,
-          collectionId = _this$state.collectionId;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "side-nav-list"
       }, this.renderCollections(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn-link",
-        onClick: this.renderForm('new')
-      }, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: activeForm ? 'collection-form' : 'hide'
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_collections_collection_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        type: activeForm === 'update' ? 'Update' : 'New',
-        hidden: activeForm === false ? true : false,
-        collectionId: collectionId
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.closeForm,
-        className: "submit"
-      }, "close")));
+        onClick: this.newForm()
+      }, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_collections_collection_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null));
     }
   }]);
 
@@ -745,7 +1027,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _collection_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection_index */ "./frontend/components/collections/collection_index.jsx");
 /* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/collection_actions */ "./frontend/actions/collection_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+
 
 
 
@@ -754,11 +1038,13 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(_ref) {
   var session = _ref.session,
       entities = _ref.entities,
-      errors = _ref.errors;
+      errors = _ref.errors,
+      ui = _ref.ui;
   return {
     currentUser: session.userId,
-    collections: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["collectionArray"])(entities.collections),
-    errors: errors.collections
+    collections: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__["collectionArray"])(entities.collections),
+    errors: errors.collections,
+    activeForm: ui.forms.collections.form
   };
 };
 
@@ -769,6 +1055,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     destroyCollection: function destroyCollection(collectionId) {
       return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_2__["destroyCollection"])(collectionId));
+    },
+    newCollection: function newCollection() {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_3__["renderNewCollectionForm"])());
+    },
+    updateCollection: function updateCollection(id) {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_3__["renderUpdateCollectionForm"])(id));
     }
   };
 };
@@ -799,6 +1091,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../boards/board_form_container */ "./frontend/components/boards/board_form_container.js");
+/* harmony import */ var _boards_board_show__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/board_show */ "./frontend/components/boards/board_show.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -816,6 +1110,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -864,20 +1160,22 @@ function (_React$Component) {
 
       var _this$props = this.props,
           collection = _this$props.collection,
-          boards = _this$props.boards;
-      console.log(this.props);
+          boards = _this$props.boards,
+          collectionId = _this$props.collectionId;
       var boardsList = boards.map(function (board) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-          key: board.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: _this2.handleDelete
-        }, "Delete"));
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          key: board.id,
+          board: board,
+          deleteBoard: _this2.props.deleteBoard
+        });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "collection-show"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, collection ? collection.title : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "boards-show"
-      }, boardsList));
+      }, boardsList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        collectionId: collectionId
+      }));
     }
   }]);
 
@@ -904,14 +1202,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // need to load board in here later
+
 
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var entities = _ref.entities;
   var match = _ref2.match;
   return {
     collection: entities.collections[match.params.collectionId],
-    boards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["boardArray"])(entities.boards)
+    boards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["boardArray"])(entities.boards),
+    collectionId: match.params.collectionId
   };
 }; //import fetchCollection && then include the boards in here
 
@@ -1308,6 +1607,49 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /***/ }),
 
+/***/ "./frontend/reducers/board_form_reducer.js":
+/*!*************************************************!*\
+  !*** ./frontend/reducers/board_form_reducer.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/form_actions */ "./frontend/actions/form_actions.js");
+
+var _defaultBoardForm = {
+  form: false,
+  id: null
+};
+
+var boardFormReducer = function boardFormReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultBoardForm;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze();
+
+  switch (action.type) {
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["NEW_BOARD_FORM"]:
+      return {
+        form: 'new',
+        id: null
+      };
+
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_BOARD_FORM"]:
+      return {
+        form: 'update',
+        id: action.id
+      };
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (boardFormReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/boards_reducer.js":
 /*!*********************************************!*\
   !*** ./frontend/reducers/boards_reducer.js ***!
@@ -1376,6 +1718,52 @@ var collectionErrorsReducer = function collectionErrorsReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (collectionErrorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/collections_form_reducer.js":
+/*!*******************************************************!*\
+  !*** ./frontend/reducers/collections_form_reducer.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/form_actions */ "./frontend/actions/form_actions.js");
+
+var _defaultForm = {
+  form: false,
+  id: null
+};
+
+var collectionsFormReducer = function collectionsFormReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultForm;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["NEW_COLLECTION_FORM"]:
+      return {
+        form: 'new',
+        id: null
+      };
+
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_COLLECTION_FORM"]:
+      return {
+        form: 'update',
+        id: action.id
+      };
+
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["CLOSE_COLLECTION_FORM"]:
+      return _defaultForm;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (collectionsFormReducer);
 
 /***/ }),
 
@@ -1468,6 +1856,28 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./frontend/reducers/forms_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/forms_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _collections_form_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collections_form_reducer */ "./frontend/reducers/collections_form_reducer.js");
+/* harmony import */ var _board_form_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./board_form_reducer */ "./frontend/reducers/board_form_reducer.js");
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  collections: _collections_form_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  boards: _board_form_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+}));
+
+/***/ }),
+
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -1481,6 +1891,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _entities_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./entities_reducer */ "./frontend/reducers/entities_reducer.js");
 /* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
+/* harmony import */ var _ui_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui_reducer */ "./frontend/reducers/ui_reducer.js");
+
 
 
 
@@ -1488,7 +1900,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   entities: _entities_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   session: _session_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  ui: _ui_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -1513,10 +1926,8 @@ var collectionArray = function collectionArray(collections) {
 };
 var boardArray = function boardArray(boards) {
   if (Object.keys(boards).length === 0) return [];
-  var arr = [];
-  Object.keys(boards).forEach(function (boardId) {
-    var curBoard = boards[boardId];
-    arr[curBoard.order] = curBoard;
+  var arr = Object.keys(boards).map(function (boardId) {
+    return boards[boardId];
   });
   return arr;
 };
@@ -1588,6 +1999,25 @@ var sessionReducer = function sessionReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (sessionReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/ui_reducer.js":
+/*!*****************************************!*\
+  !*** ./frontend/reducers/ui_reducer.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _forms_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms_reducer */ "./frontend/reducers/forms_reducer.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  forms: _forms_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+}));
 
 /***/ }),
 

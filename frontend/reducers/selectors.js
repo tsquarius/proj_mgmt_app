@@ -6,12 +6,6 @@ export const collectionArray = collections => {
 
 export const boardArray = boards => {
   if (Object.keys(boards).length === 0) return [];
-  const arr = [];
-  Object.keys(boards).forEach(boardId => {
-    const curBoard = boards[boardId];
-    arr[curBoard.order] = curBoard;
-  });
-
+  const arr = Object.keys(boards).map(boardId => boards[boardId]);
   return arr;
-
 };

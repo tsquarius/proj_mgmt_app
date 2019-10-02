@@ -4,9 +4,18 @@ class CollectionForm extends React.Component {
 
   constructor(props) {
     super(props);
-    const collection = this.props.collection;
+    const {collection} = this.props;
     this.state = { title: collection ? collection.title : ''};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+  }
+  
+  componentDidUpdate(prevProps) {
+    if (prevProps.collectionId !==
+      this.props.collectionId) {
+      const { activeForm, collection } = this.props;
+      this.setState({ title: activeForm === 'update' ? collection.title : '' })
+    }
   }
 
   handleChange(type) {
@@ -20,14 +29,21 @@ class CollectionForm extends React.Component {
       updateCollection, 
       postCollection, 
       collectionId,
-      type
+      activeForm
     } = this.props;
 
-    if (type === 'Update') {
-      updateCollection(collection, collectionId);
+    if (activeForm === 'update') {
+      updateCollection(collection, collectionId)
+        .then(this.props.closeForm());
     } else {
-      postCollection(collection);
+      postCollection(collection)
+        .then(this.props.closeForm());
     }
+  }
+
+  handleClose(e) {
+    e.preventDefault();
+    this.props.closeForm();
   }
 
   renderErrors() {
@@ -38,19 +54,11 @@ class CollectionForm extends React.Component {
     return errors
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.collectionId !== 
-      this.props.collectionId ) {
-        const {type, collection} = this.props;
-        this.setState({title: type === 'Update' ? collection.title : '' })
-      }
-  }
-
   render() {
-    const {type, hidden} = this.props;
-
+    const {activeForm} = this.props;
+    const type = activeForm === 'update' ? 'Update' : 'New';
     return (
-      <div className={hidden ? 'hide' : '' }>
+      <li className={activeForm ? 'collection-form' : 'hide' }>
         <ul className="errors-list">
           {this.renderErrors()}
         </ul>
@@ -64,8 +72,9 @@ class CollectionForm extends React.Component {
             />
           </label>
           <button className="submit" onClick={this.handleSubmit}>{type}</button>
+          <button className="submit" onClick={this.handleClose}>Close</button>
         </form>
-      </div>
+      </li>
     )
   }
 };

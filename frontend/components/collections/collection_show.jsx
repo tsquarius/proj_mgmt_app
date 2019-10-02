@@ -1,4 +1,6 @@
 import React from 'react';
+import BoardFormContainer from '../boards/board_form_container';
+import BoardShow from '../boards/board_show';
 
 class CollectionShow extends React.Component {
 
@@ -25,14 +27,10 @@ class CollectionShow extends React.Component {
   }
 
   render() {
-    const {collection, boards} = this.props;
-    console.log(this.props);
+    const {collection, boards, collectionId} = this.props;
 
     const boardsList = boards.map(board => 
-      <li key={board.id}>
-        <h3>{board.title}</h3>
-        <button onClick={this.handleDelete}>Delete</button>
-      </li>
+      <BoardShow key={board.id} board={board} deleteBoard={this.props.deleteBoard} />
       )
 
     return (
@@ -41,6 +39,7 @@ class CollectionShow extends React.Component {
         <ul className='boards-show'>
           {boardsList}
         </ul>
+        <BoardFormContainer collectionId={collectionId} />
       </div>
     )
   }

@@ -3,10 +3,11 @@ import CollectionShow from './collection_show';
 import {fetchBoards, deleteBoard} from '../../actions/board_actions';
 import {boardArray} from '../../reducers/selectors';
 
-// need to load board in here later
+
 const mapStateToProps = ({entities}, {match}) => ({
   collection: entities.collections[match.params.collectionId],
-  boards: boardArray(entities.boards)
+  boards: boardArray(entities.boards),
+  collectionId: match.params.collectionId
 });
 
 

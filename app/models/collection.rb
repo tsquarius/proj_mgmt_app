@@ -15,13 +15,19 @@ class Collection < ApplicationRecord
   validates :author_id, :title, presence: true
   has_many :boards
 
-  # def self.index(userId)
-  #   collections = Collection.where(author_id: userId).joins(:boards)
-    
-  #   allBoards = []
-  #   collections.each do |collection|
-  #   end
+  def include_all_childs
+    collection = self.boards.includes(:board_columns)
+    boards = {}
+    board_columns = {}
 
-  # end
+    collection.each do |board|
+      boards[board.id] = board
+      board.board_columns.each do |bc|
+        board_columns[bc.id] = bc
+      end
+    end
+
+    return {boards: boards, board_columns: board_columns}
+  end
 
 end

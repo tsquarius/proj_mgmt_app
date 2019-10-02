@@ -5,15 +5,6 @@ import FormContainer from '../collections/collection_form_container';
 
 class CollectionIndex extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeForm: false,
-      collection: null
-    };
-    this.closeForm = this.closeForm.bind(this);
-  }
-
   componentDidMount() {
     this.props.fetchCollections();
   }
@@ -27,35 +18,35 @@ class CollectionIndex extends React.Component {
     // if (prevProps.collections.slice(-1)[0].title !== this.props.collections.slice(-1)[0].title)
   }
 
+  // modifying collection actions
   handleDelete(collection) {
     return e => {
       e.preventDefault();
       this.props.destroyCollection(collection);
     };
   }
-
-  renderForm(type, collectionId) {
+  
+  updateForm(id) {
     return e => {
       e.preventDefault();
-      if (type === 'update') {
-        this.setState({collectionId: collectionId, activeForm: type});
-      } else {
-        this.setState({collectionId: null, activeForm: type});
-      }
+      this.props.updateCollection(id);
     };
   }
 
-  closeForm(e) {
-    e.preventDefault();
-    this.setState({activeForm: false});
+  newForm() {
+    return e => {
+      e.preventDefault();
+      this.props.newCollection();
+    };
   }
+  // end
 
   renderCollections() {
     const editIcon = '\uD83D\uDD89';
     const collectionArray = this.props.collections.map(col =>
       <li key={col.id}>
         <Link className='btn-link' to={`/collection/${col.id}`}>{col.title}</Link>
-        <button className='btn-link' onClick={this.renderForm('update', col.id)}>edit</button>
+        <button className='btn-link' onClick={this.updateForm(col.id)}>edit</button>
         <button className='btn-link' onClick={this.handleDelete(col.id)}>delete</button>
       </li>
     )
@@ -63,20 +54,11 @@ class CollectionIndex extends React.Component {
   }
 
   render() {
-    const {activeForm, collectionId} = this.state;
-
     return (
       <ul className='side-nav-list'>
         {this.renderCollections()}
-        <button className='btn-link' onClick={this.renderForm('new')}>New Collection</button>
-        <li className={activeForm ? 'collection-form' : 'hide'}>
-          <FormContainer
-            type={activeForm === 'update' ? 'Update' : 'New'}
-            hidden={activeForm === false ? true : false}
-            collectionId={collectionId}
-          />
-          <button onClick={this.closeForm} className="submit">close</button>
-        </li>
+        <button className='btn-link' onClick={this.newForm()}>New Collection</button>
+        <FormContainer />
       </ul>
     )
   }

@@ -16,6 +16,7 @@ class Api::BoardsController < ApplicationController
     @board = Board.new(board_params)
     @board.author_id = current_user.id
     @board.collection_id = params[:collection_id]
+    @board.order = 0
 
     if @board.save
       render :show
