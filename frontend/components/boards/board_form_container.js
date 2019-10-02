@@ -3,9 +3,10 @@ import {createBoard, updateBoard} from '../../actions/board_actions';
 import BoardForm from './board_form';
 import {closeBoardForm} from '../../actions/form_actions';
 
-const mapStateToProps = (state, {collectionId, board}) => ({
+const mapStateToProps = ({ui}, {collectionId, board}) => ({
   collectionId: collectionId,
-  board: board
+  board: board,
+  activeForm: ui.forms.boards.form
 });
 
 const mapDispatchToProps = dispatch => ({

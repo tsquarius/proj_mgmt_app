@@ -513,6 +513,7 @@ function (_React$Component) {
       title: board ? board.title : ''
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -523,13 +524,14 @@ function (_React$Component) {
       var _this$props = this.props,
           updateBoard = _this$props.updateBoard,
           createBoard = _this$props.createBoard,
-          collectionId = _this$props.collectionId;
+          collectionId = _this$props.collectionId,
+          closeForm = _this$props.closeForm;
       var board = Object.assign({}, this.state);
 
       if (this.props.board) {
-        updateBoard(this.props.board.id, board);
+        updateBoard(this.props.board.id, board).then(closeForm());
       } else {
-        createBoard(collectionId, board);
+        createBoard(collectionId, board).then(closeForm());
       }
     }
   }, {
@@ -544,11 +546,20 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "handleClose",
+    value: function handleClose(e) {
+      e.preventDefault();
+      this.props.closeForm();
+    }
+  }, {
     key: "render",
     value: function render() {
-      var formType = this.props.board ? 'Update' : 'Create';
+      var _this$props2 = this.props,
+          activeForm = _this$props2.activeForm,
+          board = _this$props2.board;
+      var formType = board ? 'Update' : 'Create';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "form"
+        className: activeForm ? 'form' : 'hide'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.title,
@@ -556,7 +567,10 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
         onClick: this.handleSubmit
-      }, formType));
+      }, formType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: this.handleClose
+      }, "Close"));
     }
   }]);
 
@@ -585,12 +599,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var mapStateToProps = function mapStateToProps(state, _ref) {
-  var collectionId = _ref.collectionId,
-      board = _ref.board;
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var ui = _ref.ui;
+  var collectionId = _ref2.collectionId,
+      board = _ref2.board;
   return {
     collectionId: collectionId,
-    board: board
+    board: board,
+    activeForm: ui.forms.boards.form
   };
 };
 
@@ -624,7 +640,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _board_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./board_form_container */ "./frontend/components/boards/board_form_container.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -643,8 +658,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-
- // pass in deleteForm and board
 
 
 
@@ -671,16 +684,34 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "renderUpdate",
+    value: function renderUpdate(boardId) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this2.props.updateForm(boardId);
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      var board = this.props.board;
+      var _this$props = this.props,
+          board = _this$props.board,
+          formId = _this$props.formId,
+          active = _this$props.active;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: board.id
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, "edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.renderUpdate(board.id)
+      }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleDelete(board.id)
-      }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: formId === board.id && active ? '' : 'hide'
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         board: board
-      }));
+      })));
     }
   }]);
 
@@ -688,6 +719,47 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (BoardShow);
+
+/***/ }),
+
+/***/ "./frontend/components/boards/board_show_container.js":
+/*!************************************************************!*\
+  !*** ./frontend/components/boards/board_show_container.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _board_show__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./board_show */ "./frontend/components/boards/board_show.jsx");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(_ref) {
+  var ui = _ref.ui;
+  return {
+    formId: ui.forms.boards.id,
+    active: ui.forms.boards.form
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    deleteBoard: function deleteBoard(boardId) {
+      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["deleteBoard"])(boardId));
+    },
+    updateForm: function updateForm(boardId) {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_1__["renderUpdateBoardForm"])(boardId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_board_show__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -1092,7 +1164,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../boards/board_form_container */ "./frontend/components/boards/board_form_container.js");
-/* harmony import */ var _boards_board_show__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/board_show */ "./frontend/components/boards/board_show.jsx");
+/* harmony import */ var _boards_board_show_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/board_show_container */ "./frontend/components/boards/board_show_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1154,28 +1226,42 @@ function (_React$Component) {
       };
     }
   }, {
-    key: "render",
-    value: function render() {
+    key: "renderNewForm",
+    value: function renderNewForm() {
       var _this2 = this;
 
+      return function (e) {
+        e.preventDefault();
+
+        _this2.props.newForm();
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
       var _this$props = this.props,
           collection = _this$props.collection,
           boards = _this$props.boards,
-          collectionId = _this$props.collectionId;
+          collectionId = _this$props.collectionId,
+          activeBoardForm = _this$props.activeBoardForm;
       var boardsList = boards.map(function (board) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
           key: board.id,
-          board: board,
-          deleteBoard: _this2.props.deleteBoard
+          board: board
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "collection-show"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, collection ? collection.title : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "boards-show"
-      }, boardsList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, boardsList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: this.renderNewForm()
+      }, "New Board"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: activeBoardForm === 'new' ? '' : 'hide'
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         collectionId: collectionId
-      }));
+      })));
     }
   }]);
 
@@ -1199,18 +1285,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _collection_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection_show */ "./frontend/components/collections/collection_show.jsx");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
+
 
 
 
 
 
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
-  var entities = _ref.entities;
+  var entities = _ref.entities,
+      ui = _ref.ui;
   var match = _ref2.match;
   return {
     collection: entities.collections[match.params.collectionId],
     boards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["boardArray"])(entities.boards),
-    collectionId: match.params.collectionId
+    collectionId: match.params.collectionId,
+    activeBoardForm: ui.forms.boards.form
   };
 }; //import fetchCollection && then include the boards in here
 
@@ -1222,6 +1312,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deleteBoard: function deleteBoard(boardId) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["deleteBoard"])(boardId));
+    },
+    newForm: function newForm() {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_4__["renderNewBoardForm"])());
     }
   };
 };
@@ -1640,6 +1733,9 @@ var boardFormReducer = function boardFormReducer() {
         form: 'update',
         id: action.id
       };
+
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["CLOSE_BOARD_FORM"]:
+      return _defaultBoardForm;
 
     default:
       return state;

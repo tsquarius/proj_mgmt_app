@@ -1,7 +1,5 @@
 import React from 'react';
 import BoardFormContainer from './board_form_container';
-// pass in deleteForm and board
-import {Route} from 'react-router-dom';
 
 class BoardShow extends React.Component {
 
@@ -12,15 +10,24 @@ class BoardShow extends React.Component {
     };
   }
 
+  renderUpdate(boardId) {
+    return e => {
+      e.preventDefault();
+      this.props.updateForm(boardId);
+    }
+  }
+
 
   render() {
-    const {board} = this.props;
+    const {board, formId, active} = this.props;
     return (
       <li key={board.id}>
         <h3>{board.title}</h3>
-        <button>edit</button>
+        <button onClick={this.renderUpdate(board.id)}>Edit</button>
         <button onClick={this.handleDelete(board.id)}>Delete</button>
-        <BoardFormContainer board={board} />
+        <section className={(formId === board.id && active) ? '' : 'hide' }>
+          <BoardFormContainer board={board} />
+        </section>
       </li>
 
 

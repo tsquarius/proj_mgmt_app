@@ -17,6 +17,8 @@ const boardFormReducer = (state = _defaultBoardForm, action) => {
       return {form: 'new', id: null};
     case UPDATE_BOARD_FORM:
       return {form: 'update', id: action.id};
+    case CLOSE_BOARD_FORM:
+      return _defaultBoardForm;
     default:
       return state;
   }

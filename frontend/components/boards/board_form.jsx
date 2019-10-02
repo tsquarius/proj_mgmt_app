@@ -6,17 +6,24 @@ class BoardForm extends React.Component {
     const {board} = this.props;
     this.state = {title: board ? board.title : ''};
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const {updateBoard, createBoard, collectionId} = this.props;
+    const {
+      updateBoard, 
+      createBoard, 
+      collectionId,
+      closeForm} = this.props;
     const board = Object.assign({}, this.state);
     
     if (this.props.board) {
-      updateBoard(this.props.board.id, board);
+      updateBoard(this.props.board.id, board)
+        .then(closeForm());
     } else {
-      createBoard(collectionId, board);
+      createBoard(collectionId, board)
+        .then(closeForm());
     }
   }
 
@@ -27,11 +34,18 @@ class BoardForm extends React.Component {
     };
   }
 
-  render() {
-    const formType = this.props.board ? 'Update' : 'Create';
+  handleClose(e) {
+    e.preventDefault();
+    this.props.closeForm();
+  }
 
+
+  render() {
+    const {activeForm, board} = this.props;
+    const formType = board ? 'Update' : 'Create';
+    
     return (
-      <form className='form'>
+      <form className={activeForm ? 'form' : 'hide'}>
         <label>
           Title:
           <input 
@@ -40,10 +54,12 @@ class BoardForm extends React.Component {
             onChange={this.handleChange('title')}
           />
         </label>
-        <button 
-          className='submit'
-          onClick={this.handleSubmit}
-        >{formType}</button> 
+        <button className='submit' onClick={this.handleSubmit}>
+          {formType}
+        </button>
+        <button className='submit' onClick={this.handleClose}>
+          Close
+        </button>
       </form>
     )
   }

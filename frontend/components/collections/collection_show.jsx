@@ -1,6 +1,6 @@
 import React from 'react';
 import BoardFormContainer from '../boards/board_form_container';
-import BoardShow from '../boards/board_show';
+import BoardShowContainer from '../boards/board_show_container';
 
 class CollectionShow extends React.Component {
 
@@ -26,11 +26,18 @@ class CollectionShow extends React.Component {
     }
   }
 
+  renderNewForm() {
+    return e => {
+      e.preventDefault();
+      this.props.newForm();
+    };
+  }
+
   render() {
-    const {collection, boards, collectionId} = this.props;
+    const {collection, boards, collectionId, activeBoardForm} = this.props;
 
     const boardsList = boards.map(board => 
-      <BoardShow key={board.id} board={board} deleteBoard={this.props.deleteBoard} />
+      <BoardShowContainer key={board.id} board={board} />
       )
 
     return (
@@ -39,7 +46,10 @@ class CollectionShow extends React.Component {
         <ul className='boards-show'>
           {boardsList}
         </ul>
-        <BoardFormContainer collectionId={collectionId} />
+        <button className='submit' onClick={this.renderNewForm()}>New Board</button>
+        <section className={activeBoardForm === 'new' ? '' : 'hide'}>
+          <BoardFormContainer collectionId={collectionId} />
+        </section>
       </div>
     )
   }
