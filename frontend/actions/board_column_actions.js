@@ -22,8 +22,8 @@ export const fetchBoardColumn = boardId => dispatch =>
   Util.fetchBoardColumn(boardId)
   .then(boardColumn => dispatch(receiveSingleBoardColumn(boardColumn)));
 
-export const createBoardColumn = boardColumn => dispatch =>
-  Util.postBoardColumn(boardColumn)
+export const createBoardColumn = (boardId, boardColumn) => dispatch =>
+  Util.postBoardColumn(boardId, boardColumn)
   .then(boardColumn => dispatch(receiveSingleBoardColumn(boardColumn)));
 
 export const updateBoardColumn = (boardColumnId, boardColumn) => dispatch =>

@@ -34,8 +34,11 @@ class BoardColumnsShow extends React.Component {
       <section className='board-columns'>
         <ul>
           {this.renderColumns()}
+          <li>
+          <button className='submit' onClick={this.addColumn}>Add Column...</button>
+          </li>
         </ul>
-        <button onClick={this.addColumn}>add</button>
+        
 
       </section>
     )

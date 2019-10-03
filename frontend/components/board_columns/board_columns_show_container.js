@@ -12,7 +12,7 @@ const mapStateToProps = ({entities, ui}, {boardId}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  createColumn: boardColumn => dispatch(createBoardColumn(boardColumn)),
+  createColumn: (boardId, boardColumn) => dispatch(createBoardColumn(boardId, boardColumn)),
   destroyBoardColumn: boardColumnId => dispatch(destroyBoardColumn(boardColumnId)),
 
 });

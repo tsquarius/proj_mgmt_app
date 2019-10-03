@@ -212,9 +212,9 @@ var fetchBoardColumn = function fetchBoardColumn(boardId) {
     });
   };
 };
-var createBoardColumn = function createBoardColumn(boardColumn) {
+var createBoardColumn = function createBoardColumn(boardId, boardColumn) {
   return function (dispatch) {
-    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["postBoardColumn"](boardColumn).then(function (boardColumn) {
+    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["postBoardColumn"](boardId, boardColumn).then(function (boardColumn) {
       return dispatch(receiveSingleBoardColumn(boardColumn));
     });
   };
@@ -714,9 +714,10 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "board-columns"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.renderColumns()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.renderColumns(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
         onClick: this.addColumn
-      }, "add"));
+      }, "Add Column..."))));
     }
   }]);
 
@@ -756,8 +757,8 @@ var mapStateToProps = function mapStateToProps(_ref, _ref2) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    createColumn: function createColumn(boardColumn) {
-      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["createBoardColumn"])(boardColumn));
+    createColumn: function createColumn(boardId, boardColumn) {
+      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["createBoardColumn"])(boardId, boardColumn));
     },
     destroyBoardColumn: function destroyBoardColumn(boardColumnId) {
       return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["destroyBoardColumn"])(boardColumnId));
@@ -3043,7 +3044,7 @@ var fetchBoardColumn = function fetchBoardColumn(boardId) {
 var postBoardColumn = function postBoardColumn(bcId, board_column) {
   return $.ajax({
     method: 'POST',
-    url: "/api/".concat(bcId, "/board_columns"),
+    url: "/api/boards/".concat(bcId, "/board_columns"),
     data: {
       board_column: board_column
     }
