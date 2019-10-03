@@ -58,7 +58,7 @@ class CollectionForm extends React.Component {
     const {activeForm} = this.props;
     const type = activeForm === 'update' ? 'Update' : 'New';
     return (
-      <li className={activeForm ? 'collection-form' : 'hide' }>
+      <li className={activeForm ? 'form' : 'hide' }>
         <ul className="errors-list">
           {this.renderErrors()}
         </ul>

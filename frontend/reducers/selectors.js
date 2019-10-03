@@ -10,8 +10,8 @@ export const boardArray = boards => {
   return arr;
 };
 
-export const boardColumnArray = boardColumns => {
+export const boardColumnArray = (boardColumns, boardId) => {
   if (Object.keys(boardColumns).length === 0) return [];
   const arr = Object.keys(boardColumns).map(bcId => boardColumns[bcId]);
-  return arr;
+  return arr.filter(obj => { return obj.board_id === boardId; });
 };

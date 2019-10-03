@@ -16,7 +16,7 @@ const App = () => (
     </header>
     <main className='main'>
       <section className='main-nav'>
-        <SideNav />
+        <ProtectedRoute path='/' component={SideNav} />
       </section>
       <section className='main-body'>
         <Switch>

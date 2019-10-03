@@ -9,7 +9,7 @@ const mapStateToProps = ({entities, ui}, {match}) => ({
   collection: entities.collections[match.params.collectionId],
   boards: boardArray(entities.boards),
   collectionId: match.params.collectionId,
-  activeBoardForm: ui.forms.boards.form
+  activeBoardForm: ui.forms.boards.form,
 });
 
 

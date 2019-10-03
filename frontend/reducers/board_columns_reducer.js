@@ -1,8 +1,9 @@
 import {
-  RECEIVE_BOARD_COLUMNS,
   RECEIVE_SINGLE_BOARD_COLUMN,
   DELETE_BOARD_COLUMN
 } from '../actions/board_column_actions';
+
+import {RECEIVE_BOARDS} from '../actions/board_actions';
 
 
 const boardColumnsReducer = (state={}, action) => {
@@ -10,8 +11,8 @@ const boardColumnsReducer = (state={}, action) => {
   let newState = Object.assign({}, state);
 
   switch(action.type) {
-    case RECEIVE_BOARD_COLUMNS:
-      return Object.assign({}, action.boardColumns);
+    case RECEIVE_BOARDS:
+      return Object.assign({}, action.payload.boardColumns);
     case RECEIVE_SINGLE_BOARD_COLUMN:
       let bcId = action.boardColumn.id;
       return Object.assign({}, state, {[bcId]: action.boardColumn});

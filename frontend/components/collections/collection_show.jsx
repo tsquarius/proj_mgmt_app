@@ -10,10 +10,13 @@ class CollectionShow extends React.Component {
     fetchBoards(collectionId);
   }
 
+
+  // should revisit to make sure it updates whenever we add columns or cards
   componentDidUpdate(prevProps) {
     const collectionId = this.props.match.params.collectionId;
-    if ((prevProps.match.params.collectionId !== collectionId) ||
-      prevProps.boards.length !== this.props.boards.length
+    if (
+      (prevProps.match.params.collectionId !== collectionId) ||
+      (prevProps.boards.length !== this.props.boards.length)
     ) {
       this.props.fetchBoards(collectionId);
     }

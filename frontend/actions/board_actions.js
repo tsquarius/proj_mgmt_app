@@ -6,9 +6,9 @@ export const DELETE_BOARD = 'DELETE_BOARD';
 
 //regular actions
 
-export const receiveBoards = boards => ({
+export const receiveBoards = payload => ({
   type: RECEIVE_BOARDS,
-  boards
+  payload
 });
 
 export const receiveBoard = board => ({
@@ -24,7 +24,7 @@ export const removeBoard = board => ({
 //thunk actions
 
 export const fetchBoards = collectionId => dispatch => Util.fetchBoards(collectionId)
-  .then(boards => dispatch(receiveBoards(boards)));
+  .then(payload => dispatch(receiveBoards(payload)));
 
 export const fetchBoard = boardId => dispatch => Util.fetchBoard(boardId)
   .then(board => dispatch(receiveBoard(board)));

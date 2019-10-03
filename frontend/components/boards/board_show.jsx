@@ -18,7 +18,6 @@ class BoardShow extends React.Component {
     };
   }
 
-
   render() {
     const {board, formId, active} = this.props;
     return (

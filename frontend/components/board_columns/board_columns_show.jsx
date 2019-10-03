@@ -2,18 +2,11 @@ import React from 'react';
 
 class BoardColumnsShow extends React.Component {
 
-
-  componentDidMount() {
-    const {boardId, fetchBoardColumns} = this.props;
-    if (boardId) fetchBoardColumns(boardId);
+  constructor(props) {
+    super(props);
+    this.addColumn = this.addColumn.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    const {boardId, fetchBoardColumns} = this.props;
-    if (prevProps.boardId !== boardId) {
-      fetchBoardColumns(boardId);
-    }
-  }
 
   addColumn(e) {
     e.preventDefault();
@@ -26,14 +19,12 @@ class BoardColumnsShow extends React.Component {
     createColumn(_defaultColumn);
   }
 
-
   renderColumns() {
     const columns = this.props.boardColumns.map(column =>
       <li key={column.id}>
         {column.title}
       </li>
     )
-    
     return columns;
   }
 
@@ -43,6 +34,7 @@ class BoardColumnsShow extends React.Component {
         <ul className='board-columns'>
           {this.renderColumns()}
         </ul>
+        <button onClick={this.addColumn}>add</button>
 
       </section>
     )
