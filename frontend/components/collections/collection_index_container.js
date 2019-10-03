@@ -11,11 +11,11 @@ import {
   renderUpdateCollectionForm
 } from '../../actions/form_actions';
 
-import {collectionArray} from '../../reducers/selectors';
+import {objToArray} from '../../reducers/selectors';
 
 const mapStateToProps = ({session, entities, errors, ui}) => ({
   currentUser: session.userId,
-  collections: collectionArray(entities.collections),
+  collections: objToArray(entities.collections),
   errors: errors.collections,
   activeForm: ui.forms.collections.form
 });

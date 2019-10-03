@@ -7,6 +7,7 @@ import LoginFormContainer from '../components/session/login_form_container';
 import UserNavContainer from '../components/nav/user_nav_container';
 import SideNav from '../components/nav/side_nav';
 import CollectionShowContainer from './collections/collection_show_container';
+import CardsShowContainer from '../components/cards/cards_show_container';
 
 const App = () => (
  <div>
@@ -26,6 +27,11 @@ const App = () => (
             exact={true} 
             path='/collection/:collectionId' 
             component={CollectionShowContainer} />
+          <ProtectedRoute
+            exact={true}
+            path='/collection/:collectionId/card/:cardId'
+            component={CardsShowContainer}
+          />
         </Switch>
       </section>      
     </main>

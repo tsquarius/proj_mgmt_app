@@ -1,4 +1,5 @@
 import React from 'react';
+import CardsIndexContainer from '../cards/cards_index_container';
 
 class BoardColumnsShow extends React.Component {
 
@@ -20,8 +21,9 @@ class BoardColumnsShow extends React.Component {
 
   renderColumns() {
     const columns = this.props.boardColumns.map(column =>
-      <li key={column.id}>
-        {column.title}
+      <li className='column' key={column.id}>
+        <h4>{column.title}</h4>
+        <CardsIndexContainer bcId={column.id} />
       </li>
     )
     return columns;

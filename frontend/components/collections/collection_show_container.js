@@ -1,12 +1,12 @@
 import {connect} from 'react-redux';
 import CollectionShow from './collection_show';
 import {fetchBoards, deleteBoard, createBoard} from '../../actions/board_actions';
-import {boardArray} from '../../reducers/selectors';
+import {objToArray} from '../../reducers/selectors';
 
 
 const mapStateToProps = ({entities, ui}, {match}) => ({
   collection: entities.collections[match.params.collectionId],
-  boards: boardArray(entities.boards),
+  boards: objToArray(entities.boards),
   collectionId: match.params.collectionId,
   activeBoardForm: ui.forms.boards.form,
 });

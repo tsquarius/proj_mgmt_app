@@ -558,6 +558,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_nav_user_nav_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/nav/user_nav_container */ "./frontend/components/nav/user_nav_container.js");
 /* harmony import */ var _components_nav_side_nav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/nav/side_nav */ "./frontend/components/nav/side_nav.jsx");
 /* harmony import */ var _collections_collection_show_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./collections/collection_show_container */ "./frontend/components/collections/collection_show_container.js");
+/* harmony import */ var _components_cards_cards_show_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/cards/cards_show_container */ "./frontend/components/cards/cards_show_container.js");
+
 
 
 
@@ -593,6 +595,10 @@ var App = function App() {
     exact: true,
     path: "/collection/:collectionId",
     component: _collections_collection_show_container__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_2__["ProtectedRoute"], {
+    exact: true,
+    path: "/collection/:collectionId/card/:cardId",
+    component: _components_cards_cards_show_container__WEBPACK_IMPORTED_MODULE_8__["default"]
   })))));
 };
 
@@ -611,6 +617,7 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _cards_cards_index_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../cards/cards_index_container */ "./frontend/components/cards/cards_index_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -628,6 +635,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -664,8 +672,11 @@ function (_React$Component) {
     value: function renderColumns() {
       var columns = this.props.boardColumns.map(function (column) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "column",
           key: column.id
-        }, column.title);
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, column.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_cards_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          bcId: column.id
+        }));
       });
       return columns;
     }
@@ -1019,6 +1030,244 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/cards/cards_index.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/cards/cards_index.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var CardsIndex =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CardsIndex, _React$Component);
+
+  function CardsIndex() {
+    _classCallCheck(this, CardsIndex);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(CardsIndex).apply(this, arguments));
+  }
+
+  _createClass(CardsIndex, [{
+    key: "render",
+    value: function render() {
+      var collectionId = this.props.match.params.collectionId;
+      var cardsList = this.props.cards.map(function (card) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          key: card.id
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/collection/".concat(collectionId, "/card/").concat(card.id)
+        }, card.title));
+      });
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "cards-list"
+      }, cardsList);
+    }
+  }]);
+
+  return CardsIndex;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(CardsIndex));
+
+/***/ }),
+
+/***/ "./frontend/components/cards/cards_index_container.js":
+/*!************************************************************!*\
+  !*** ./frontend/components/cards/cards_index_container.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _cards_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cards_index */ "./frontend/components/cards/cards_index.jsx");
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var entities = _ref.entities;
+  var bcId = _ref2.bcId;
+  return {
+    cards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["cardColumnArray"])(entities.cards, bcId)
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    newCard: function newCard(bcId, card) {
+      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["postCard"])(bcId, card));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_cards_index__WEBPACK_IMPORTED_MODULE_3__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/cards/cards_show.jsx":
+/*!**************************************************!*\
+  !*** ./frontend/components/cards/cards_show.jsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+// this will open up a detail view of the card
+
+
+var CardsShow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(CardsShow, _React$Component);
+
+  function CardsShow(props) {
+    var _this;
+
+    _classCallCheck(this, CardsShow);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(CardsShow).call(this, props));
+    _this.handleDelete = _this.handleDelete.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(CardsShow, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var id = this.props.match.params.cardId;
+      this.props.fetchCard(id);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var oldCard = prevProps.card;
+      var newCard = this.props.card;
+      var _this$props = this.props,
+          fetchCard = _this$props.fetchCard,
+          match = _this$props.match;
+      Object.keys(oldCard).forEach(function (key) {
+        if (oldCard[key] !== newCard[key]) {
+          fetchCard(match.params.cardId);
+        }
+      });
+    }
+  }, {
+    key: "handleDelete",
+    value: function handleDelete(e) {
+      e.preventDefault();
+      this.props.deleteCard(this.props.match.params.cardId).then(this.props.history.push("/collection/".concat(this.props.match.params.collectionId)));
+    } // should add tags & member later
+
+  }, {
+    key: "render",
+    value: function render() {
+      var card = this.props.card;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "card-details"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, card.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Due: ", card.due_date), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Description: ", card.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.handleDelete
+      }, "x"));
+    }
+  }]);
+
+  return CardsShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (CardsShow);
+
+/***/ }),
+
+/***/ "./frontend/components/cards/cards_show_container.js":
+/*!***********************************************************!*\
+  !*** ./frontend/components/cards/cards_show_container.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
+/* harmony import */ var _cards_show__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cards_show */ "./frontend/components/cards/cards_show.jsx");
+
+
+
+
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var entities = _ref.entities;
+  var match = _ref2.match;
+  return {
+    card: entities.cards[match.params.cardId]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    deleteCard: function deleteCard(card) {
+      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["destroyCard"])(card));
+    },
+    fetchCard: function fetchCard(cardId) {
+      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["fetchCard"])(cardId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_cards_show__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/collections/collection_form.jsx":
 /*!*************************************************************!*\
   !*** ./frontend/components/collections/collection_form.jsx ***!
@@ -1368,7 +1617,7 @@ var mapStateToProps = function mapStateToProps(_ref) {
       ui = _ref.ui;
   return {
     currentUser: session.userId,
-    collections: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__["collectionArray"])(entities.collections),
+    collections: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_4__["objToArray"])(entities.collections),
     errors: errors.collections,
     activeForm: ui.forms.collections.form
   };
@@ -1535,7 +1784,7 @@ var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var match = _ref2.match;
   return {
     collection: entities.collections[match.params.collectionId],
-    boards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["boardArray"])(entities.boards),
+    boards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["objToArray"])(entities.boards),
     collectionId: match.params.collectionId,
     activeBoardForm: ui.forms.boards.form
   };
@@ -2336,25 +2585,19 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************!*\
   !*** ./frontend/reducers/selectors.js ***!
   \****************************************/
-/*! exports provided: collectionArray, boardArray, boardColumnArray */
+/*! exports provided: objToArray, boardColumnArray, cardColumnArray */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "collectionArray", function() { return collectionArray; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "boardArray", function() { return boardArray; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "objToArray", function() { return objToArray; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "boardColumnArray", function() { return boardColumnArray; });
-var collectionArray = function collectionArray(collections) {
-  if (Object.keys(collections).length === 0) return [];
-  var arr = Object.keys(collections).map(function (colId) {
-    return collections[colId];
-  });
-  return arr;
-};
-var boardArray = function boardArray(boards) {
-  if (Object.keys(boards).length === 0) return [];
-  var arr = Object.keys(boards).map(function (boardId) {
-    return boards[boardId];
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardColumnArray", function() { return cardColumnArray; });
+// Reminder to refactor all the array converters into one method
+var objToArray = function objToArray(myObject) {
+  if (Object.keys(myObject).length === 0) return [];
+  var arr = Object.keys(myObject).map(function (id) {
+    return myObject[id];
   });
   return arr;
 };
@@ -2365,6 +2608,12 @@ var boardColumnArray = function boardColumnArray(boardColumns, boardId) {
   });
   return arr.filter(function (obj) {
     return obj.board_id === boardId;
+  });
+};
+var cardColumnArray = function cardColumnArray(cards, bcId) {
+  var arr = objToArray(cards);
+  return arr.filter(function (obj) {
+    return obj.board_column_id === bcId;
   });
 };
 
