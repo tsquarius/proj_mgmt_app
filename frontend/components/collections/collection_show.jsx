@@ -1,5 +1,4 @@
 import React from 'react';
-import BoardFormContainer from '../boards/board_form_container';
 import BoardShowContainer from '../boards/board_show_container';
 
 class CollectionShow extends React.Component {
@@ -9,7 +8,6 @@ class CollectionShow extends React.Component {
     const collectionId = this.props.match.params.collectionId;
     fetchBoards(collectionId);
   }
-
 
   // should revisit to make sure it updates whenever we add columns or cards
   componentDidUpdate(prevProps) {
@@ -29,15 +27,16 @@ class CollectionShow extends React.Component {
     }
   }
 
-  renderNewForm() {
+  createNewBoard() {
     return e => {
       e.preventDefault();
-      this.props.newForm();
+      const {collectionId} = this.props;
+      this.props.newBoard(collectionId ,{title: 'New Board'});
     };
   }
 
   render() {
-    const {collection, boards, collectionId, activeBoardForm} = this.props;
+    const {collection, boards} = this.props;
 
     const boardsList = boards.map(board => 
       <BoardShowContainer key={board.id} board={board} />
@@ -49,10 +48,7 @@ class CollectionShow extends React.Component {
         <ul className='boards-show'>
           {boardsList}
         </ul>
-        <button className='submit' onClick={this.renderNewForm()}>New Board</button>
-        <section className={activeBoardForm === 'new' ? '' : 'hide'}>
-          <BoardFormContainer collectionId={collectionId} />
-        </section>
+        <button className='submit' onClick={this.createNewBoard()}>New Board</button>
       </div>
     )
   }

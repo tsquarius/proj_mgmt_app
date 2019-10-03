@@ -1,7 +1,7 @@
 #root {
   font-family: sans-serif;
   width: 1500px;
-  height: 400px;
+  height: 500px;
   border: 1px solid black;
   margin: auto;
 }
@@ -92,6 +92,7 @@
 
 .submit {
   cursor: pointer;
+  font-weight: 500;
 }
 
 .form {
@@ -109,4 +110,48 @@
 
 .hide {
   display: none
+}
+
+.collection-show {
+  border: 1px solid lawngreen;
+}
+
+.collection-show h2 {
+  font-size: 30px;
+  font-style: italic;
+}
+
+.boards-show {
+  border: 1px solid orchid;
+}
+
+.boards-show header {
+  text-align: center;
+  width: 200px;
+  border: 1px solid blue;
+  margin: auto;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.boards-show header > section {
+  font-size: 15px;
+}
+
+.board-columns {
+  border: 1px solid paleturquoise;
+  margin-bottom: 20px;
+}
+
+.board-columns ul {
+  display: flex;
+}
+
+.board-columns ul > li {
+  border: 1px solid yellow;
+  height: 70px;
+  width: 200px;
+  flex-wrap: wrap;
+  text-align: center;
+  margin-right: 20px;
 }

@@ -13,18 +13,11 @@ class BoardForm extends React.Component {
     e.preventDefault();
     const {
       updateBoard, 
-      createBoard, 
-      collectionId,
       closeForm} = this.props;
     const board = Object.assign({}, this.state);
     
-    if (this.props.board) {
-      updateBoard(this.props.board.id, board)
-        .then(closeForm());
-    } else {
-      createBoard(collectionId, board)
-        .then(closeForm());
-    }
+    updateBoard(this.props.board.id, board)
+      .then(closeForm());
   }
 
   handleChange(type) {
@@ -40,8 +33,7 @@ class BoardForm extends React.Component {
   }
 
   render() {
-    const {activeForm, board} = this.props;
-    const formType = board ? 'Update' : 'Create';
+    const {activeForm} = this.props;
     
     return (
       <form className={activeForm ? 'form' : 'hide'}>
@@ -54,7 +46,7 @@ class BoardForm extends React.Component {
           />
         </label>
         <button className='submit' onClick={this.handleSubmit}>
-          {formType}
+          Update
         </button>
         <button className='submit' onClick={this.handleClose}>
           Close

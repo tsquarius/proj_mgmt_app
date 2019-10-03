@@ -1,8 +1,7 @@
 import {connect} from 'react-redux';
 import CollectionShow from './collection_show';
-import {fetchBoards, deleteBoard} from '../../actions/board_actions';
+import {fetchBoards, deleteBoard, createBoard} from '../../actions/board_actions';
 import {boardArray} from '../../reducers/selectors';
-import {renderNewBoardForm} from '../../actions/form_actions';
 
 
 const mapStateToProps = ({entities, ui}, {match}) => ({
@@ -17,7 +16,7 @@ const mapStateToProps = ({entities, ui}, {match}) => ({
 const mapDispatchToProps = dispatch => ({
   fetchBoards: collectionId => dispatch(fetchBoards(collectionId)),
   deleteBoard: boardId => dispatch(deleteBoard(boardId)),
-  newForm: () => dispatch(renderNewBoardForm()),
+  newBoard: (collectionId, board) => dispatch(createBoard(collectionId, board)),
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(CollectionShow);

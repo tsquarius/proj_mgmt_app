@@ -609,9 +609,7 @@ function (_React$Component) {
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "board-columns"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "board-columns"
-      }, this.renderColumns()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.renderColumns()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.addColumn
       }, "add"));
     }
@@ -725,16 +723,9 @@ function (_React$Component) {
       e.preventDefault();
       var _this$props = this.props,
           updateBoard = _this$props.updateBoard,
-          createBoard = _this$props.createBoard,
-          collectionId = _this$props.collectionId,
           closeForm = _this$props.closeForm;
       var board = Object.assign({}, this.state);
-
-      if (this.props.board) {
-        updateBoard(this.props.board.id, board).then(closeForm());
-      } else {
-        createBoard(collectionId, board).then(closeForm());
-      }
+      updateBoard(this.props.board.id, board).then(closeForm());
     }
   }, {
     key: "handleChange",
@@ -756,10 +747,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$props2 = this.props,
-          activeForm = _this$props2.activeForm,
-          board = _this$props2.board;
-      var formType = board ? 'Update' : 'Create';
+      var activeForm = this.props.activeForm;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: activeForm ? 'form' : 'hide'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -769,7 +757,7 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
         onClick: this.handleSubmit
-      }, formType), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Update"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
         onClick: this.handleClose
       }, "Close"));
@@ -814,9 +802,6 @@ var mapStateToProps = function mapStateToProps(_ref, _ref2) {
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    createBoard: function createBoard(collectionId, board) {
-      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["createBoard"])(collectionId, board));
-    },
     updateBoard: function updateBoard(boardId, board) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["updateBoard"])(boardId, board));
     },
@@ -907,7 +892,7 @@ function (_React$Component) {
           active = _this$props.active;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: board.id
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.renderUpdate(board.id)
       }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         onClick: this.handleDelete(board.id)
@@ -915,7 +900,7 @@ function (_React$Component) {
         className: formId === board.id && active ? '' : 'hide'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         board: board
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_columns_board_columns_show_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_columns_board_columns_show_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
         boardId: board.id
       }));
     }
@@ -1354,7 +1339,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/toan/Desktop/React/14. Project Management/proj_mgmt_app/frontend/components/collections/collection_index_item.jsx'");
 
 /***/ }),
 
@@ -1369,8 +1354,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../boards/board_form_container */ "./frontend/components/boards/board_form_container.js");
-/* harmony import */ var _boards_board_show_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../boards/board_show_container */ "./frontend/components/boards/board_show_container.js");
+/* harmony import */ var _boards_board_show_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../boards/board_show_container */ "./frontend/components/boards/board_show_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1388,7 +1372,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -1433,14 +1416,17 @@ function (_React$Component) {
       };
     }
   }, {
-    key: "renderNewForm",
-    value: function renderNewForm() {
+    key: "createNewBoard",
+    value: function createNewBoard() {
       var _this2 = this;
 
       return function (e) {
         e.preventDefault();
+        var collectionId = _this2.props.collectionId;
 
-        _this2.props.newForm();
+        _this2.props.newBoard(collectionId, {
+          title: 'New Board'
+        });
       };
     }
   }, {
@@ -1448,11 +1434,9 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           collection = _this$props.collection,
-          boards = _this$props.boards,
-          collectionId = _this$props.collectionId,
-          activeBoardForm = _this$props.activeBoardForm;
+          boards = _this$props.boards;
       var boardsList = boards.map(function (board) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: board.id,
           board: board
         });
@@ -1463,12 +1447,8 @@ function (_React$Component) {
         className: "boards-show"
       }, boardsList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
-        onClick: this.renderNewForm()
-      }, "New Board"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
-        className: activeBoardForm === 'new' ? '' : 'hide'
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        collectionId: collectionId
-      })));
+        onClick: this.createNewBoard()
+      }, "New Board"));
     }
   }]);
 
@@ -1492,8 +1472,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _collection_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection_show */ "./frontend/components/collections/collection_show.jsx");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
 /* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
-/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
-
 
 
 
@@ -1520,8 +1498,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     deleteBoard: function deleteBoard(boardId) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["deleteBoard"])(boardId));
     },
-    newForm: function newForm() {
-      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_4__["renderNewBoardForm"])());
+    newBoard: function newBoard(collectionId, board) {
+      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["createBoard"])(collectionId, board));
     }
   };
 };

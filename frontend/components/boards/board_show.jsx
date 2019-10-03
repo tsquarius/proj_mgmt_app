@@ -22,19 +22,18 @@ class BoardShow extends React.Component {
     const {board, formId, active} = this.props;
     return (
       <li key={board.id}>
-        <h3>{board.title}</h3>
-        <button onClick={this.renderUpdate(board.id)}>Edit</button>
-        <button onClick={this.handleDelete(board.id)}>Delete</button>
-        <section className={(formId === board.id && active) ? '' : 'hide' }>
-          <BoardFormContainer board={board} />
-        </section>
-
+        <header>
+          <h3>{board.title}</h3>
+          <button onClick={this.renderUpdate(board.id)}>Edit</button>
+          <button onClick={this.handleDelete(board.id)}>Delete</button>
+          <section className={(formId === board.id && active) ? '' : 'hide'}>
+            <BoardFormContainer board={board} />
+          </section>
+        </header>
         <BoardColumnsContainer boardId={board.id} />
-        
       </li>
     )
   }
-
 }
 
 export default BoardShow;

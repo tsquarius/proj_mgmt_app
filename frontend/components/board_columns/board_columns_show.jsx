@@ -31,7 +31,7 @@ class BoardColumnsShow extends React.Component {
   render() {
     return(
       <section className='board-columns'>
-        <ul className='board-columns'>
+        <ul>
           {this.renderColumns()}
         </ul>
         <button onClick={this.addColumn}>add</button>
