@@ -12,6 +12,7 @@ class Api::BoardColumnsController < ApplicationController
 
   def create
     @board_column = BoardColumn.new(board_column_params)
+    @board_column.board_id = params[:board_id]
     if @board_column.save
       render :show
     else
@@ -41,7 +42,7 @@ class Api::BoardColumnsController < ApplicationController
   private
 
   def board_column_params
-    params.require(:board_column).permit(:title, :order, :board_id)
+    params.require(:board_column).permit(:title, :order)
   end
 
 end

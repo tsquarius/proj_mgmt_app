@@ -13,10 +13,9 @@ class BoardColumnsShow extends React.Component {
     const {boardId, createColumn} = this.props;
     const _defaultColumn = {
       title: 'New Column',
-      order: 0,
-      board_id: boardId
+      order: 0
     };
-    createColumn(_defaultColumn);
+    createColumn(boardId, _defaultColumn);
   }
 
   renderColumns() {

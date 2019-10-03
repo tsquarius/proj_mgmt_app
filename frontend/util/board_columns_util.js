@@ -15,10 +15,10 @@ export const fetchBoardColumn = boardId => (
   })
 );
 
-export const postBoardColumn = board_column => (
+export const postBoardColumn = (bcId, board_column) => (
   $.ajax({
     method: 'POST',
-    url: '/api/board_columns',
+    url: `/api/${bcId}/board_columns`,
     data: {board_column}
   })
 );

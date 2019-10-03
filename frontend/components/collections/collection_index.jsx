@@ -1,5 +1,4 @@
 import React from 'react';
-import CollectionIndexItem from './collection_index_item';
 import { Link } from 'react-router-dom';
 import FormContainer from '../collections/collection_form_container';
 
@@ -33,6 +32,7 @@ class CollectionIndex extends React.Component {
     };
   }
 
+  // need to refactor later to just click to add new form
   newForm() {
     return e => {
       e.preventDefault();

@@ -589,10 +589,9 @@ function (_React$Component) {
           createColumn = _this$props.createColumn;
       var _defaultColumn = {
         title: 'New Column',
-        order: 0,
-        board_id: boardId
+        order: 0
       };
-      createColumn(_defaultColumn);
+      createColumn(boardId, _defaultColumn);
     }
   }, {
     key: "renderColumns",
@@ -1151,10 +1150,8 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _collection_index_item__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection_index_item */ "./frontend/components/collections/collection_index_item.jsx");
-/* harmony import */ var _collection_index_item__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_collection_index_item__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _collections_collection_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../collections/collection_form_container */ "./frontend/components/collections/collection_form_container.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _collections_collection_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../collections/collection_form_container */ "./frontend/components/collections/collection_form_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1172,7 +1169,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -1224,7 +1220,8 @@ function (_React$Component) {
 
         _this2.props.updateCollection(id);
       };
-    }
+    } // need to refactor later to just click to add new form
+
   }, {
     key: "newForm",
     value: function newForm() {
@@ -1246,7 +1243,7 @@ function (_React$Component) {
       var collectionArray = this.props.collections.map(function (col) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           key: col.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           className: "btn-link",
           to: "/collection/".concat(col.id)
         }, col.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -1267,7 +1264,7 @@ function (_React$Component) {
       }, this.renderCollections(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn-link",
         onClick: this.newForm()
-      }, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_collections_collection_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null));
+      }, "New Collection"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_collections_collection_form_container__WEBPACK_IMPORTED_MODULE_2__["default"], null));
     }
   }]);
 
@@ -1329,17 +1326,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_index__WEBPACK_IMPORTED_MODULE_1__["default"]));
-
-/***/ }),
-
-/***/ "./frontend/components/collections/collection_index_item.jsx":
-/*!*******************************************************************!*\
-  !*** ./frontend/components/collections/collection_index_item.jsx ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nError: ENOENT: no such file or directory, open '/home/toan/Desktop/React/14. Project Management/proj_mgmt_app/frontend/components/collections/collection_index_item.jsx'");
 
 /***/ }),
 
@@ -2449,10 +2435,10 @@ var fetchBoardColumn = function fetchBoardColumn(boardId) {
     url: "/api/board_columns/".concat(boardId)
   });
 };
-var postBoardColumn = function postBoardColumn(board_column) {
+var postBoardColumn = function postBoardColumn(bcId, board_column) {
   return $.ajax({
     method: 'POST',
-    url: '/api/board_columns',
+    url: "/api/".concat(bcId, "/board_columns"),
     data: {
       board_column: board_column
     }

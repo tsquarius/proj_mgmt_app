@@ -7,8 +7,15 @@ Rails.application.routes.draw do
     resources :collections, only: [:show, :create, :destroy, :update, :index] do
       resources :boards, only: [:index, :create]
     end
-    resources :boards, only: [:show, :destroy, :update]
+    
+    resources :boards, only: [:show, :destroy, :update] do
+      resources :board_columns, only: [:create]
+    end
+
     resources :users, only: [:show, :create, :index]
-    resources :board_columns, only: [:index, :show, :destroy, :update, :create]
+    resources :board_columns, only: [:index, :show, :destroy, :update] do
+      resources :cards, only: [:create]
+    end
+    resources :cards, only: [:show, :destroy, :update]
   end
 end

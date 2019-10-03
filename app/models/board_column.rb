@@ -14,5 +14,6 @@ class BoardColumn < ApplicationRecord
 
   validates :title, :order, :board_id, null: false
   belongs_to :board
+  has_many :cards
 
 end
