@@ -17,6 +17,7 @@
 
 class Card < ApplicationRecord
   
-  validates :author_id, :title, :board_column_id, :archived, presence: true
+  validates :author_id, :title, :board_column_id, presence: true
+  belongs_to :board_column
 
 end

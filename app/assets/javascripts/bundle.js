@@ -236,6 +236,72 @@ var destroyBoardColumn = function destroyBoardColumn(boardColumnId) {
 
 /***/ }),
 
+/***/ "./frontend/actions/card_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/card_actions.js ***!
+  \******************************************/
+/*! exports provided: RECEIVE_CARD, DELETE_CARD, receiveCard, deleteCard, fetchCard, postCard, patchCard, destroyCard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CARD", function() { return RECEIVE_CARD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_CARD", function() { return DELETE_CARD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCard", function() { return receiveCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCard", function() { return deleteCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCard", function() { return fetchCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postCard", function() { return postCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "patchCard", function() { return patchCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyCard", function() { return destroyCard; });
+/* harmony import */ var _util_card_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/card_util */ "./frontend/util/card_util.js");
+
+var RECEIVE_CARD = 'RECEIVE_CARD';
+var DELETE_CARD = 'DELETE_CARD'; // regular actions
+
+var receiveCard = function receiveCard(card) {
+  return {
+    type: RECEIVE_CARD,
+    card: card
+  };
+};
+var deleteCard = function deleteCard(card) {
+  return {
+    type: DELETE_CARD,
+    card: card
+  };
+}; // thunk actions
+
+var fetchCard = function fetchCard(cardId) {
+  return function (dispatch) {
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["fetchCard"](cardId).then(function (card) {
+      return dispatch(receiveCard(card));
+    });
+  };
+};
+var postCard = function postCard(bcId, card) {
+  return function (dispatch) {
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["postCard"](bcId, card).then(function (card) {
+      return dispatch(receiveCard(card));
+    });
+  };
+};
+var patchCard = function patchCard(cardId, card) {
+  return function (dispatch) {
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["patchCard"](cardId, card).then(function (card) {
+      return dispatch(receiveCard(card));
+    });
+  };
+};
+var destroyCard = function destroyCard(cardId) {
+  return function (dispatch) {
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["deleteCard"](cardId).then(function (card) {
+      return dispatch(deleteCard(card));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/collection_actions.js":
 /*!************************************************!*\
   !*** ./frontend/actions/collection_actions.js ***!
@@ -2002,6 +2068,49 @@ var boardsReducer = function boardsReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/cards_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/cards_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/card_actions */ "./frontend/actions/card_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var cardsReducer = function cardsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_BOARDS"]:
+      return action.payload.cards;
+
+    case _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CARD"]:
+      return Object.assign({}, state, _defineProperty({}, action.card.id, action.card));
+
+    case _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_CARD"]:
+      var deleteId = action.card.id;
+      delete newState[deleteId];
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (cardsReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/collection_errors_reducer.js":
 /*!********************************************************!*\
   !*** ./frontend/reducers/collection_errors_reducer.js ***!
@@ -2134,6 +2243,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _collections_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./collections_reducer */ "./frontend/reducers/collections_reducer.js");
 /* harmony import */ var _boards_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./boards_reducer */ "./frontend/reducers/boards_reducer.js");
 /* harmony import */ var _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./board_columns_reducer */ "./frontend/reducers/board_columns_reducer.js");
+/* harmony import */ var _cards_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cards_reducer */ "./frontend/reducers/cards_reducer.js");
+
 
 
 
@@ -2143,7 +2254,8 @@ __webpack_require__.r(__webpack_exports__);
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   collections: _collections_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   boards: _boards_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  boardColumns: _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  boardColumns: _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  cards: _cards_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
 }));
 
 /***/ }),
@@ -2510,6 +2622,52 @@ var deleteBoard = function deleteBoard(boardId) {
   return $.ajax({
     method: 'DELETE',
     url: "/api/boards/".concat(boardId)
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/card_util.js":
+/*!************************************!*\
+  !*** ./frontend/util/card_util.js ***!
+  \************************************/
+/*! exports provided: fetchCard, postCard, patchCard, deleteCard */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCard", function() { return fetchCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postCard", function() { return postCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "patchCard", function() { return patchCard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCard", function() { return deleteCard; });
+var fetchCard = function fetchCard(cardId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/cards/".concat(cardId)
+  });
+};
+var postCard = function postCard(bcId, card) {
+  return $.ajax({
+    method: 'POST',
+    url: "/api/board_columns/".concat(bcId, "/cards"),
+    data: {
+      card: card
+    }
+  });
+};
+var patchCard = function patchCard(cardId, card) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/cards/".concat(cardId),
+    data: {
+      card: card
+    }
+  });
+};
+var deleteCard = function deleteCard(cardId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/cards/".concat(cardId)
   });
 };
 

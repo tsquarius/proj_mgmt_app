@@ -15,3 +15,13 @@ json.boardColumns do
     end
   end
 end
+
+json.cards do
+  @boards.each do |board|
+    board.cards.each do |card|
+      json.set! card.id do
+        json.extract! card, :id, :title, :board_column_id
+      end
+    end
+  end
+end

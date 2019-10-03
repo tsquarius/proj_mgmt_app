@@ -3,6 +3,7 @@ class Api::BoardsController < ApplicationController
   def index
     @boards = Board
       .includes(:board_columns)
+      .includes(:cards)
       .where(author_id: current_user.id, collection_id: params[:collection_id])
     render :index
   end
