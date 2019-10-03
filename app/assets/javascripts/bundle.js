@@ -408,7 +408,7 @@ var destroyCollection = function destroyCollection(collection) {
 /*!******************************************!*\
   !*** ./frontend/actions/form_actions.js ***!
   \******************************************/
-/*! exports provided: NEW_COLLECTION_FORM, UPDATE_COLLECTION_FORM, CLOSE_COLLECTION_FORM, NEW_BOARD_FORM, UPDATE_BOARD_FORM, CLOSE_BOARD_FORM, renderNewCollectionForm, renderUpdateCollectionForm, closeCollectionForm, renderNewBoardForm, renderUpdateBoardForm, closeBoardForm */
+/*! exports provided: NEW_COLLECTION_FORM, UPDATE_COLLECTION_FORM, CLOSE_COLLECTION_FORM, NEW_BOARD_FORM, UPDATE_BOARD_FORM, CLOSE_BOARD_FORM, NEW_CARD_FORM, UPDATE_CARD_FORM, CLOSE_CARD_FORM, renderNewCollectionForm, renderUpdateCollectionForm, closeCollectionForm, renderNewBoardForm, renderUpdateBoardForm, closeBoardForm, renderNewCardForm, renderUpdateCardForm, closeCardForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -419,19 +419,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_BOARD_FORM", function() { return NEW_BOARD_FORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_BOARD_FORM", function() { return UPDATE_BOARD_FORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_BOARD_FORM", function() { return CLOSE_BOARD_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_CARD_FORM", function() { return NEW_CARD_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UPDATE_CARD_FORM", function() { return UPDATE_CARD_FORM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_CARD_FORM", function() { return CLOSE_CARD_FORM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNewCollectionForm", function() { return renderNewCollectionForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderUpdateCollectionForm", function() { return renderUpdateCollectionForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeCollectionForm", function() { return closeCollectionForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNewBoardForm", function() { return renderNewBoardForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderUpdateBoardForm", function() { return renderUpdateBoardForm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeBoardForm", function() { return closeBoardForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderNewCardForm", function() { return renderNewCardForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "renderUpdateCardForm", function() { return renderUpdateCardForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeCardForm", function() { return closeCardForm; });
 var NEW_COLLECTION_FORM = 'OPEN_COLLECTION_FORM';
 var UPDATE_COLLECTION_FORM = 'UPDATE_COLLECTION_FORM';
 var CLOSE_COLLECTION_FORM = 'CLOSE_COLLECTION_FORM';
 var NEW_BOARD_FORM = 'NEW_BOARD_FORM';
 var UPDATE_BOARD_FORM = 'UPDATE_BOARD_FORM';
-var CLOSE_BOARD_FORM = 'CLOSE_BOARD_FORM'; // formType = update/new
+var CLOSE_BOARD_FORM = 'CLOSE_BOARD_FORM';
+var NEW_CARD_FORM = 'NEW_CARD_FORM';
+var UPDATE_CARD_FORM = 'UPDATE_CARD_FORM';
+var CLOSE_CARD_FORM = 'CLOSE_CARD_FORM'; // formType = update/new
 // if update, include collection/board id
+// collections
 
 var renderNewCollectionForm = function renderNewCollectionForm() {
   return {
@@ -448,7 +458,8 @@ var closeCollectionForm = function closeCollectionForm() {
   return {
     type: CLOSE_COLLECTION_FORM
   };
-};
+}; // boards
+
 var renderNewBoardForm = function renderNewBoardForm() {
   return {
     type: NEW_BOARD_FORM
@@ -463,6 +474,24 @@ var renderUpdateBoardForm = function renderUpdateBoardForm(id) {
 var closeBoardForm = function closeBoardForm() {
   return {
     type: CLOSE_BOARD_FORM
+  };
+}; // cards
+
+var renderNewCardForm = function renderNewCardForm(bcId) {
+  return {
+    type: NEW_CARD_FORM,
+    bcId: bcId
+  };
+};
+var renderUpdateCardForm = function renderUpdateCardForm(id) {
+  return {
+    type: UPDATE_CARD_FORM,
+    id: id
+  };
+};
+var closeCardForm = function closeCardForm() {
+  return {
+    type: CLOSE_CARD_FORM
   };
 };
 
@@ -1077,9 +1106,22 @@ function (_React$Component) {
   }
 
   _createClass(CardsIndex, [{
+    key: "renderNewCardForm",
+    value: function renderNewCardForm(bcId) {
+      var _this = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this.props.newCard(bcId);
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      console.log(this.props);
+      var _this$props = this.props,
+          activeForm = _this$props.activeForm,
+          bcId = _this$props.bcId;
       var collectionId = this.props.match.params.collectionId;
       var cardsList = this.props.cards.map(function (card) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
@@ -1090,10 +1132,13 @@ function (_React$Component) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "cards-list"
-      }, cardsList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_new_cards_form_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        bcId: this.props.bcId
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "submit"
+      }, cardsList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: activeForm.bcId === bcId ? '' : 'hide'
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_new_cards_form_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        bcId: bcId
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: this.renderNewCardForm(bcId)
       }, "Add card..."));
     }
   }]);
@@ -1115,8 +1160,8 @@ function (_React$Component) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
 /* harmony import */ var _cards_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cards_index */ "./frontend/components/cards/cards_index.jsx");
 
 
@@ -1124,17 +1169,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
-  var entities = _ref.entities;
+  var entities = _ref.entities,
+      ui = _ref.ui;
   var bcId = _ref2.bcId;
   return {
-    cards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["cardColumnArray"])(entities.cards, bcId)
+    cards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_1__["cardColumnArray"])(entities.cards, bcId),
+    activeForm: ui.forms.cards
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    newCard: function newCard(bcId, card) {
-      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["postCard"])(bcId, card));
+    newCard: function newCard(bcId) {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_2__["renderNewCardForm"])(bcId));
     }
   };
 };
@@ -1321,6 +1368,8 @@ function (_React$Component) {
       title: ''
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleClose = _this.handleClose.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1334,12 +1383,26 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
       var _this$props = this.props,
           bcId = _this$props.bcId,
           postCard = _this$props.postCard;
       var card = Object.assign({}, this.state);
-      postCard(bcId, card);
+      postCard(bcId, card).then(function () {
+        _this2.setState({
+          title: ''
+        });
+
+        _this2.props.closeForm();
+      });
+    }
+  }, {
+    key: "handleClose",
+    value: function handleClose(e) {
+      e.preventDefault();
+      this.props.closeForm();
     }
   }, {
     key: "render",
@@ -1349,9 +1412,10 @@ function (_React$Component) {
         value: this.state.title
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "submit",
-        onClick: true
+        onClick: this.handleSubmit
       }, "save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "submit"
+        className: "submit",
+        onClick: this.handleClose
       }, "x"));
     }
   }]);
@@ -1374,7 +1438,9 @@ function (_React$Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
-/* harmony import */ var _new_cards_form__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./new_cards_form */ "./frontend/components/cards/new_cards_form.jsx");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
+/* harmony import */ var _new_cards_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./new_cards_form */ "./frontend/components/cards/new_cards_form.jsx");
+
 
 
 
@@ -1383,11 +1449,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     postCard: function postCard(bcId, card) {
       return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["postCard"])(bcId, card));
+    },
+    closeForm: function closeForm() {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_2__["closeCardForm"])());
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(_new_cards_form__WEBPACK_IMPORTED_MODULE_2__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mapDispatchToProps)(_new_cards_form__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -2440,6 +2509,55 @@ var boardsReducer = function boardsReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/card_form_reducer.js":
+/*!************************************************!*\
+  !*** ./frontend/reducers/card_form_reducer.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/form_actions */ "./frontend/actions/form_actions.js");
+
+var _defaultForm = {
+  form: false,
+  id: null,
+  bcId: null
+};
+
+var cardFormReducer = function cardFormReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _defaultForm;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["NEW_CARD_FORM"]:
+      return {
+        form: 'new',
+        id: null,
+        bcId: action.bcId
+      };
+
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["UPDATE_CARD_FORM"]:
+      return {
+        form: 'update',
+        id: action.id,
+        bcId: null
+      };
+
+    case _actions_form_actions__WEBPACK_IMPORTED_MODULE_0__["CLOSE_CARD_FORM"]:
+      return _defaultForm;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (cardFormReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/cards_reducer.js":
 /*!********************************************!*\
   !*** ./frontend/reducers/cards_reducer.js ***!
@@ -2666,12 +2784,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _collections_form_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collections_form_reducer */ "./frontend/reducers/collections_form_reducer.js");
 /* harmony import */ var _board_form_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./board_form_reducer */ "./frontend/reducers/board_form_reducer.js");
+/* harmony import */ var _card_form_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./card_form_reducer */ "./frontend/reducers/card_form_reducer.js");
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   collections: _collections_form_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  boards: _board_form_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  boards: _board_form_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  cards: _card_form_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 }));
 
 /***/ }),

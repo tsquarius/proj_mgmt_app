@@ -1,14 +1,15 @@
 import {connect} from 'react-redux';
-import {postCard} from '../../actions/card_actions';
 import {cardColumnArray} from '../../reducers/selectors';
+import {renderNewCardForm} from '../../actions/form_actions';
 import CardsIndex from './cards_index';
 
-const mapStateToProps = ({entities}, {bcId}) => ({
-  cards: cardColumnArray(entities.cards, bcId)
+const mapStateToProps = ({entities, ui}, {bcId}) => ({
+  cards: cardColumnArray(entities.cards, bcId),
+  activeForm: ui.forms.cards
 });
 
 const mapDispatchToProps = dispatch => ({
-  newCard: (bcId, card) => dispatch(postCard(bcId,card))
+  newCard: (bcId) => dispatch(renderNewCardForm(bcId))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(CardsIndex);

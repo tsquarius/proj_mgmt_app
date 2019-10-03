@@ -4,8 +4,15 @@ import NewCardsFormContainer from './new_cards_form_container';
 
 class CardsIndex extends React.Component {
 
+  renderNewCardForm(bcId) {
+    return e => {
+      e.preventDefault();
+      this.props.newCard(bcId);
+    }
+  }
+
   render() {
-    console.log(this.props);
+    const {activeForm, bcId} = this.props;
     const collectionId = this.props.match.params.collectionId;
     const cardsList = this.props.cards.map(card => 
         <li key={card.id}>
@@ -15,8 +22,10 @@ class CardsIndex extends React.Component {
     return (
       <ul className='cards-list'>
         {cardsList}
-        <NewCardsFormContainer bcId={this.props.bcId} />
-        <button className='submit'>Add card...</button>
+        <div className = {activeForm.bcId === bcId ? '' : 'hide'}>
+          <NewCardsFormContainer bcId={bcId} />
+        </div>
+        <button className='submit' onClick={this.renderNewCardForm(bcId)}>Add card...</button>
       </ul>
     )
 
