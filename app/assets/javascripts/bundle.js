@@ -697,13 +697,31 @@ function (_React$Component) {
       createColumn(boardId, _defaultColumn);
     }
   }, {
+    key: "removeColumn",
+    value: function removeColumn(bcId) {
+      var _this2 = this;
+
+      return function (e) {
+        e.preventDefault();
+
+        _this2.props.destroyBoardColumn(bcId);
+      };
+    }
+  }, {
     key: "renderColumns",
     value: function renderColumns() {
+      var _this3 = this;
+
       var columns = this.props.boardColumns.map(function (column) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "column",
           key: column.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, column.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_cards_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+          className: "column-header"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, column.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: _this3.removeColumn(column.id),
+          className: "submit"
+        }, "x")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_cards_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
           bcId: column.id
         }));
       });
@@ -998,11 +1016,13 @@ function (_React$Component) {
           active = _this$props.active;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         key: board.id
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, board.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
         onClick: this.renderUpdate(board.id)
       }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
         onClick: this.handleDelete(board.id)
-      }, "Delete"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+      }, "Del"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: formId === board.id && active ? '' : 'hide'
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_form_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         board: board

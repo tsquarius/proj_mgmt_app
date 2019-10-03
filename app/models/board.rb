@@ -16,7 +16,7 @@ class Board < ApplicationRecord
 
   validates :author_id, :title, :collection_id, :order, presence: true
   belongs_to :collection
-  has_many :board_columns
+  has_many :board_columns, dependent: :destroy
   has_many :cards, through: :board_columns
 
 end

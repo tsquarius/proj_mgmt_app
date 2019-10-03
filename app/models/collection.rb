@@ -13,7 +13,7 @@ class Collection < ApplicationRecord
   include Authorship
 
   validates :author_id, :title, presence: true
-  has_many :boards
+  has_many :boards, dependent: :destroy
 
   def include_all_childs
     collection = self.boards.includes(:board_columns)

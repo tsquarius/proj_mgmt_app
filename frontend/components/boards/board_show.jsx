@@ -23,13 +23,18 @@ class BoardShow extends React.Component {
     return (
       <li key={board.id}>
         <header>
-          <h3>{board.title}</h3>
-          <button onClick={this.renderUpdate(board.id)}>Edit</button>
-          <button onClick={this.handleDelete(board.id)}>Delete</button>
+          <div>
+            <h3>{board.title}</h3>
+            <nav>
+              <button className='submit' onClick={this.renderUpdate(board.id)}>Edit</button>
+              <button className='submit' onClick={this.handleDelete(board.id)}>Del</button>
+            </nav>
+          </div>
           <section className={(formId === board.id && active) ? '' : 'hide'}>
             <BoardFormContainer board={board} />
           </section>
         </header>
+
         <BoardColumnsContainer boardId={board.id} />
       </li>
     )

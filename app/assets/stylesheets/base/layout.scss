@@ -100,7 +100,6 @@
 }
 
 .submit:hover {
-  font-weight: 700;
   text-decoration: underline;
 }
 
@@ -136,15 +135,32 @@
 }
 
 .boards-show header {
+  display: flex;
+}
+
+.boards-show header > div {
+  display: flex;
+  margin-top: 10px;
   width: 200px;
   border: 1px solid blue;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
+  justify-content: space-between
 }
 
-.boards-show header > section {
+.boards-show header button {
+  display: none;
+}
+
+.boards-show header:hover button {
+  display: flex;
+  float: left;
+}
+
+.boards-show li > section {
   font-size: 15px;
+  display: block;
 }
 
 .board-columns {
@@ -163,6 +179,19 @@
   padding-left: 5px;
   flex-wrap: wrap;
   margin-right: 20px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-header button {
+  display:none;
+}
+
+.column-header:hover button {
+  display:block;
 }
 
 .column h4 {

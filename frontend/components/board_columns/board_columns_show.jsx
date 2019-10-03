@@ -8,7 +8,6 @@ class BoardColumnsShow extends React.Component {
     this.addColumn = this.addColumn.bind(this);
   }
 
-
   addColumn(e) {
     e.preventDefault();
     const {boardId, createColumn} = this.props;
@@ -19,10 +18,20 @@ class BoardColumnsShow extends React.Component {
     createColumn(boardId, _defaultColumn);
   }
 
+  removeColumn(bcId) {
+    return e => {
+      e.preventDefault();
+      this.props.destroyBoardColumn(bcId);
+    };
+  }
+
   renderColumns() {
     const columns = this.props.boardColumns.map(column =>
       <li className='column' key={column.id}>
-        <h4>{column.title}</h4>
+        <header className='column-header'>
+          <h4>{column.title}</h4>
+          <button onClick={this.removeColumn(column.id)} className='submit'>x</button>        
+        </header>
         <CardsIndexContainer bcId={column.id} />
       </li>
     )
