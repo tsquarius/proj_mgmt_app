@@ -95,6 +95,13 @@
 .submit {
   cursor: pointer;
   font-weight: 500;
+  background: none;
+  border: none;
+}
+
+.submit:hover {
+  font-weight: 700;
+  text-decoration: underline;
 }
 
 .form {
@@ -121,6 +128,7 @@
 .collection-show h2 {
   font-size: 30px;
   font-style: italic;
+  margin-bottom: 10px;
 }
 
 .boards-show {
@@ -128,12 +136,11 @@
 }
 
 .boards-show header {
-  text-align: center;
   width: 200px;
   border: 1px solid blue;
-  margin: auto;
   font-size: 20px;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .boards-show header > section {
@@ -152,8 +159,8 @@
 .column {
   border: 1px solid yellow;
   width: 200px;
-  height: 120px;
-  text-align: center;
+  min-height: 150px;
+  padding-left: 5px;
   flex-wrap: wrap;
   margin-right: 20px;
 }
@@ -161,6 +168,7 @@
 .column h4 {
   font-size: 15px;
   font-weight: bold;
+
 }
 
 ul.cards-list {
@@ -169,7 +177,9 @@ ul.cards-list {
 }
 
 .cards-list > li {
-  width: 200px;
+  width: 195px;
   border: 1px solid purple;
   vertical-align: top;
+  margin-bottom: 5px;
+  padding: 10px 0 5px 5px;
 }
