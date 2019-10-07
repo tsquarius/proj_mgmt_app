@@ -1,3 +1,4 @@
+//general layout
 #root {
   font-family: sans-serif;
   width: 1500px;
@@ -5,6 +6,12 @@
   border: 1px solid black;
   margin: auto;
 }
+
+.hide {
+  display: none
+}
+
+//Top of page
 
 .header {
   display: flex;
@@ -30,28 +37,16 @@
   margin: 5px;
 }
 
-.btn-nav {
-  display: inline-block;
-  background: lightgray;
-  border-radius: 7px;
-  border: 1px solid darkgray;
-  padding: 0px 5px;
-  margin: 5px;
-  height: 30px;
-  cursor: pointer;
-}
-
-.btn-nav:hover {
-  background: darkgray;
-  transition: background 0.3s;
-}
-
 .logo {
   font-size: 40px;
   float: left;
   border: 1px solid red;
   padding: 0 10px;
 }
+
+
+
+// Side navigation
 
 .main-nav {
   border: 1px solid orange;
@@ -73,12 +68,52 @@
   margin-left: 10px;
 }
 
+
+// Body
+
 .main-body {
   border: 1px solid greenyellow;
   width: 79%;
   height: 500px;
   float: right;
   overflow-y: scroll;
+}
+
+
+// Forms
+
+
+.form {
+  border: 1px solid gainsboro;
+  border-radius: 7px;
+  margin-top: 10px;
+  margin-right: 5px;
+  background: lavender;
+}
+
+.form form {
+  padding: 5px 10px;
+  display: flex;
+}
+
+
+
+//Buttons
+
+.btn-nav {
+  display: inline-block;
+  background: lightgray;
+  border-radius: 7px;
+  border: 1px solid darkgray;
+  padding: 0px 5px;
+  margin: 5px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.btn-nav:hover {
+  background: darkgray;
+  transition: background 0.3s;
 }
 
 .btn-link {
@@ -101,114 +136,4 @@
 
 .submit:hover {
   text-decoration: underline;
-}
-
-.form {
-  border: 1px solid gainsboro;
-  border-radius: 7px;
-  margin-top: 10px;
-  margin-right: 5px;
-  background: lavender;
-}
-
-.form form {
-  padding: 5px 10px;
-  display: flex;
-}
-
-.hide {
-  display: none
-}
-
-.collection-show {
-  border: 1px solid lawngreen;
-}
-
-.collection-show h2 {
-  font-size: 30px;
-  font-style: italic;
-  margin-bottom: 10px;
-}
-
-.boards-show {
-  border: 1px solid orchid;
-}
-
-.boards-show header {
-  display: flex;
-}
-
-.boards-show header > div {
-  display: flex;
-  margin-top: 10px;
-  width: 200px;
-  border: 1px solid blue;
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 5px;
-  justify-content: space-between
-}
-
-.boards-show header button {
-  display: none;
-}
-
-.boards-show header:hover button {
-  display: flex;
-  float: left;
-}
-
-.boards-show li > section {
-  font-size: 15px;
-  display: block;
-}
-
-.board-columns {
-  border: 1px solid paleturquoise;
-  margin-bottom: 20px;
-}
-
-.board-columns ul {
-  display: flex;
-}
-
-.column {
-  border: 1px solid yellow;
-  width: 200px;
-  min-height: 150px;
-  padding-left: 5px;
-  flex-wrap: wrap;
-  margin-right: 20px;
-}
-
-.column-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.column-header button {
-  display:none;
-}
-
-.column-header:hover button {
-  display:block;
-}
-
-.column h4 {
-  font-size: 15px;
-  font-weight: bold;
-
-}
-
-ul.cards-list {
-  display: inline-block;
-
-}
-
-.cards-list > li {
-  width: 194px;
-  border: 1px solid purple;
-  vertical-align: top;
-  margin-bottom: 5px;
-  padding: 10px 0 5px 5px;
 }

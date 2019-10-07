@@ -1,1 +1,1 @@
-json.extract! board, :id, :title, :order
+json.extract! board, :id, :title, :order, :ordered_columns

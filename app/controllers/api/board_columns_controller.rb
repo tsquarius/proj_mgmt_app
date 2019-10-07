@@ -13,6 +13,8 @@ class Api::BoardColumnsController < ApplicationController
   def create
     @board_column = BoardColumn.new(board_column_params)
     @board_column.board_id = params[:board_id]
+    @board_column.order = Board.find_next_order(params[:board_id])
+
     if @board_column.save
       render :show
     else

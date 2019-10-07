@@ -7,7 +7,7 @@ const mapStateToProps = ({session, entities}, ownProps) => ({
   collections: entities.collections
 });
 
-const mapDispatchToProps = action => ({
+const mapDispatchToProps = dispatch => ({
 
 });
 

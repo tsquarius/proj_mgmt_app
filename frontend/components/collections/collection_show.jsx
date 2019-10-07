@@ -1,5 +1,19 @@
 import React from 'react';
 import BoardShowContainer from '../boards/board_show_container';
+import styled from 'styled-components';
+
+//Styles
+const Container = styled.div``;
+const Title = styled.h2`
+  padding: 10px;
+  font-size: 30px;
+  font-style: italic;
+`;
+const Boards = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
+// end
 
 class CollectionShow extends React.Component {
 
@@ -43,13 +57,13 @@ class CollectionShow extends React.Component {
       )
 
     return (
-      <div className='collection-show'>
-        <h2>{collection ? collection.title : ''}</h2>
-        <ul className='boards-show'>
-          {boardsList}
-        </ul>
+      <Container>
+        <Title>{collection ? collection.title: ''}</Title>
+          <Boards>
+            {boardsList}
+          </Boards>
         <button className='submit' onClick={this.createNewBoard()}>New Board</button>
-      </div>
+      </Container>
     )
   }
 }

@@ -1,44 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-class CardsForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {title: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
+const CardsForm = props => {
 
-  handleChange(e) {
-    this.setState({title: e.target.value});
-  }
+  const {postCard, bcId, closeForm} = props;
+  const [title, setTitle] = useState('');
 
-  handleSubmit(e) {
+  const handleChange = e => {
     e.preventDefault();
-    const {bcId, postCard} = this.props;
-    const card = Object.assign({}, this.state);
+    setTitle(e.target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const card = {title: title};
     postCard(bcId, card)
-    .then(() => {
-      this.setState({title: ''});
-      this.props.closeForm();
-    });
-  }
+      .then(() => {
+        setTitle(''); closeForm();
+      });
+  };
 
-  handleClose(e) {
+  const handleClose = e => {
     e.preventDefault();
-    this.props.closeForm();
-  }
+    closeForm();
+  };
 
-  render() {
+  return(
+    <form>
+      <textarea onChange={handleChange} value={title} />
+      <button className='submit' onClick={handleSubmit}>save</button>
+      <button className='submit' onClick={handleClose}>x</button>
+    </form>
+  )
 
-    return(
-      <form>
-        <textarea onChange={this.handleChange} value={this.state.title} />
-        <button className='submit' onClick={this.handleSubmit}>save</button>
-        <button className='submit' onClick={this.handleClose}>x</button>
-      </form>
-    )
-  }
 }
 
 export default CardsForm;

@@ -1,0 +1,23 @@
+// Place all the styles related to the api/cards controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+ul.cards-list {
+  display: inline-block;
+
+}
+
+.card {
+  width: 194px;
+  border: 1px solid purple;
+  vertical-align: top;
+  margin-bottom: 5px;
+  padding: 10px 0 10px 5px;
+  cursor: pointer;
+  background: white;
+}
+
+
+.card:hover {
+  background: lightgray;
+  transition: background 0.3s;
+}

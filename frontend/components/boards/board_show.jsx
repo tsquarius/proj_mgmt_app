@@ -1,44 +1,76 @@
-import React from 'react';
-import BoardFormContainer from './board_form_container';
+import React, { useState } from 'react';
 import BoardColumnsContainer from '../board_columns/board_columns_show_container';
+import styled from 'styled-components';
 
-class BoardShow extends React.Component {
+const Container = styled.div`
+  display: block
+  padding-left: 12px;
+`;
 
-  handleDelete(boardId) {
+const Header = styled.header`
+  display: flex;
+  input {
+    font-size: 20px;
+    padding: 5px 0;
+    :focus {
+      border: 1px solid black;
+    }
+  }
+`;
+
+const ButtonToggle = styled.button`
+  display: none;
+  :hover {
+    color: orange;
+    transition: color 0.3s;
+  }
+  ${Header}:hover & {
+    display: block;
+    background: inherit;
+    border: none;
+    cursor: pointer;
+  }
+`;
+
+const BoardShow = props => {
+
+  const {deleteBoard, board, updateBoard} = props;
+  const [title, setTitle] = useState(board.title);
+
+  const handleTitleChange = e => {
+    setTitle(e.target.value);
+  };
+
+  const handleDelete = boardId => {
     return e => {
       e.preventDefault();
-      this.props.deleteBoard(boardId);
+      deleteBoard(boardId);
     };
-  }
+  };
 
-  renderUpdate(boardId) {
+  const handleUpdate = boardId => {
     return e => {
       e.preventDefault();
-      this.props.updateForm(boardId);
+      const newBoard = Object.assign({}, board);
+      updateBoard(boardId, newBoard);
     };
-  }
+  };
 
-  render() {
-    const {board, formId, active} = this.props;
-    return (
-      <li key={board.id}>
-        <header>
-          <div>
-            <h3>{board.title}</h3>
-            <nav>
-              <button className='submit' onClick={this.renderUpdate(board.id)}>Edit</button>
-              <button className='submit' onClick={this.handleDelete(board.id)}>Del</button>
-            </nav>
-          </div>
-          <section className={(formId === board.id && active) ? '' : 'hide'}>
-            <BoardFormContainer board={board} />
-          </section>
-        </header>
-
+  return (
+    <Container key={board.id}>
+      <Header>
+        <input 
+          type='text' 
+          value={title} 
+          onChange={handleTitleChange} />
+        <nav>
+          <ButtonToggle onClick={handleUpdate(board.id)}>Save Change</ButtonToggle>
+          <ButtonToggle onClick={handleDelete(board.id)}>Del</ButtonToggle>
+        </nav>
+      </Header>
         <BoardColumnsContainer boardId={board.id} />
-      </li>
-    )
-  }
+    </Container>
+  )
 }
 
 export default BoardShow;

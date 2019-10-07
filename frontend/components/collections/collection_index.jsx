@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FormContainer from '../collections/collection_form_container';
+import styled from 'styled-components';
 
 class CollectionIndex extends React.Component {
 
@@ -46,8 +47,8 @@ class CollectionIndex extends React.Component {
     const collectionArray = this.props.collections.map(col =>
       <li key={col.id}>
         <Link className='btn-link' to={`/collection/${col.id}`}>{col.title}</Link>
-        <button className='btn-link' onClick={this.updateForm(col.id)}>edit</button>
-        <button className='btn-link' onClick={this.handleDelete(col.id)}>delete</button>
+        {/* <button className='btn-link' onClick={this.updateForm(col.id)}>edit</button>
+        <button className='btn-link' onClick={this.handleDelete(col.id)}>delete</button> */}
       </li>
     )
     return collectionArray;

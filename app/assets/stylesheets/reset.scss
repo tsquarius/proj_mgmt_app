@@ -5,7 +5,7 @@ del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
+table, caption, tbody, tfoot, thead, tr, th, td, input {
   margin: 0;
   padding: 0;
   border: 0;
@@ -31,7 +31,7 @@ body {
   color: black;
   background: white;
 }
-ol, ul {
+ol, ul, li {
   list-style: none;
 }
 /* tables still need 'cellspacing="0"' in the markup */
@@ -49,4 +49,12 @@ q:before, q:after {
 }
 blockquote, q {
   quotes: "" "";
+}
+
+input[disabled] {
+  background: inherit;
+  color: inherit;
+  font-size: inherit;
+  border: none;
+  cursor: text;
 }

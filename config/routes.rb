@@ -9,13 +9,17 @@ Rails.application.routes.draw do
     end
     
     resources :boards, only: [:show, :destroy, :update] do
-      resources :board_columns, only: [:create]
+      resources :board_columns, only: [:create, :index]
     end
 
     resources :users, only: [:show, :create, :index]
-    resources :board_columns, only: [:index, :show, :destroy, :update] do
+    resources :board_columns, only: [:show, :destroy, :update] do
       resources :cards, only: [:create]
     end
-    resources :cards, only: [:show, :destroy, :update]
+    resources :cards, only: [:show, :destroy, :update] do
+      collection do
+        patch :reorder
+      end
+    end
   end
 end

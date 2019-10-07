@@ -14,6 +14,7 @@ class Collection < ApplicationRecord
 
   validates :author_id, :title, presence: true
   has_many :boards, dependent: :destroy
+  has_many :board_columns, through: :boards
 
   def include_all_childs
     collection = self.boards.includes(:board_columns)

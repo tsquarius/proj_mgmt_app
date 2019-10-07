@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {fetchCard, destroyCard} from '../../actions/card_actions';
+import {fetchCard, destroyCard, patchCard} from '../../actions/card_actions';
 
 import CardShow from './cards_show';
 
@@ -8,8 +8,9 @@ const mapStateToProps = ({entities},{match}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  deleteCard: card => dispatch(destroyCard(card)),
-  fetchCard: cardId => dispatch(fetchCard(cardId))
+  deleteCard: cardId => dispatch(destroyCard(cardId)),
+  fetchCard: cardId => dispatch(fetchCard(cardId)),
+  patchCard: (cardId, card) => dispatch(patchCard(cardId, card))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(CardShow);

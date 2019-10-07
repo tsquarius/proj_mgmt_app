@@ -7,8 +7,13 @@ class Api::CardsController < ApplicationController
 
   def create
     @card = Card.new(card_params)
-    @card.author_id = current_user.id
-    @card.board_column_id = params[:board_column_id]
+    next_order = Card.find_next_order(params[:board_column_id])
+
+    @card.assign_attributes(
+      author_id: current_user.id,
+      board_column_id: params[:board_column_id],
+      order: next_order
+    )
 
     if @card.save
       render :show
@@ -28,7 +33,7 @@ class Api::CardsController < ApplicationController
   
   def destroy
     @card = Card.find(params[:id])
-    if @board.destroy
+    if @card.destroy
       render :show
     else
       render json: ['Card does not exist'], status: 422
@@ -38,7 +43,8 @@ class Api::CardsController < ApplicationController
   private
 
   def card_params
-    params.require(:card).permit(:archived, :title, :color, :due_date, :description, :order)
+    params.require(:card).permit(:archived, :title, 
+    :color, :due_date, :description, :order, :reorder, :board_column_id)
   end
 
 end

@@ -1,0 +1,39 @@
+// Place all the styles related to the api/board_columns controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.board-columns {
+  border: 1px solid paleturquoise;
+  margin-bottom: 20px;
+}
+
+.board-columns ul {
+  display: flex;
+}
+
+.column {
+  border: 1px solid yellow;
+  width: 200px;
+  min-height: 150px;
+  padding-left: 5px;
+  flex-wrap: wrap;
+  margin-right: 20px;
+}
+
+.column-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-header button {
+  display:none;
+}
+
+.column-header:hover button {
+  display:block;
+}
+
+.column h4 {
+  font-size: 15px;
+  font-weight: bold;
+}

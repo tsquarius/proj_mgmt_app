@@ -13,6 +13,15 @@ export const boardColumnArray = (boardColumns, boardId) => {
 };
 
 export const cardColumnArray = (cards, bcId) => {
-  const arr = objToArray(cards);
-  return arr.filter(obj => { return obj.board_column_id === bcId; });
+  let arr = [];
+  let cardsArr = objToArray(cards);
+  
+  cardsArr.forEach(obj => {
+    if (obj.board_column_id === bcId) {
+      const position = obj.order;
+      arr[position] = obj;
+    }
+  });
+  
+  return arr;
 };

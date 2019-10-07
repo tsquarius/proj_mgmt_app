@@ -1,51 +1,103 @@
 // this will open up a detail view of the card
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
+import {withRouter} from 'react-router-dom';
 
-class CardsShow extends React.Component {
+const CardsShow = (props) => {
+  const {card, fetchCard, patchCard, deleteCard} = props;  
+  const cardId = props.match.params.cardId;
+  const collectionId = props.match.params.collectionId;
+  
+  useEffect(() => {
+    fetchCard(props.match.params.cardId);
+    localStorage.setItem('state', JSON.stringify(card));
+  }, []);
 
-  constructor(props) {
-    super(props);
-    this.handleDelete = this.handleDelete.bind(this);
+  // const mounted = useRef();
+  // useEffect(() => {
+  //   if (!mounted.current) {
+  //     mounted.current = true;
+  //   } else {
+  //     fetchCard(props.match.params.cardId);
+  //   }
+  // });
+  
+  window.props = props;
+
+  const [title, setTitle] = useState(card ? card.title : localStorage.getItem('state').title);
+  const [color, setColor] = useState(card ? card.color : '');
+  const [dueDate, setDueDate] = useState(card ? card.due_date : '');
+  const [description, setDescription] = useState(card ? card.description : '');
+  
+  const cardObj = {
+    title: title,
+    color: color,
+    due_date: dueDate,
+    description: description
+  };
+
+  function handleTitleChange(e) {
+    setTitle(e.target.value);
   }
 
-  componentDidMount() {
-    const id = this.props.match.params.cardId;
-    this.props.fetchCard(id);
+  function handleColorChange(e) {
+    setColor(e.target.value);
   }
 
-  componentDidUpdate(prevProps) {
-    const oldCard = prevProps.card;
-    const newCard = this.props.card;
-    const {fetchCard, match} = this.props;
-
-    Object.keys(oldCard).forEach(key => {
-      if (oldCard[key] !== newCard[key]) {
-        fetchCard(match.params.cardId);
-      }
-    });
+  function handleDueDateChange(e) {
+    setDueDate(e.target.value);
   }
 
-  handleDelete(e) {
+  function handleDescriptionChange(e) {
+    setDescription(e.target.value);
+  }
+
+  function handleSubmit(e) {
     e.preventDefault();
-    this.props.deleteCard(this.props.match.params.cardId)
-    .then(this.props.history.push(`/collection/${this.props.match.params.collectionId}`));
+    patchCard(cardId, cardObj)
+      .then(props.history.push(`/collection/${collectionId}`));
   }
 
-  // should add tags & member later
-  render() {
-    const {card} = this.props;
-    return (
-      <section className='card-details'>
-        <ul>
-          <li>{card.title}</li>
-          <li>Due: {card.due_date}</li>
-          <li>Description: {card.description}</li>
-        </ul>
-        <button onClick={this.handleDelete}>x</button>
-      </section>
-    )
+  function handleDelete(e) {
+    e.preventDefault();
+    deleteCard(cardId)
+      .then(props.history.push(`/collection/${collectionId}`));
   }
+
+  console.log(cardId);
+
+  return (
+    <section className='card-details'>
+      <ul>
+        <li>
+          <input  
+            value={title || ''} 
+            onChange={handleTitleChange}/>
+        </li>
+        <li>
+          Due: 
+          <input
+            value={dueDate || ''}
+            onChange={handleDueDateChange} />
+        </li>
+        <li>
+          Description: 
+          <input
+            value={description || ''}
+            onChange={handleDescriptionChange} />
+        </li>
+        <li>
+          Color
+          <input
+            value={color || ''}
+            onChange={handleColorChange}
+          />
+        </li>
+        <button onClick={handleSubmit}>Save</button>
+        <button onClick={handleDelete}>Delete</button>
+      </ul>
+    </section>
+  )
 
 }
 
-export default CardsShow;
+export default withRouter(CardsShow);
