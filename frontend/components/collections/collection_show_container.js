@@ -1,24 +1,30 @@
 import {connect} from 'react-redux';
 import CollectionShow from './collection_show';
-import {fetchBoards, deleteBoard, createBoard} from '../../actions/board_actions';
-import {objToArray} from '../../reducers/selectors';
+import {fetchBoards, createBoard} from '../../actions/board_actions';
+import {fetchCollection} from '../../actions/collection_actions';
+import {reorderCards} from '../../actions/board_column_actions';
 import {patchCard} from '../../actions/card_actions';
 
-
-const mapStateToProps = ({entities, ui}, {match}) => ({
-  collection: entities.collections[match.params.collectionId],
-  boards: objToArray(entities.boards),
-  collectionId: match.params.collectionId,
-  activeBoardForm: ui.forms.boards.form,
-});
+//need to pull bcId => cards mapping
+const mapStateToProps = ({entities, ui}, {match}) => {
+  return ({
+    collection: entities.collections[match.params.collectionId],
+    collectionId: match.params.collectionId,
+    loading: ui.loader.loading,
+    boardColumns: entities.boardColumns
+  });
+};
 
 
 //import fetchCollection && then include the boards in here
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, {match}) => ({
+  fetchCollection: collectionId => dispatch(fetchCollection(collectionId)),
   fetchBoards: collectionId => dispatch(fetchBoards(collectionId)),
-  deleteBoard: boardId => dispatch(deleteBoard(boardId)),
   newBoard: (collectionId, board) => dispatch(createBoard(collectionId, board)),
+  //below are included for drag&drop features
   patchCard: (cardId, card) => dispatch(patchCard(cardId,card)),
+  reorderCards: cardArr => dispatch(reorderCards(cardArr))
+
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(CollectionShow);

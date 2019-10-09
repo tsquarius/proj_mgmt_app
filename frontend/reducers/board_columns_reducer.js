@@ -1,7 +1,8 @@
 import {
   RECEIVE_SINGLE_BOARD_COLUMN,
   DELETE_BOARD_COLUMN,
-  RECEIVE_BOARD_COLUMNS
+  RECEIVE_BOARD_COLUMNS,
+  REORDER_CARDS
 } from '../actions/board_column_actions';
 
 import {
@@ -10,7 +11,6 @@ import {
 } from '../actions/card_actions';
 
 import {RECEIVE_BOARDS} from '../actions/board_actions';
-
 
 const boardColumnsReducer = (state={}, action) => {
   Object.freeze(state);
@@ -23,11 +23,19 @@ const boardColumnsReducer = (state={}, action) => {
     case RECEIVE_BOARD_COLUMNS:
       return Object.assign({}, action.boardColumns);
     case RECEIVE_SINGLE_BOARD_COLUMN:
-      bcId = action.boardColumn.id;
-      return Object.assign({}, state, {[bcId]: action.boardColumn});
+      bcId = action.payload.boardColumn.id;
+      return Object.assign({}, state, {[bcId]: action.payload.boardColumn});
     case DELETE_BOARD_COLUMN:
-      let deleteId = action.boardColumn.id;
-      delete newState[deleteId];
+      bcId = action.payload.boardColumn.id;
+      delete newState[bcId];
+      return newState;
+    case RECEIVE_CARD:
+      return Object.assign({}, state, action.payload.boardColumn);
+    case DELETE_CARD:
+      return Object.assign({}, state, action.payload.boardColumn);
+    case REORDER_CARDS:
+      bcId = action.cardArray.id; 
+      newState[bcId].cards = action.cardArray.cards;
       return newState;
     default:
       return state;
@@ -36,16 +44,3 @@ const boardColumnsReducer = (state={}, action) => {
 
 export default boardColumnsReducer;
 
-
-//    case RECEIVE_CARD:
-// bcId = action.card.board_column_id;
-// newState[bcId].ordered_cards = action.card.ordered_cards;
-// return newState;
-//     case DELETE_CARD:
-// bcId = action.card.board_column_id;
-
-// const cardArrayFilter = newState[bcId].ordered_cards
-//   .filter(cardId => cardId !== action.card.id);
-
-// newState.ordered_cards = cardArrayFilter;
-// return newState;

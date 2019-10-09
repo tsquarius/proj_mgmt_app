@@ -24,6 +24,7 @@ class Api::CardsController < ApplicationController
   
   def update
     @card = Card.find(params[:id])
+    
     if @card.update_attributes(card_params)
       render :show
     else

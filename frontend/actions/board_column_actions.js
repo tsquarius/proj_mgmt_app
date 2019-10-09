@@ -3,6 +3,8 @@ import * as Util from '../util/board_columns_util';
 export const RECEIVE_BOARD_COLUMNS = 'RECEIVE_BOARD_COLUMNS';
 export const RECEIVE_SINGLE_BOARD_COLUMN = 'RECEIVE_SINGLE_BOARD_COLUMN';
 export const DELETE_BOARD_COLUMN = 'DELETE_BOARD_COLUMN';
+export const REORDER_CARDS = 'REORDER_CARDS';
+
 
 // regular actions
 export const receiveBoardColumns = boardColumns => ({
@@ -10,14 +12,21 @@ export const receiveBoardColumns = boardColumns => ({
   boardColumns
 });
 
-export const receiveSingleBoardColumn = boardColumn => ({
+export const receiveSingleBoardColumn = payload => ({
   type: RECEIVE_SINGLE_BOARD_COLUMN,
-  boardColumn
+  payload
 });
 
-export const deleteBoardColumn = boardColumn => ({
+export const deleteBoardColumn = payload => ({
   type: DELETE_BOARD_COLUMN,
-  boardColumn
+  payload
+});
+
+
+// cardArray format: {id: bcId, cards: [array]}
+export const reorderCards = cardArray => ({
+  type: REORDER_CARDS,
+  cardArray
 });
 
 // thunk actions
@@ -28,16 +37,16 @@ export const fetchBoardColumns = boardId => dispatch =>
 
 export const fetchBoardColumn = boardId => dispatch =>
   Util.fetchBoardColumn(boardId)
-  .then(boardColumn => dispatch(receiveSingleBoardColumn(boardColumn)));
+  .then(payload => dispatch(receiveSingleBoardColumn(payload)));
 
 export const createBoardColumn = (boardId, boardColumn) => dispatch =>
   Util.postBoardColumn(boardId, boardColumn)
-  .then(boardColumn => dispatch(receiveSingleBoardColumn(boardColumn)));
+  .then(payload => dispatch(receiveSingleBoardColumn(payload)));
 
 export const updateBoardColumn = (boardColumnId, boardColumn) => dispatch =>
   Util.patchBoardColumn(boardColumnId, boardColumn)
-  .then(boardColumn => dispatch(receiveSingleBoardColumn(boardColumn)));
+  .then(payload => dispatch(receiveSingleBoardColumn(payload)));
 
 export const destroyBoardColumn = boardColumnId => dispatch =>
   Util.deleteBoardColumn(boardColumnId)
-  .then(boardColumn => dispatch(deleteBoardColumn(boardColumn)));
+  .then(payload => dispatch(deleteBoardColumn(payload)));

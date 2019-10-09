@@ -1,147 +1,153 @@
 import React, {useState, useEffect} from 'react';
-import {withRouter} from 'react-router-dom';
-import CardsIndexContainer from '../cards/cards_index_container';
 import styled from 'styled-components';
-import {DragDropContext} from 'react-beautiful-dnd';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import Loading from '../loading';
 
-const ColumnsContainer = styled.section`
-  width: 1100px;
-  min-height: 200px;
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0;
-`;
+import CardsIndexContainer from '../cards/cards_index_container';
+import NewCardsFormContainer from '../cards/new_cards_form_container';
 
 const Column = styled.div`
   width: 200px;
   border: 1px solid green;
   margin-right: 10px;
   background: lightgray;
-  :last-of-type {
-    background: inherit;
-    border: none;
   }
 `;
 
-const Header = styled.header`
+const HeaderSection = styled.header`
   display: flex;
-  justify-content: space-between;
-  h4 {
-    font-size: 20px;
+  input {
+    font-size: 15px;
+    font-weight: bold;
     padding: 5px;
+    border: none;
+    background: inherit;
+    width: 90%;
+    float: left;
+    :focus {
+      border: 1px solid black;
+    }
   }
+`;
+
+const ToggleNav = styled.nav`
+  float: right;
+  display: none;
+  ${HeaderSection}:hover & {
+    display: flex;
+  }
+`;
+
+const CardsSection = styled.article`
+  padding: 10px;
+  background: ${props => (props.isDraggingOver ? 'gray' : 'inherit')};
+  transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+`;
+
+const PseudoCard = styled.div`
+  min-height: 20px;
+`;
+
+const Form = styled.div`
+  padding: 10px;
+`;
+
+const DragBar = styled.div`
+  background: green;
+  height: 10px;
 `;
 
 const BoardColumnsShow = props => {
 
-  const { boardId, createColumn, destroyBoardColumn, 
-    boardColumns, fetchBoardColumns, patchCard } = props;
-  const [bcArray, setBcArray] = useState(boardColumns);
-  
-  // useEffect(() => {
-  //   fetchBoardColumns(boardId);
-  // },[]);
+  const { fetchBoardColumn, destroyBoardColumn, boardColumn, 
+    updateBoardColumn, activeForm, newCard, bcId, index } = props;
+
+  const [title, setTitle] = useState('');
 
 
-  const handleUpdateBcArray = col => {
-    let filteredArr = bcArray.filter(bc => bc.id !== col.id);
-    setBcArray([...filteredArr, col]);
-  };
+  useEffect(() => {
+    if (boardColumn) {
+      setTitle(boardColumn.title);
+    }
+  }, [boardColumn ? boardColumn.title : ''] );
 
-  const addColumn = e => {
+  const handleTitleChange = e => {
     e.preventDefault();
-    const _defaultColumn = {
-      title: 'New Column',
-      order: 0
-    };
-    createColumn(boardId, _defaultColumn);
+    setTitle(e.target.value);
   };
 
-  const removeColumn = bcId => {
-    return e => {
-      e.preventDefault();
-      destroyBoardColumn(bcId);
-    };
+  const handleSubmitTitle = e => {
+    e.preventDefault();
+    updateBoardColumn(boardColumn.id, {title: title});
   };
 
-  const renderCardOrder = bcId => {
-    const col = bcArray.filter(bc => bc.id === bcId)[0];
-    return col.ordered_cards;
+  const removeColumn = e => {
+    e.preventDefault();
+    destroyBoardColumn(boardColumn.id);
   };
 
-  const renderColumns = () => {
-    const columns = boardColumns.map((column,index) =>
-      <Column key={index}>
-        <Header>
-          <h4>{column.title}</h4>
-          <button onClick={removeColumn(column.id)} className='submit'>Del</button>        
-        </Header>
-        <CardsIndexContainer bcId={column.id} cardArray={renderCardOrder(column.id)} />
+  const renderCards = () => {
+    return (
+      <Droppable droppableId={bcId} type='card'>
+        {(provided, snapshot) => (
+          <CardsSection 
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            isDraggingOver={snapshot.isDraggingOver}
+          >
+            {boardColumn.cards.map((cardId,index) => 
+              <CardsIndexContainer cardId={cardId} key={cardId} index={index} />)}
+            
+            <PseudoCard>
+              {provided.placeholder}
+            </PseudoCard>
+            
+          </CardsSection>      
+        )}
+      </Droppable>
+    )
+  };
+
+  const renderNewCardForm = e => {
+    e.preventDefault();
+    newCard(boardColumn.id);
+  };
+
+  if (!boardColumn) {
+    return (
+      <Loading />
+    )
+  } else {
+
+    return(
+      <Column>
+        <HeaderSection >
+          <input type='text' value={title} onChange={handleTitleChange} />
+          <ToggleNav>
+            <button onClick={handleSubmitTitle} className='submit'>Save</button>
+            <button onClick={removeColumn} className='submit'>Del</button>
+          </ToggleNav>
+        </HeaderSection>
+
+
+          {renderCards()}
+
+          <Form>
+            <div className={activeForm.bcId === boardColumn.id ? '' : 'hide'}>
+              <NewCardsFormContainer bcId={boardColumn.id} />
+            </div>
+          </Form>
+
+          <button
+            className='submit'
+            onClick={renderNewCardForm}>
+            Add card...
+          </button>
       </Column>
     )
-    return columns;
   }
-
-  const onDragEnd = result => {
-    console.log(result);
-    const {destination, source, draggableId} = result;
-    if (!destination) { return; }
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-
-    const sourceColumn = [...bcArray].find(bc => bc.id === source.droppableId);
-    const destColumn = [...bcArray].find(bc => bc.id === destination.droppableId);
-
-    const sourceCardIds = Array.from(sourceColumn.ordered_cards);
-    const destCardIds = Array.from(destColumn.ordered_cards);
-
-    // remove card from its starting point
-    sourceCardIds.splice(source.index, 1);
-
-    // drop card into new destination 
-    if (destination.droppableId !== source.droppableId) {
-      //if card moved to a new column:
-      destCardIds.splice(destination.index, 0, draggableId)
-      destCardIds.forEach((cardId, index) => {
-        patchCard(cardId, {
-          order: index, 
-          board_column_id: destColumn.id});
-      })
-      destColumn.ordered_cards = destCardIds;
-      handleUpdateBcArray(destColumn);
-    } else {
-      //if card moved within same column:
-      sourceCardIds.splice(destination.index, 0, draggableId);
-    }
-
-    // update order in original column
-    sourceCardIds.forEach((cardId, index) => {
-      patchCard(cardId, {
-        order: index,
-        board_column_id: sourceColumn.id
-      });
-    })
-
-    sourceColumn.ordered_cards = sourceCardIds;
-    handleUpdateBcArray(sourceColumn);
-  }
-
-  return(
-    <DragDropContext onDragEnd={onDragEnd}>
-      <ColumnsContainer>
-        {renderColumns()}
-        <Column>
-          <button className='submit' onClick={addColumn}>Add Column...</button>
-        </Column>
-      </ColumnsContainer>
-    </DragDropContext>
-  )
-  
-
 }
 
-export default withRouter(BoardColumnsShow);
+export default BoardColumnsShow;

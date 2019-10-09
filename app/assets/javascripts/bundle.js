@@ -90,7 +90,7 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/board_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_BOARDS, RECEIVE_SINGLE_BOARD, DELETE_BOARD, receiveBoards, receiveBoard, removeBoard, fetchBoards, fetchBoard, createBoard, updateBoard, deleteBoard */
+/*! exports provided: RECEIVE_BOARDS, RECEIVE_SINGLE_BOARD, DELETE_BOARD, START_LOADING_ALL_BOARDS, receiveBoards, receiveBoard, removeBoard, startLoadingAllBoards, fetchBoards, fetchBoard, createBoard, updateBoard, deleteBoard */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,9 +98,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_BOARDS", function() { return RECEIVE_BOARDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SINGLE_BOARD", function() { return RECEIVE_SINGLE_BOARD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_BOARD", function() { return DELETE_BOARD; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "START_LOADING_ALL_BOARDS", function() { return START_LOADING_ALL_BOARDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveBoards", function() { return receiveBoards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveBoard", function() { return receiveBoard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeBoard", function() { return removeBoard; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startLoadingAllBoards", function() { return startLoadingAllBoards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBoards", function() { return fetchBoards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBoard", function() { return fetchBoard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createBoard", function() { return createBoard; });
@@ -110,7 +112,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_BOARDS = 'RECEIVE_BOARDS';
 var RECEIVE_SINGLE_BOARD = 'RECEIVE_SINGLE_BOARD';
-var DELETE_BOARD = 'DELETE_BOARD'; //regular actions
+var DELETE_BOARD = 'DELETE_BOARD';
+var START_LOADING_ALL_BOARDS = 'START_LOADING_ALL_BOARDS'; //regular actions
 
 var receiveBoards = function receiveBoards(payload) {
   return {
@@ -118,16 +121,22 @@ var receiveBoards = function receiveBoards(payload) {
     payload: payload
   };
 };
-var receiveBoard = function receiveBoard(board) {
+var receiveBoard = function receiveBoard(payload) {
   return {
     type: RECEIVE_SINGLE_BOARD,
-    board: board
+    payload: payload
   };
 };
-var removeBoard = function removeBoard(board) {
+var removeBoard = function removeBoard(payload) {
   return {
     type: DELETE_BOARD,
-    board: board
+    payload: payload
+  };
+}; // loader
+
+var startLoadingAllBoards = function startLoadingAllBoards() {
+  return {
+    type: START_LOADING_ALL_BOARDS
   };
 }; //thunk actions
 
@@ -140,8 +149,8 @@ var fetchBoards = function fetchBoards(collectionId) {
 };
 var fetchBoard = function fetchBoard(boardId) {
   return function (dispatch) {
-    return _util_board_util__WEBPACK_IMPORTED_MODULE_0__["fetchBoard"](boardId).then(function (board) {
-      return dispatch(receiveBoard(board));
+    return _util_board_util__WEBPACK_IMPORTED_MODULE_0__["fetchBoard"](boardId).then(function (payload) {
+      return dispatch(receiveBoard(payload));
     });
   };
 };
@@ -161,8 +170,8 @@ var updateBoard = function updateBoard(boardId, board) {
 };
 var deleteBoard = function deleteBoard(boardId) {
   return function (dispatch) {
-    return _util_board_util__WEBPACK_IMPORTED_MODULE_0__["deleteBoard"](boardId).then(function (board) {
-      return dispatch(removeBoard(board));
+    return _util_board_util__WEBPACK_IMPORTED_MODULE_0__["deleteBoard"](boardId).then(function (payload) {
+      return dispatch(removeBoard(payload));
     });
   };
 };
@@ -173,7 +182,7 @@ var deleteBoard = function deleteBoard(boardId) {
 /*!**************************************************!*\
   !*** ./frontend/actions/board_column_actions.js ***!
   \**************************************************/
-/*! exports provided: RECEIVE_BOARD_COLUMNS, RECEIVE_SINGLE_BOARD_COLUMN, DELETE_BOARD_COLUMN, receiveBoardColumns, receiveSingleBoardColumn, deleteBoardColumn, fetchBoardColumns, fetchBoardColumn, createBoardColumn, updateBoardColumn, destroyBoardColumn */
+/*! exports provided: RECEIVE_BOARD_COLUMNS, RECEIVE_SINGLE_BOARD_COLUMN, DELETE_BOARD_COLUMN, REORDER_CARDS, receiveBoardColumns, receiveSingleBoardColumn, deleteBoardColumn, reorderCards, fetchBoardColumns, fetchBoardColumn, createBoardColumn, updateBoardColumn, destroyBoardColumn */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -181,9 +190,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_BOARD_COLUMNS", function() { return RECEIVE_BOARD_COLUMNS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SINGLE_BOARD_COLUMN", function() { return RECEIVE_SINGLE_BOARD_COLUMN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_BOARD_COLUMN", function() { return DELETE_BOARD_COLUMN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REORDER_CARDS", function() { return REORDER_CARDS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveBoardColumns", function() { return receiveBoardColumns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSingleBoardColumn", function() { return receiveSingleBoardColumn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteBoardColumn", function() { return deleteBoardColumn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "reorderCards", function() { return reorderCards; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBoardColumns", function() { return fetchBoardColumns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchBoardColumn", function() { return fetchBoardColumn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createBoardColumn", function() { return createBoardColumn; });
@@ -193,7 +204,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var RECEIVE_BOARD_COLUMNS = 'RECEIVE_BOARD_COLUMNS';
 var RECEIVE_SINGLE_BOARD_COLUMN = 'RECEIVE_SINGLE_BOARD_COLUMN';
-var DELETE_BOARD_COLUMN = 'DELETE_BOARD_COLUMN'; // regular actions
+var DELETE_BOARD_COLUMN = 'DELETE_BOARD_COLUMN';
+var REORDER_CARDS = 'REORDER_CARDS'; // regular actions
 
 var receiveBoardColumns = function receiveBoardColumns(boardColumns) {
   return {
@@ -201,16 +213,23 @@ var receiveBoardColumns = function receiveBoardColumns(boardColumns) {
     boardColumns: boardColumns
   };
 };
-var receiveSingleBoardColumn = function receiveSingleBoardColumn(boardColumn) {
+var receiveSingleBoardColumn = function receiveSingleBoardColumn(payload) {
   return {
     type: RECEIVE_SINGLE_BOARD_COLUMN,
-    boardColumn: boardColumn
+    payload: payload
   };
 };
-var deleteBoardColumn = function deleteBoardColumn(boardColumn) {
+var deleteBoardColumn = function deleteBoardColumn(payload) {
   return {
     type: DELETE_BOARD_COLUMN,
-    boardColumn: boardColumn
+    payload: payload
+  };
+}; // cardArray format: {id: bcId, cards: [array]}
+
+var reorderCards = function reorderCards(cardArray) {
+  return {
+    type: REORDER_CARDS,
+    cardArray: cardArray
   };
 }; // thunk actions
 
@@ -223,29 +242,29 @@ var fetchBoardColumns = function fetchBoardColumns(boardId) {
 };
 var fetchBoardColumn = function fetchBoardColumn(boardId) {
   return function (dispatch) {
-    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["fetchBoardColumn"](boardId).then(function (boardColumn) {
-      return dispatch(receiveSingleBoardColumn(boardColumn));
+    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["fetchBoardColumn"](boardId).then(function (payload) {
+      return dispatch(receiveSingleBoardColumn(payload));
     });
   };
 };
 var createBoardColumn = function createBoardColumn(boardId, boardColumn) {
   return function (dispatch) {
-    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["postBoardColumn"](boardId, boardColumn).then(function (boardColumn) {
-      return dispatch(receiveSingleBoardColumn(boardColumn));
+    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["postBoardColumn"](boardId, boardColumn).then(function (payload) {
+      return dispatch(receiveSingleBoardColumn(payload));
     });
   };
 };
 var updateBoardColumn = function updateBoardColumn(boardColumnId, boardColumn) {
   return function (dispatch) {
-    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["patchBoardColumn"](boardColumnId, boardColumn).then(function (boardColumn) {
-      return dispatch(receiveSingleBoardColumn(boardColumn));
+    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["patchBoardColumn"](boardColumnId, boardColumn).then(function (payload) {
+      return dispatch(receiveSingleBoardColumn(payload));
     });
   };
 };
 var destroyBoardColumn = function destroyBoardColumn(boardColumnId) {
   return function (dispatch) {
-    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["deleteBoardColumn"](boardColumnId).then(function (boardColumn) {
-      return dispatch(deleteBoardColumn(boardColumn));
+    return _util_board_columns_util__WEBPACK_IMPORTED_MODULE_0__["deleteBoardColumn"](boardColumnId).then(function (payload) {
+      return dispatch(deleteBoardColumn(payload));
     });
   };
 };
@@ -274,44 +293,44 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_CARD = 'RECEIVE_CARD';
 var DELETE_CARD = 'DELETE_CARD'; // regular actions
 
-var receiveCard = function receiveCard(card) {
+var receiveCard = function receiveCard(payload) {
   return {
     type: RECEIVE_CARD,
-    card: card
+    payload: payload
   };
 };
-var deleteCard = function deleteCard(card) {
+var deleteCard = function deleteCard(payload) {
   return {
     type: DELETE_CARD,
-    card: card
+    payload: payload
   };
 }; // thunk actions
 
 var fetchCard = function fetchCard(cardId) {
   return function (dispatch) {
-    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["fetchCard"](cardId).then(function (card) {
-      return dispatch(receiveCard(card));
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["fetchCard"](cardId).then(function (payload) {
+      return dispatch(receiveCard(payload));
     });
   };
 };
 var postCard = function postCard(bcId, card) {
   return function (dispatch) {
-    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["postCard"](bcId, card).then(function (card) {
-      return dispatch(receiveCard(card));
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["postCard"](bcId, card).then(function (payload) {
+      return dispatch(receiveCard(payload));
     });
   };
 };
 var patchCard = function patchCard(cardId, card) {
   return function (dispatch) {
-    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["patchCard"](cardId, card).then(function (card) {
-      return dispatch(receiveCard(card));
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["patchCard"](cardId, card).then(function (payload) {
+      return dispatch(receiveCard(payload));
     });
   };
 };
 var destroyCard = function destroyCard(cardId) {
   return function (dispatch) {
-    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["deleteCard"](cardId).then(function (card) {
-      return dispatch(deleteCard(card));
+    return _util_card_util__WEBPACK_IMPORTED_MODULE_0__["deleteCard"](cardId).then(function (payload) {
+      return dispatch(deleteCard(payload));
     });
   };
 };
@@ -322,7 +341,7 @@ var destroyCard = function destroyCard(cardId) {
 /*!************************************************!*\
   !*** ./frontend/actions/collection_actions.js ***!
   \************************************************/
-/*! exports provided: RECEIVE_COLLECTIONS, RECEIVE_SINGLE_COLLECTION, DELETE_COLLECTION, RECEIVE_COLLECTION_ERRORS, receiveCollections, receiveSingleCollection, deleteCollection, receiveErrors, fetchCollections, fetchCollection, postCollection, updateCollection, destroyCollection */
+/*! exports provided: RECEIVE_COLLECTIONS, RECEIVE_SINGLE_COLLECTION, DELETE_COLLECTION, RECEIVE_COLLECTION_ERRORS, COLLECTION_LOADING, receiveCollections, receiveSingleCollection, deleteCollection, receiveErrors, collectionLoading, fetchCollections, fetchCollection, postCollection, updateCollection, destroyCollection */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -331,10 +350,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SINGLE_COLLECTION", function() { return RECEIVE_SINGLE_COLLECTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_COLLECTION", function() { return DELETE_COLLECTION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COLLECTION_ERRORS", function() { return RECEIVE_COLLECTION_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COLLECTION_LOADING", function() { return COLLECTION_LOADING; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveCollections", function() { return receiveCollections; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSingleCollection", function() { return receiveSingleCollection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteCollection", function() { return deleteCollection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveErrors", function() { return receiveErrors; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "collectionLoading", function() { return collectionLoading; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCollections", function() { return fetchCollections; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchCollection", function() { return fetchCollection; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postCollection", function() { return postCollection; });
@@ -345,7 +366,8 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_COLLECTIONS = 'RECEIVE_COLLECTION';
 var RECEIVE_SINGLE_COLLECTION = 'RECEIVE_SINGLE_COLLECTION';
 var DELETE_COLLECTION = 'DELETE_COLLECTION';
-var RECEIVE_COLLECTION_ERRORS = 'RECEIVE_COLLECTION_ERRORS'; //regular actions
+var RECEIVE_COLLECTION_ERRORS = 'RECEIVE_COLLECTION_ERRORS';
+var COLLECTION_LOADING = 'COLLECTION_LOADING'; //regular actions
 
 var receiveCollections = function receiveCollections(collections) {
   return {
@@ -370,10 +392,16 @@ var receiveErrors = function receiveErrors(errors) {
     type: RECEIVE_COLLECTION_ERRORS,
     errors: errors
   };
+};
+var collectionLoading = function collectionLoading() {
+  return {
+    type: COLLECTION_LOADING
+  };
 }; //thunk actions
 
 var fetchCollections = function fetchCollections() {
   return function (dispatch) {
+    dispatch(collectionLoading());
     return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["fetchCollections"]().then(function (collections) {
       return dispatch(receiveCollections(collections));
     }).fail(function (errs) {
@@ -383,6 +411,7 @@ var fetchCollections = function fetchCollections() {
 };
 var fetchCollection = function fetchCollection(collectionId) {
   return function (dispatch) {
+    dispatch(collectionLoading());
     return _util_collection_util__WEBPACK_IMPORTED_MODULE_0__["fetchCollection"](collectionId).then(function (collection) {
       return dispatch(receiveSingleCollection(collection));
     }).fail(function (errs) {
@@ -662,17 +691,12 @@ var App = function App() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _cards_cards_index_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../cards/cards_index_container */ "./frontend/components/cards/cards_index_container.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
+/* harmony import */ var _cards_cards_index_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../cards/cards_index_container */ "./frontend/components/cards/cards_index_container.js");
+/* harmony import */ var _cards_new_cards_form_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../cards/new_cards_form_container */ "./frontend/components/cards/new_cards_form_container.js");
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -682,8 +706,48 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+function _templateObject7() {
+  var data = _taggedTemplateLiteral(["\n  background: green;\n  height: 10px;\n"]);
+
+  _templateObject7 = function _templateObject7() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  min-height: 20px;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  background: ", ";\n  transition: background-color 0.3s ease;\n  display: flex;\n  flex-direction: column;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  h4 {\n    font-size: 20px;\n    padding: 5px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  float: right;\n  display: none;\n  ", ":hover & {\n    display: flex;\n  }\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -693,7 +757,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  border: 1px solid green;\n  margin-right: 10px;\n  background: lightgray;\n  :last-of-type {\n    background: inherit;\n    border: none;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  input {\n    font-size: 15px;\n    font-weight: bold;\n    padding: 5px;\n    border: none;\n    background: inherit;\n    width: 90%;\n    float: left;\n    :focus {\n      border: 1px solid black;\n    }\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -703,7 +767,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  width: 1100px;\n  min-height: 200px;\n  display: flex;\n  flex-direction: row;\n  margin: 10px 0;\n"]);
+  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  border: 1px solid green;\n  margin-right: 10px;\n  background: lightgray;\n  }\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -719,134 +783,104 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var ColumnsContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].section(_templateObject());
-var Column = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2());
-var Header = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].header(_templateObject3());
+
+var Column = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject());
+var HeaderSection = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].header(_templateObject2());
+var ToggleNav = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].nav(_templateObject3(), HeaderSection);
+var CardsSection = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].article(_templateObject4(), function (props) {
+  return props.isDraggingOver ? 'gray' : 'inherit';
+});
+var PseudoCard = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject5());
+var Form = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject6());
+var DragBar = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject7());
 
 var BoardColumnsShow = function BoardColumnsShow(props) {
-  var boardId = props.boardId,
-      createColumn = props.createColumn,
+  var fetchBoardColumn = props.fetchBoardColumn,
       destroyBoardColumn = props.destroyBoardColumn,
-      boardColumns = props.boardColumns,
-      fetchBoardColumns = props.fetchBoardColumns,
-      patchCard = props.patchCard;
+      boardColumn = props.boardColumn,
+      updateBoardColumn = props.updateBoardColumn,
+      activeForm = props.activeForm,
+      newCard = props.newCard,
+      bcId = props.bcId,
+      index = props.index;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(boardColumns),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
-      bcArray = _useState2[0],
-      setBcArray = _useState2[1]; // useEffect(() => {
-  //   fetchBoardColumns(boardId);
-  // },[]);
+      title = _useState2[0],
+      setTitle = _useState2[1];
 
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (boardColumn) {
+      setTitle(boardColumn.title);
+    }
+  }, [boardColumn ? boardColumn.title : '']);
 
-  var handleUpdateBcArray = function handleUpdateBcArray(col) {
-    var filteredArr = bcArray.filter(function (bc) {
-      return bc.id !== col.id;
-    });
-    setBcArray([].concat(_toConsumableArray(filteredArr), [col]));
-  };
-
-  var addColumn = function addColumn(e) {
+  var handleTitleChange = function handleTitleChange(e) {
     e.preventDefault();
-    var _defaultColumn = {
-      title: 'New Column',
-      order: 0
-    };
-    createColumn(boardId, _defaultColumn);
+    setTitle(e.target.value);
   };
 
-  var removeColumn = function removeColumn(bcId) {
-    return function (e) {
-      e.preventDefault();
-      destroyBoardColumn(bcId);
-    };
-  };
-
-  var renderCardOrder = function renderCardOrder(bcId) {
-    var col = bcArray.filter(function (bc) {
-      return bc.id === bcId;
-    })[0];
-    return col.ordered_cards;
-  };
-
-  var renderColumns = function renderColumns() {
-    var columns = boardColumns.map(function (column, index) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, {
-        key: index
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, column.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: removeColumn(column.id),
-        className: "submit"
-      }, "Del")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_cards_index_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
-        bcId: column.id,
-        cardArray: renderCardOrder(column.id)
-      }));
+  var handleSubmitTitle = function handleSubmitTitle(e) {
+    e.preventDefault();
+    updateBoardColumn(boardColumn.id, {
+      title: title
     });
-    return columns;
   };
 
-  var onDragEnd = function onDragEnd(result) {
-    console.log(result);
-    var destination = result.destination,
-        source = result.source,
-        draggableId = result.draggableId;
+  var removeColumn = function removeColumn(e) {
+    e.preventDefault();
+    destroyBoardColumn(boardColumn.id);
+  };
 
-    if (!destination) {
-      return;
-    }
-
-    if (destination.droppableId === source.droppableId && destination.index === source.index) {
-      return;
-    }
-
-    var sourceColumn = _toConsumableArray(bcArray).find(function (bc) {
-      return bc.id === source.droppableId;
-    });
-
-    var destColumn = _toConsumableArray(bcArray).find(function (bc) {
-      return bc.id === destination.droppableId;
-    });
-
-    var sourceCardIds = Array.from(sourceColumn.ordered_cards);
-    var destCardIds = Array.from(destColumn.ordered_cards); // remove card from its starting point
-
-    sourceCardIds.splice(source.index, 1); // drop card into new destination 
-
-    if (destination.droppableId !== source.droppableId) {
-      //if card moved to a new column:
-      destCardIds.splice(destination.index, 0, draggableId);
-      destCardIds.forEach(function (cardId, index) {
-        patchCard(cardId, {
-          order: index,
-          board_column_id: destColumn.id
+  var renderCards = function renderCards() {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["Droppable"], {
+      droppableId: bcId,
+      type: "card"
+    }, function (provided, snapshot) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardsSection, _extends({
+        ref: provided.innerRef
+      }, provided.droppableProps, {
+        isDraggingOver: snapshot.isDraggingOver
+      }), boardColumn.cards.map(function (cardId, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_cards_index_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          cardId: cardId,
+          key: cardId,
+          index: index
         });
-      });
-      destColumn.ordered_cards = destCardIds;
-      handleUpdateBcArray(destColumn);
-    } else {
-      //if card moved within same column:
-      sourceCardIds.splice(destination.index, 0, draggableId);
-    } // update order in original column
-
-
-    sourceCardIds.forEach(function (cardId, index) {
-      patchCard(cardId, {
-        order: index,
-        board_column_id: sourceColumn.id
-      });
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PseudoCard, null, provided.placeholder));
     });
-    sourceColumn.ordered_cards = sourceCardIds;
-    handleUpdateBcArray(sourceColumn);
   };
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_4__["DragDropContext"], {
-    onDragEnd: onDragEnd
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ColumnsContainer, null, renderColumns(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "submit",
-    onClick: addColumn
-  }, "Add Column..."))));
+  var renderNewCardForm = function renderNewCardForm(e) {
+    e.preventDefault();
+    newCard(boardColumn.id);
+  };
+
+  if (!boardColumn) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Column, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderSection, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "text",
+      value: title,
+      onChange: handleTitleChange
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ToggleNav, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: handleSubmitTitle,
+      className: "submit"
+    }, "Save"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      onClick: removeColumn,
+      className: "submit"
+    }, "Del"))), renderCards(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: activeForm.bcId === boardColumn.id ? '' : 'hide'
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_new_cards_form_container__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      bcId: boardColumn.id
+    }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "submit",
+      onClick: renderNewCardForm
+    }, "Add card..."));
+  }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(BoardColumnsShow));
+/* harmony default export */ __webpack_exports__["default"] = (BoardColumnsShow);
 
 /***/ }),
 
@@ -861,10 +895,8 @@ var BoardColumnsShow = function BoardColumnsShow(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/board_column_actions */ "./frontend/actions/board_column_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
+/* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
 /* harmony import */ var _board_columns_show__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./board_columns_show */ "./frontend/components/board_columns/board_columns_show.jsx");
-/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
-
 
 
 
@@ -873,25 +905,26 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var entities = _ref.entities,
       ui = _ref.ui;
-  var boardId = _ref2.boardId;
+  var bcId = _ref2.bcId;
   return {
-    boardColumns: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_2__["boardColumnArray"])(entities.boardColumns, boardId)
+    boardColumn: entities.boardColumns[bcId],
+    activeForm: ui.forms.cards
   };
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
-    fetchBoardColumns: function fetchBoardColumns(boardId) {
-      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["fetchBoardColumns"])(boardId));
-    },
-    createColumn: function createColumn(boardId, boardColumn) {
-      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["createBoardColumn"])(boardId, boardColumn));
+    fetchBoardColumn: function fetchBoardColumn(boardId) {
+      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["fetchBoardColumn"])(boardId));
     },
     destroyBoardColumn: function destroyBoardColumn(boardColumnId) {
       return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["destroyBoardColumn"])(boardColumnId));
     },
-    patchCard: function patchCard(cardId, card) {
-      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_4__["patchCard"])(cardId, card));
+    updateBoardColumn: function updateBoardColumn(boardColumnId, boardColumn) {
+      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["updateBoardColumn"])(boardColumnId, boardColumn));
+    },
+    newCard: function newCard(bcId) {
+      return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_2__["renderNewCardForm"])(bcId));
     }
   };
 };
@@ -912,7 +945,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _board_columns_board_columns_show_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../board_columns/board_columns_show_container */ "./frontend/components/board_columns/board_columns_show_container.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -921,8 +956,28 @@ function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) ||
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function _templateObject3() {
+function _templateObject5() {
   var data = _taggedTemplateLiteral(["\n  display: none;\n  :hover {\n    color: orange;\n    transition: color 0.3s;\n  }\n  ", ":hover & {\n    display: block;\n    background: inherit;\n    border: none;\n    cursor: pointer;\n  }\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  border: 1px solid green;\n  margin-right: 10px;\n  background: inherit;\n  border: none;\n  }\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  min-width: 1100px;\n  min-height: 200px;\n  display: flex;\n  flex-direction: row;\n  margin: 10px 0;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -956,19 +1011,35 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-var Container = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject());
-var Header = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].header(_templateObject2());
-var ButtonToggle = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].button(_templateObject3(), Header);
+
+
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject());
+var HeaderSection = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].header(_templateObject2());
+var ColumnsSection = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].section(_templateObject3());
+var PseudoColumn = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject4());
+var ButtonToggle = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].button(_templateObject5(), HeaderSection);
 
 var BoardShow = function BoardShow(props) {
   var deleteBoard = props.deleteBoard,
       board = props.board,
-      updateBoard = props.updateBoard;
+      updateBoard = props.updateBoard,
+      boardId = props.boardId,
+      fetchBoard = props.fetchBoard,
+      loading = props.loading,
+      createColumn = props.createColumn;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(board.title),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
       title = _useState2[0],
       setTitle = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    fetchBoard(boardId);
+
+    if (board) {
+      setTitle(board.title);
+    }
+  }, [board ? board.title : '']);
 
   var handleTitleChange = function handleTitleChange(e) {
     setTitle(e.target.value);
@@ -989,19 +1060,41 @@ var BoardShow = function BoardShow(props) {
     };
   };
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, {
-    key: board.id
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Header, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    type: "text",
-    value: title,
-    onChange: handleTitleChange
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonToggle, {
-    onClick: handleUpdate(board.id)
-  }, "Save Change"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonToggle, {
-    onClick: handleDelete(board.id)
-  }, "Del"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_columns_board_columns_show_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    boardId: board.id
-  }));
+  var addColumn = function addColumn(e) {
+    e.preventDefault();
+    createColumn(boardId, {
+      title: 'New Column'
+    });
+  };
+
+  var renderColumns = function renderColumns() {
+    return board.columns.map(function (bcId, index) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_board_columns_board_columns_show_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        bcId: bcId,
+        key: bcId,
+        index: index
+      });
+    });
+  };
+
+  if (!board || loading) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null));
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, {
+      key: board.id
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(HeaderSection, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      type: "text",
+      value: title,
+      onChange: handleTitleChange
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonToggle, {
+      onClick: handleUpdate(board.id)
+    }, "Save Change"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonToggle, {
+      onClick: handleDelete(board.id)
+    }, "Del"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ColumnsSection, null, renderColumns(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PseudoColumn, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "submit",
+      onClick: addColumn
+    }, "Add Column..."))));
+  }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (BoardShow);
@@ -1020,17 +1113,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
-/* harmony import */ var _board_show__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./board_show */ "./frontend/components/boards/board_show.jsx");
+/* harmony import */ var _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/board_column_actions */ "./frontend/actions/board_column_actions.js");
+/* harmony import */ var _board_show__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./board_show */ "./frontend/components/boards/board_show.jsx");
 
 
 
 
 
-var mapStateToProps = function mapStateToProps(_ref) {
-  var ui = _ref.ui;
+
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var entities = _ref.entities,
+      ui = _ref.ui;
+  var boardId = _ref2.boardId;
   return {
+    board: entities.boards[boardId],
     formId: ui.forms.boards.id,
-    active: ui.forms.boards.form
+    active: ui.forms.boards.form,
+    loading: ui.loader.loading
   };
 };
 
@@ -1044,11 +1143,17 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     updateBoard: function updateBoard(boardId, board) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["updateBoard"])(boardId, board));
+    },
+    fetchBoard: function fetchBoard(boardId) {
+      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["fetchBoard"])(boardId));
+    },
+    createColumn: function createColumn(boardId, boardColumn) {
+      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_3__["createBoardColumn"])(boardId, boardColumn));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_board_show__WEBPACK_IMPORTED_MODULE_3__["default"]));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_board_show__WEBPACK_IMPORTED_MODULE_4__["default"]));
 
 /***/ }),
 
@@ -1066,32 +1171,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _new_cards_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./new_cards_form_container */ "./frontend/components/cards/new_cards_form_container.js");
-/* harmony import */ var _cards_index_item__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cards_index_item */ "./frontend/components/cards/cards_index_item.jsx");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  padding: 0px 10px 10px 10px;\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  height: ", ";\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n  background: ", "\n  display: flex;\n  flex-direction: column;\n"]);
+  var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  border: 1px solid lightgray;\n  background: ", ";\n  color: ", "\n  margin-bottom: 3px;\n  padding: 10px 5px;\n  :hover {\n    background: orange;\n    transition: background 0.3s;\n  }\n  min-height: 20px;\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -1107,56 +1191,42 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
-
-var CardsContainer = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].article(_templateObject(), function (props) {
-  return props.isDraggingOver ? 'gray' : 'inherit';
+var Card = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject(), function (props) {
+  return props.isDragging ? 'orange' : 'white';
+}, function (props) {
+  return props.isDragging ? 'white' : 'inherit';
 });
-var Placeholder = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject2(), function (props) {
-  return props.isDraggingOver ? '20px' : '0px';
-});
-var Form = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject3());
 
 var CardsIndex = function CardsIndex(props) {
-  var activeForm = props.activeForm,
-      bcId = props.bcId,
-      newCard = props.newCard,
-      cards = props.cards;
-  var collectionId = props.match.params.collectionId;
+  var card = props.card,
+      index = props.index,
+      deleteCard = props.deleteCard;
 
-  var renderNewCardForm = function renderNewCardForm(e) {
+  var handleDelete = function handleDelete(e) {
     e.preventDefault();
-    newCard(bcId);
+    deleteCard(card.id);
   };
 
-  var renderCards = cards.map(function (card, index) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_index_item__WEBPACK_IMPORTED_MODULE_5__["default"], {
-      card: card,
+  if (!card) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["Draggable"], {
+      draggableId: card.id,
       index: index,
-      key: card.id,
-      collectionId: collectionId
+      type: "card"
+    }, function (provided, snapshot) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Card, _extends({}, provided.draggableProps, provided.dragHandleProps, {
+        ref: provided.innerRef,
+        isDragging: snapshot.isDragging
+      }), card ? card.title : '', react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "submit",
+        onClick: handleDelete
+      }, "Del"));
     });
-  });
-  return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["Droppable"], {
-    droppableId: bcId
-  }, function (provided, snapshot) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardsContainer, _extends({
-      ref: provided.innerRef
-    }, provided.droppableProps, {
-      isDraggingOver: snapshot.isDraggingOver
-    }), renderCards, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Placeholder, {
-      isDraggingOver: snapshot.isDraggingOver
-    }, provided.placeholder));
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: activeForm.bcId === bcId ? '' : 'hide'
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_new_cards_form_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    bcId: bcId
-  }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    className: "submit",
-    onClick: renderNewCardForm
-  }, "Add card...")];
+  }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(CardsIndex));
+/* harmony default export */ __webpack_exports__["default"] = (CardsIndex);
 
 /***/ }),
 
@@ -1171,7 +1241,9 @@ var CardsIndex = function CardsIndex(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_form_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/form_actions */ "./frontend/actions/form_actions.js");
-/* harmony import */ var _cards_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cards_index */ "./frontend/components/cards/cards_index.jsx");
+/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
+/* harmony import */ var _cards_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cards_index */ "./frontend/components/cards/cards_index.jsx");
+
 
 
 
@@ -1179,82 +1251,28 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var entities = _ref.entities,
       ui = _ref.ui;
-  var cardArray = _ref2.cardArray;
-  var cards = cardArray.map(function (id) {
-    return entities.cards[id];
-  });
+  var cardId = _ref2.cardId;
   return {
-    cards: cards,
+    card: entities.cards[cardId],
     activeForm: ui.forms.cards
   };
-};
+}; //     cards: cards,
+//     activeForm: ui.forms.cards
+// };
+
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     newCard: function newCard(bcId) {
       return dispatch(Object(_actions_form_actions__WEBPACK_IMPORTED_MODULE_1__["renderNewCardForm"])(bcId));
+    },
+    deleteCard: function deleteCard(cardId) {
+      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_2__["destroyCard"])(cardId));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_cards_index__WEBPACK_IMPORTED_MODULE_2__["default"]));
-
-/***/ }),
-
-/***/ "./frontend/components/cards/cards_index_item.jsx":
-/*!********************************************************!*\
-  !*** ./frontend/components/cards/cards_index_item.jsx ***!
-  \********************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  border: 1px solid lightgray;\n  background: ", ";\n  margin-bottom: 3px;\n  padding: 10px 5px;\n  :hover {\n    background: orange;\n    transition: background 0.3s;\n  }\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-
-
-
-var Card = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].div(_templateObject(), function (props) {
-  return props.isDragging ? 'orange' : 'white';
-});
-
-var CardsIndexItem = function CardsIndexItem(props) {
-  var card = props.card,
-      index = props.index,
-      collectionId = props.collectionId;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["Draggable"], {
-    draggableId: card.id,
-    index: index
-  }, function (provided, snapshot) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Card, _extends({}, provided.draggableProps, provided.dragHandleProps, {
-      ref: provided.innerRef,
-      isDragging: snapshot.isDragging
-    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-      to: "/collection/".concat(collectionId, "/card/").concat(card.id)
-    }, card.title));
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (CardsIndexItem);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_cards_index__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -1906,25 +1924,19 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _boards_board_show_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../boards/board_show_container */ "./frontend/components/boards/board_show_container.js");
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
+/* harmony import */ var _boards_board_show_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../boards/board_show_container */ "./frontend/components/boards/board_show_container.js");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  display: block\n  padding: 10px;\n  button {\n    font-size: 20px;\n  }\n"]);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+  return data;
+}
 
 function _templateObject3() {
   var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n"]);
@@ -1960,86 +1972,107 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
 
 
+
+
  //Styles
 
-var Container = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].div(_templateObject());
-var Title = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].h2(_templateObject2());
-var Boards = styled_components__WEBPACK_IMPORTED_MODULE_2__["default"].section(_templateObject3()); // end
+var Container = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject());
+var Title = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].h2(_templateObject2());
+var Boards = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].section(_templateObject3());
+var PseudoBoard = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject4()); // end
 
-var CollectionShow =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(CollectionShow, _React$Component);
+var CollectionShow = function CollectionShow(props) {
+  var fetchBoards = props.fetchBoards,
+      collectionId = props.collectionId,
+      patchCard = props.patchCard,
+      newBoard = props.newBoard,
+      collection = props.collection,
+      loading = props.loading,
+      boardColumns = props.boardColumns,
+      reorderCards = props.reorderCards;
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    fetchBoards(collectionId);
+  }, [collectionId]);
 
-  function CollectionShow() {
-    _classCallCheck(this, CollectionShow);
+  var createNewBoard = function createNewBoard(e) {
+    e.preventDefault();
+    newBoard(collectionId, {
+      title: 'New Board'
+    });
+  };
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(CollectionShow).apply(this, arguments));
-  }
+  var boardsList = function boardsList() {
+    return collection.boards.map(function (id) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        key: id,
+        boardId: id
+      });
+    });
+  };
 
-  _createClass(CollectionShow, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var fetchBoards = this.props.fetchBoards;
-      var collectionId = this.props.match.params.collectionId;
-      fetchBoards(collectionId);
-    } // should revisit to make sure it updates whenever we add columns or cards
+  var onDragEnd = function onDragEnd(result) {
+    var destination = result.destination,
+        source = result.source,
+        draggableId = result.draggableId;
+    console.log(result);
 
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var collectionId = this.props.match.params.collectionId;
-
-      if (prevProps.match.params.collectionId !== collectionId || prevProps.boards.length !== this.props.boards.length) {
-        this.props.fetchBoards(collectionId);
-      }
+    if (!destination) {
+      return;
     }
-  }, {
-    key: "handleDelete",
-    value: function handleDelete(boardId) {
-      var _this = this;
 
-      return function (e) {
-        e.preventDefault();
-
-        _this.props.deleteBoard(boardId);
-      };
+    if (destination.droppableId === source.droppableId && destination.index === source.index) {
+      return;
     }
-  }, {
-    key: "createNewBoard",
-    value: function createNewBoard() {
-      var _this2 = this;
 
-      return function (e) {
-        e.preventDefault();
-        var collectionId = _this2.props.collectionId;
+    var sourceColumn = boardColumns[source.droppableId];
+    var destColumn = boardColumns[destination.droppableId];
+    var sourceCardIds = Array.from(sourceColumn.cards);
+    var destCardIds = Array.from(destColumn.cards); // remove card from its starting point
 
-        _this2.props.newBoard(collectionId, {
-          title: 'New Board'
-        });
-      };
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          collection = _this$props.collection,
-          boards = _this$props.boards;
-      var boardsList = boards.map(function (board) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_boards_board_show_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          key: board.id,
-          board: board
+    sourceCardIds.splice(source.index, 1); // drop card into new destination 
+
+    if (destination.droppableId !== source.droppableId) {
+      //if card moved to a new column:
+      destCardIds.splice(destination.index, 0, draggableId);
+      destCardIds.forEach(function (cardId, index) {
+        patchCard(cardId, {
+          order: index,
+          board_column_id: destColumn.id
         });
       });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null, collection ? collection.title : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Boards, null, boardsList), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "submit",
-        onClick: this.createNewBoard()
-      }, "New Board"));
+      reorderCards({
+        id: destination.droppableId,
+        cards: destCardIds
+      });
+    } else {
+      //if card moved within same column:
+      sourceCardIds.splice(destination.index, 0, draggableId);
     }
-  }]);
 
-  return CollectionShow;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+    reorderCards({
+      id: source.droppableId,
+      cards: sourceCardIds
+    }); // update order in original column
+
+    sourceCardIds.forEach(function (cardId, index) {
+      patchCard(cardId, {
+        order: index,
+        board_column_id: sourceColumn.id
+      });
+    });
+  };
+
+  if (loading || !collection) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null));
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Container, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Title, null, collection ? collection.title : ''), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Boards, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["DragDropContext"], {
+      onDragEnd: onDragEnd
+    }, boardsList())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PseudoBoard, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      className: "submit",
+      onClick: createNewBoard
+    }, "Add Board...")));
+  }
+};
 
 /* harmony default export */ __webpack_exports__["default"] = (CollectionShow);
 
@@ -2057,13 +2090,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _collection_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./collection_show */ "./frontend/components/collections/collection_show.jsx");
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/board_actions */ "./frontend/actions/board_actions.js");
-/* harmony import */ var _reducers_selectors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../reducers/selectors */ "./frontend/reducers/selectors.js");
-/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
+/* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+/* harmony import */ var _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/board_column_actions */ "./frontend/actions/board_column_actions.js");
+/* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../actions/card_actions */ "./frontend/actions/card_actions.js");
 
 
 
 
 
+ //need to pull bcId => cards mapping
 
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var entities = _ref.entities,
@@ -2071,31 +2106,59 @@ var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var match = _ref2.match;
   return {
     collection: entities.collections[match.params.collectionId],
-    boards: Object(_reducers_selectors__WEBPACK_IMPORTED_MODULE_3__["objToArray"])(entities.boards),
     collectionId: match.params.collectionId,
-    activeBoardForm: ui.forms.boards.form
+    loading: ui.loader.loading,
+    boardColumns: entities.boardColumns
   };
 }; //import fetchCollection && then include the boards in here
 
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
+  var match = _ref3.match;
   return {
+    fetchCollection: function fetchCollection(collectionId) {
+      return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_3__["fetchCollection"])(collectionId));
+    },
     fetchBoards: function fetchBoards(collectionId) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["fetchBoards"])(collectionId));
-    },
-    deleteBoard: function deleteBoard(boardId) {
-      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["deleteBoard"])(boardId));
     },
     newBoard: function newBoard(collectionId, board) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_2__["createBoard"])(collectionId, board));
     },
+    //below are included for drag&drop features
     patchCard: function patchCard(cardId, card) {
-      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_4__["patchCard"])(cardId, card));
+      return dispatch(Object(_actions_card_actions__WEBPACK_IMPORTED_MODULE_5__["patchCard"])(cardId, card));
+    },
+    reorderCards: function reorderCards(cardArr) {
+      return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_4__["reorderCards"])(cardArr));
     }
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_collection_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/loading.jsx":
+/*!*****************************************!*\
+  !*** ./frontend/components/loading.jsx ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var Loader = function Loader() {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+    src: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Loader);
 
 /***/ }),
 
@@ -2507,12 +2570,23 @@ var boardColumnsReducer = function boardColumnsReducer() {
       return Object.assign({}, action.boardColumns);
 
     case _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SINGLE_BOARD_COLUMN"]:
-      bcId = action.boardColumn.id;
-      return Object.assign({}, state, _defineProperty({}, bcId, action.boardColumn));
+      bcId = action.payload.boardColumn.id;
+      return Object.assign({}, state, _defineProperty({}, bcId, action.payload.boardColumn));
 
     case _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_BOARD_COLUMN"]:
-      var deleteId = action.boardColumn.id;
-      delete newState[deleteId];
+      bcId = action.payload.boardColumn.id;
+      delete newState[bcId];
+      return newState;
+
+    case _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CARD"]:
+      return Object.assign({}, state, action.payload.boardColumn);
+
+    case _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_CARD"]:
+      return Object.assign({}, state, action.payload.boardColumn);
+
+    case _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_0__["REORDER_CARDS"]:
+      bcId = action.cardArray.id;
+      newState[bcId].cards = action.cardArray.cards;
       return newState;
 
     default:
@@ -2520,16 +2594,7 @@ var boardColumnsReducer = function boardColumnsReducer() {
   }
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (boardColumnsReducer); //    case RECEIVE_CARD:
-// bcId = action.card.board_column_id;
-// newState[bcId].ordered_cards = action.card.ordered_cards;
-// return newState;
-//     case DELETE_CARD:
-// bcId = action.card.board_column_id;
-// const cardArrayFilter = newState[bcId].ordered_cards
-//   .filter(cardId => cardId !== action.card.id);
-// newState.ordered_cards = cardArrayFilter;
-// return newState;
+/* harmony default export */ __webpack_exports__["default"] = (boardColumnsReducer);
 
 /***/ }),
 
@@ -2589,7 +2654,9 @@ var boardFormReducer = function boardFormReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/board_column_actions */ "./frontend/actions/board_column_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2604,12 +2671,18 @@ var boardsReducer = function boardsReducer() {
       return Object.assign({}, action.payload.boards);
 
     case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SINGLE_BOARD"]:
-      return Object.assign({}, state, _defineProperty({}, action.board.id, action.board));
+      return Object.assign({}, state, _defineProperty({}, action.payload.board.id, action.payload.board));
 
     case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_BOARD"]:
-      var deleteId = action.board.id;
+      var deleteId = action.payload.board.id;
       delete newState[deleteId];
       return newState;
+
+    case _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SINGLE_BOARD_COLUMN"]:
+      return Object.assign({}, state, action.payload.board);
+
+    case _actions_board_column_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_BOARD_COLUMN"]:
+      return Object.assign({}, state, action.payload.board);
 
     default:
       return state;
@@ -2696,10 +2769,10 @@ var cardsReducer = function cardsReducer() {
       return action.payload.cards || {};
 
     case _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CARD"]:
-      return Object.assign({}, state, _defineProperty({}, action.card.id, action.card));
+      return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
 
     case _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_CARD"]:
-      var deleteId = action.card.id;
+      var deleteId = action.payload.card.id;
       delete newState[deleteId];
       return newState;
 
@@ -2798,7 +2871,9 @@ var collectionsFormReducer = function collectionsFormReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2806,7 +2881,8 @@ var collectionsReducer = function collectionsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
-  var newState;
+  var newState = Object.assign({}, state);
+  var targetCollectionId;
 
   switch (action.type) {
     case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_COLLECTIONS"]:
@@ -2816,10 +2892,15 @@ var collectionsReducer = function collectionsReducer() {
       return Object.assign({}, state, _defineProperty({}, action.collection.id, action.collection));
 
     case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_COLLECTION"]:
-      var deleteId = action.collection.id;
-      newState = Object.assign({}, state);
-      delete newState[deleteId];
+      targetCollectionId = action.collection.id;
+      delete newState[targetCollectionId];
       return newState;
+
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SINGLE_BOARD"]:
+      return Object.assign({}, state, action.payload.collection);
+
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_BOARD"]:
+      return Object.assign({}, state, action.payload.collection);
 
     default:
       return state;
@@ -2908,6 +2989,78 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./frontend/reducers/loading_reducer.js":
+/*!**********************************************!*\
+  !*** ./frontend/reducers/loading_reducer.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/collection_actions */ "./frontend/actions/collection_actions.js");
+
+
+var initialState = {
+  loading: false
+};
+
+var loadingReducer = function loadingReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_BOARDS"]:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_SINGLE_BOARD"]:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_BOARD"]:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["START_LOADING_ALL_BOARDS"]:
+      return Object.assign({}, state, {
+        loading: true
+      });
+
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["COLLECTION_LOADING"]:
+      return Object.assign({}, {
+        loading: true
+      });
+
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_COLLECTIONS"]:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SINGLE_COLLECTION"]:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
+    case _actions_collection_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_COLLECTION"]:
+      return Object.assign({}, state, {
+        loading: false
+      });
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (loadingReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/root_reducer.js":
 /*!*******************************************!*\
   !*** ./frontend/reducers/root_reducer.js ***!
@@ -2940,15 +3093,33 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************!*\
   !*** ./frontend/reducers/selectors.js ***!
   \****************************************/
-/*! exports provided: objToArray, boardColumnArray, cardColumnArray */
+/*! exports provided: orderedArray, objToArray, boardColumnArray, cardColumnArray */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "orderedArray", function() { return orderedArray; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "objToArray", function() { return objToArray; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "boardColumnArray", function() { return boardColumnArray; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cardColumnArray", function() { return cardColumnArray; });
 // Reminder to refactor all the array converters into one method
+// export const parentChildArray = (myObject, child) => {
+//   if (Object.keys(myObject).length === 0) return [];
+//   return Object.keys(myObject).map(idx => 
+//     myObject[idx] : }) 
+//   );
+// };
+var orderedArray = function orderedArray(myObject) {
+  if (Object.keys(myObject).length === 0) return [];
+  var order = Object.keys(myObject).map(function (obj) {
+    return obj.order;
+  }).sort();
+  return order.map(function (id) {
+    return myObject.find(function (obj) {
+      return obj.id === id;
+    });
+  });
+};
 var objToArray = function objToArray(myObject) {
   if (Object.keys(myObject).length === 0) return [];
   var arr = Object.keys(myObject).map(function (id) {
@@ -3058,10 +3229,13 @@ var sessionReducer = function sessionReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _forms_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./forms_reducer */ "./frontend/reducers/forms_reducer.js");
+/* harmony import */ var _loading_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./loading_reducer */ "./frontend/reducers/loading_reducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  forms: _forms_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  forms: _forms_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  loader: _loading_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),

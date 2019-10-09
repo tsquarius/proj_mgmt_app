@@ -5,27 +5,27 @@ export const DELETE_CARD = 'DELETE_CARD';
 
 // regular actions
 
-export const receiveCard = card => ({
+export const receiveCard = payload => ({
   type: RECEIVE_CARD,
-  card
+  payload
 });
 
-export const deleteCard = card => ({
+export const deleteCard = payload => ({
   type: DELETE_CARD,
-  card
+  payload
 });
 
 
 // thunk actions
 
 export const fetchCard = cardId => dispatch => Util.fetchCard(cardId)
-  .then(card => dispatch(receiveCard(card)));
+  .then(payload => dispatch(receiveCard(payload)));
 
 export const postCard = (bcId, card) => dispatch => Util.postCard(bcId, card)
-  .then(card => dispatch(receiveCard(card)));
+  .then(payload => dispatch(receiveCard(payload)));
 
 export const patchCard = (cardId, card) => dispatch => Util.patchCard(cardId, card)
-  .then(card => dispatch(receiveCard(card)));
+  .then(payload => dispatch(receiveCard(payload)));
 
 export const destroyCard = cardId => dispatch => Util.deleteCard(cardId)
-  .then(card => dispatch(deleteCard(card)));
+  .then(payload => dispatch(deleteCard(payload)));

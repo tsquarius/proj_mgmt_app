@@ -13,7 +13,7 @@ class Api::BoardColumnsController < ApplicationController
   def create
     @board_column = BoardColumn.new(board_column_params)
     @board_column.board_id = params[:board_id]
-    @board_column.order = Board.find_next_order(params[:board_id])
+    @board_column.order = BoardColumn.find_next_order(params[:board_id])
 
     if @board_column.save
       render :show
@@ -24,6 +24,7 @@ class Api::BoardColumnsController < ApplicationController
 
   def update
     @board_column = BoardColumn.find(params[:id])
+    
     if @board_column.update_attributes(board_column_params)
       render :show
     else
@@ -44,7 +45,7 @@ class Api::BoardColumnsController < ApplicationController
   private
 
   def board_column_params
-    params.require(:board_column).permit(:title, :order)
+    params.require(:board_column).permit(:title, :order, :board_id)
   end
 
 end

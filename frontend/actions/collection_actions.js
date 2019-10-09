@@ -4,7 +4,7 @@ export const RECEIVE_COLLECTIONS = 'RECEIVE_COLLECTION';
 export const RECEIVE_SINGLE_COLLECTION = 'RECEIVE_SINGLE_COLLECTION';
 export const DELETE_COLLECTION = 'DELETE_COLLECTION';
 export const RECEIVE_COLLECTION_ERRORS = 'RECEIVE_COLLECTION_ERRORS';
-
+export const COLLECTION_LOADING = 'COLLECTION_LOADING';
 
 //regular actions
 export const receiveCollections = collections => ({
@@ -27,14 +27,28 @@ export const receiveErrors = errors => ({
   errors
 });
 
-//thunk actions
-export const fetchCollections = () => dispatch => Util.fetchCollections()
-  .then(collections => dispatch(receiveCollections(collections)))
-  .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
+export const collectionLoading = () => ({
+  type: COLLECTION_LOADING
+});
 
-export const fetchCollection = collectionId => dispatch => Util.fetchCollection(collectionId)
-  .then(collection => dispatch(receiveSingleCollection(collection)))
-  .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
+//thunk actions
+export const fetchCollections = () => dispatch => { 
+  dispatch(collectionLoading());
+  return (
+    Util.fetchCollections()
+    .then(collections => dispatch(receiveCollections(collections)))
+    .fail(errs => dispatch(receiveErrors(errs.responseJSON)))
+  );
+};
+
+export const fetchCollection = collectionId => dispatch => {
+  dispatch(collectionLoading());
+  return (
+    Util.fetchCollection(collectionId)
+    .then(collection => dispatch(receiveSingleCollection(collection)))
+    .fail(errs => dispatch(receiveErrors(errs.responseJSON)))
+  );
+};
 
 export const postCollection = collection => dispatch => Util.postCollection(collection)
   .then(collection => dispatch(receiveSingleCollection(collection)))

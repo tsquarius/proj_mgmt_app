@@ -15,20 +15,11 @@ class Collection < ApplicationRecord
   validates :author_id, :title, presence: true
   has_many :boards, dependent: :destroy
   has_many :board_columns, through: :boards
+  has_many :cards, through: :board_columns
 
-  def include_all_childs
-    collection = self.boards.includes(:board_columns)
-    boards = {}
-    board_columns = {}
-
-    collection.each do |board|
-      boards[board.id] = board
-      board.board_columns.each do |bc|
-        board_columns[bc.id] = bc
-      end
-    end
-
-    return {boards: boards, board_columns: board_columns}
+  def ordered_boards
+    self.boards.order(order: :asc).pluck(:id)
   end
+
 
 end

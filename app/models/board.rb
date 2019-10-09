@@ -23,4 +23,13 @@ class Board < ApplicationRecord
     self.board_columns.order(order: :asc).pluck(:id)
   end
 
+  def self.find_next_order(id)
+    boards = Board.where(collection_id: id)
+    if boards.empty?
+      return 0
+    else
+      return boards.maximum(:order) + 1
+    end
+  end
+
 end

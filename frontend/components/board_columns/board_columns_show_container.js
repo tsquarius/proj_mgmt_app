@@ -1,25 +1,26 @@
 import {connect} from 'react-redux';
 import {
-  createBoardColumn,
   destroyBoardColumn,
-  fetchBoardColumns
+  fetchBoardColumn,
+  updateBoardColumn,
 } from '../../actions/board_column_actions';
-import {boardColumnArray} from '../../reducers/selectors';
+import { renderNewCardForm } from '../../actions/form_actions';
 import BoardColumnsShow from './board_columns_show';
 
-import {patchCard} from '../../actions/card_actions';
 
 
 // need to pull in the forms reducer for this
-const mapStateToProps = ({entities, ui}, {boardId}) => ({
-  boardColumns: boardColumnArray(entities.boardColumns, boardId)
+const mapStateToProps = ({entities, ui}, {bcId}) => ({
+  boardColumn: entities.boardColumns[bcId],
+  activeForm: ui.forms.cards
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBoardColumns: boardId => dispatch(fetchBoardColumns(boardId)),
-  createColumn: (boardId, boardColumn) => dispatch(createBoardColumn(boardId, boardColumn)),
+  fetchBoardColumn: boardId => dispatch(fetchBoardColumn(boardId)),
   destroyBoardColumn: boardColumnId => dispatch(destroyBoardColumn(boardColumnId)),
-  patchCard: (cardId, card) => dispatch(patchCard(cardId, card)),
+  updateBoardColumn: (boardColumnId, boardColumn) => dispatch(updateBoardColumn(boardColumnId, boardColumn)),
+
+  newCard: (bcId) => dispatch(renderNewCardForm(bcId))
 });
 
 export default connect(mapStateToProps,mapDispatchToProps)(BoardColumnsShow);

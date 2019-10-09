@@ -1,70 +1,53 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { Droppable } from 'react-beautiful-dnd';
+import { Link } from 'react-router-dom';
+import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
+import Loading from '../loading';
 
-import NewCardsFormContainer from './new_cards_form_container';
-import CardsIndexItem from './cards_index_item';
 
-const CardsContainer = styled.article`
-  padding: 10px;
-  background: ${props => (props.isDraggingOver ? 'gray' : 'inherit')}
-  display: flex;
-  flex-direction: column;
-`;
-
-const Placeholder = styled.div`
-  height: ${props => (props.isDraggingOver ? '20px' : '0px')};
-`;
-
-const Form = styled.div`
-  padding: 0px 10px 10px 10px;
+const Card = styled.div`
+  cursor: pointer;
+  border: 1px solid lightgray;
+  background: ${props => props.isDragging ? 'orange' : 'white'};
+  color: ${props => props.isDragging ? 'white' : 'inherit'}
+  margin-bottom: 3px;
+  padding: 10px 5px;
+  :hover {
+    background: orange;
+    transition: background 0.3s;
+  }
+  min-height: 20px;
 `;
 
 const CardsIndex = props => {
-  const { activeForm, bcId, newCard, cards } = props;
-  const collectionId = props.match.params.collectionId;
-
-  const renderNewCardForm = e => {
+  const { card, index, deleteCard } = props;
+  
+  const handleDelete = e => {
     e.preventDefault();
-    newCard(bcId);
+    deleteCard(card.id);
   };
 
-  const renderCards = cards.map((card,index) => 
-    <CardsIndexItem 
-      card={card} 
-      index={index}
-      key={card.id} 
-      collectionId={collectionId} />
-  );
+  if (!card) {
+    return <Loading />
+  } else {
 
-  return [
-    <Droppable droppableId={bcId}>
-      {(provided, snapshot) => (
-        <CardsContainer
-          ref={provided.innerRef}
-          {...provided.droppableProps}
-          isDraggingOver={snapshot.isDraggingOver}
-        >  
-          {renderCards}
-          <Placeholder isDraggingOver={snapshot.isDraggingOver}>{provided.placeholder}</Placeholder>
-        </CardsContainer>
-      )}
-    </Droppable>,
-    
-    <Form>
-      <div className = {activeForm.bcId === bcId ? '' : 'hide'}>
-        <NewCardsFormContainer bcId={bcId} />
-      </div>
-    </Form>,
-
-    <button 
-      className='submit' 
-      onClick={renderNewCardForm}>
-          Add card...
-    </button>
-  ]
+    return (
+      <Draggable draggableId={card.id} index={index} type='card'>
+        {(provided, snapshot) => (
+          <Card
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            ref={provided.innerRef}
+            isDragging={snapshot.isDragging}
+          >
+            {card ? card.title : ''}
+            <button className='submit' onClick={handleDelete}>Del</button>
+          </Card>
+        )}
+      </Draggable>
+    )
+  }
 }
 
-export default withRouter(CardsIndex);
+export default CardsIndex;
 

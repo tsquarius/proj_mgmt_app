@@ -15,9 +15,12 @@ class Api::BoardsController < ApplicationController
 
   def create
     @board = Board.new(board_params)
-    @board.author_id = current_user.id
-    @board.collection_id = params[:collection_id]
-    @board.order = 0
+    next_order = Board.find_next_order(params[:collection_id])
+    @board.assign_attributes(
+      author_id: current_user.id,
+      collection_id: params[:collection_id],
+      order: next_order
+    )
 
     if @board.save
       render :show

@@ -1,6 +1,9 @@
-import React from 'react';
-import BoardShowContainer from '../boards/board_show_container';
+import React, {useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { DragDropContext } from 'react-beautiful-dnd';
+
+import BoardShowContainer from '../boards/board_show_container';
+import Loading from '../loading';
 
 //Styles
 const Container = styled.div``;
@@ -13,56 +16,96 @@ const Boards = styled.section`
   display: flex;
   flex-direction: column;
 `;
+
+const PseudoBoard = styled.div`
+  display: block
+  padding: 10px;
+  button {
+    font-size: 20px;
+  }
+`;
+
 // end
 
-class CollectionShow extends React.Component {
+const CollectionShow = props => {
+  
+  const {fetchBoards, collectionId, patchCard,
+    newBoard, collection, loading, boardColumns,
+    reorderCards } = props;
 
-  componentDidMount() {
-    const {fetchBoards} = this.props;
-    const collectionId = this.props.match.params.collectionId;
+  useEffect(() => { 
     fetchBoards(collectionId);
-  }
+   }, [collectionId]);
 
-  // should revisit to make sure it updates whenever we add columns or cards
-  componentDidUpdate(prevProps) {
-    const collectionId = this.props.match.params.collectionId;
+  const createNewBoard = e => {
+    e.preventDefault();
+    newBoard(collectionId ,{title: 'New Board'});
+  };
+  
+  const boardsList = () => collection.boards.map(id =>
+    <BoardShowContainer key={id} boardId={id} />
+  );
+
+  const onDragEnd = result => {
+    const { destination, source, draggableId } = result;
+    console.log(result);
+
+    if (!destination) { return; }
+
     if (
-      (prevProps.match.params.collectionId !== collectionId) ||
-      (prevProps.boards.length !== this.props.boards.length)
-    ) {
-      this.props.fetchBoards(collectionId);
+      destination.droppableId === source.droppableId &&
+      destination.index === source.index
+    ) { return; }
+
+    const sourceColumn = boardColumns[source.droppableId];
+    const destColumn = boardColumns[destination.droppableId];
+
+    const sourceCardIds = Array.from(sourceColumn.cards);
+    const destCardIds = Array.from(destColumn.cards);
+
+    // remove card from its starting point
+    sourceCardIds.splice(source.index, 1);
+    // drop card into new destination 
+    if (destination.droppableId !== source.droppableId) {
+      //if card moved to a new column:
+      destCardIds.splice(destination.index, 0, draggableId);
+      destCardIds.forEach((cardId, index) => {
+        patchCard(cardId, { order: index, board_column_id: destColumn.id
+        });
+      });
+      reorderCards({id: destination.droppableId, cards: destCardIds});
+      
+    } else {
+      //if card moved within same column:
+      sourceCardIds.splice(destination.index, 0, draggableId);
     }
-  }
+    reorderCards({ id: source.droppableId, cards: sourceCardIds });
+    // update order in original column
+    sourceCardIds.forEach((cardId, index) => {
+      patchCard(cardId, { order: index, board_column_id: sourceColumn.id
+      });
+    });
 
-  handleDelete(boardId) {
-    return e => {
-      e.preventDefault();
-      this.props.deleteBoard(boardId);
-    }
-  }
+  };
 
-  createNewBoard() {
-    return e => {
-      e.preventDefault();
-      const {collectionId} = this.props;
-      this.props.newBoard(collectionId ,{title: 'New Board'});
-    };
-  }
-
-  render() {
-    const {collection, boards} = this.props;
-
-    const boardsList = boards.map(board => 
-      <BoardShowContainer key={board.id} board={board} />
-      )
-
+  if (loading || !collection) {
+    return (
+      <Container>
+        <Loading />
+      </Container>
+    )
+  } else {
     return (
       <Container>
         <Title>{collection ? collection.title: ''}</Title>
           <Boards>
-            {boardsList}
+            <DragDropContext onDragEnd={onDragEnd}>
+              {boardsList()}
+            </DragDropContext>
           </Boards>
-        <button className='submit' onClick={this.createNewBoard()}>New Board</button>
+          <PseudoBoard>
+            <button className='submit' onClick={createNewBoard}>Add Board...</button>
+          </PseudoBoard>
       </Container>
     )
   }

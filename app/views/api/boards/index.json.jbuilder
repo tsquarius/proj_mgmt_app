@@ -10,7 +10,7 @@ json.boardColumns do
   @boards.each do |board|
     board.board_columns.each do |bc|
       json.set! bc.id do
-        json.extract! bc, :id, :title, :board_id, :order, :ordered_cards
+        json.partial! 'api/board_columns/board_column', board_column: bc
       end
     end
   end
