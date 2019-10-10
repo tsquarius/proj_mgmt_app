@@ -4,6 +4,7 @@ class Api::BoardsController < ApplicationController
     @boards = Board
       .includes(:board_columns)
       .includes(:cards)
+      .includes(:comments)
       .where(author_id: current_user.id, collection_id: params[:collection_id])
     render :index
   end

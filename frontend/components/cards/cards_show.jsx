@@ -1,8 +1,9 @@
-// this will open up a detail view of the card
 import React, {useState, useEffect} from 'react';
 import Loading from '../loading';
 import {withRouter} from 'react-router-dom';
 import styled from 'styled-components';
+
+import CommentShowContainer from '../comments/comment_show_container';
 
 const CardTitle = styled.h3`
   input {
@@ -42,8 +43,6 @@ const ButtonContainer = styled.nav`
     }
   }
 `;
-
-
 
 const CardsShow = (props) => {
   const {card, closeCardDetails, patchCard, deleteCard} = props;  
@@ -93,6 +92,10 @@ const CardsShow = (props) => {
       .then(closeCardDetails());
   };
 
+  const renderComments = () => card.comments.map(id => 
+    <CommentShowContainer key={`comment-${id}`} commentId={id} />
+  )
+
   if (!card) {
     return (
       <Loading />
@@ -127,6 +130,9 @@ const CardsShow = (props) => {
               onChange={handleColorChange}
             />
           </CardFormItems>
+          
+          {renderComments()}
+
           <ButtonContainer key='nav'>
             <button onClick={handleSubmit}>Save/Close</button>
             <button onClick={handleDelete}>Delete</button>

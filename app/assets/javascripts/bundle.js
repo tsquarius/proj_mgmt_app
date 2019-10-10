@@ -449,6 +449,90 @@ var destroyCollection = function destroyCollection(collection) {
 
 /***/ }),
 
+/***/ "./frontend/actions/comment_actions.js":
+/*!*********************************************!*\
+  !*** ./frontend/actions/comment_actions.js ***!
+  \*********************************************/
+/*! exports provided: RECEIVE_COMMENTS, RECEIVE_SINGLE_COMMENT, DELETE_COMMENT, receiveComments, receiveSingleComment, deleteComment, fetchComments, fetchComment, postComment, patchComment, destroyComment */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_COMMENTS", function() { return RECEIVE_COMMENTS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SINGLE_COMMENT", function() { return RECEIVE_SINGLE_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_COMMENT", function() { return DELETE_COMMENT; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveComments", function() { return receiveComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveSingleComment", function() { return receiveSingleComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteComment", function() { return deleteComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComments", function() { return fetchComments; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchComment", function() { return fetchComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "postComment", function() { return postComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "patchComment", function() { return patchComment; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyComment", function() { return destroyComment; });
+/* harmony import */ var _util_comment_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/comment_util */ "./frontend/util/comment_util.js");
+/* harmony import */ var _util_comment_util__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_util_comment_util__WEBPACK_IMPORTED_MODULE_0__);
+
+var RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
+var RECEIVE_SINGLE_COMMENT = 'RECEIVE_SINGLE_COMMENT';
+var DELETE_COMMENT = 'DELETE_COMMENT'; // action
+
+var receiveComments = function receiveComments(comments) {
+  return {
+    type: RECEIVE_COMMENTS,
+    comments: comments
+  };
+};
+var receiveSingleComment = function receiveSingleComment(payload) {
+  return {
+    type: RECEIVE_SINGLE_COMMENT,
+    payload: payload
+  };
+};
+var deleteComment = function deleteComment(payload) {
+  return {
+    type: DELETE_COMMENT,
+    payload: payload
+  };
+}; // thunk actions
+
+var fetchComments = function fetchComments(cardId) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["fetchComments"](cardId).then(function (comments) {
+      return dispatch(receiveComments(comments));
+    });
+  };
+};
+var fetchComment = function fetchComment(commentId) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["fetchComment"](commentId).then(function (payload) {
+      return dispatch(receiveSingleComment(payload));
+    });
+  };
+};
+var postComment = function postComment(cardId, comment) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["postComment"](cardId, comment).then(function (payload) {
+      return dispatch(receiveSingleComment(payload));
+    });
+  };
+};
+var patchComment = function patchComment(commentId, comment) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["patchComment"](commentId, comment).then(function (payload) {
+      return dispatch(receiveSingleComment(payload));
+    });
+  };
+};
+var destroyComment = function destroyComment(commentId) {
+  return function (dispatch) {
+    return _util_comment_util__WEBPACK_IMPORTED_MODULE_0__["deleteComment"](commentId).then(function (payload) {
+      return dispatch(deleteComment(payload));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/form_actions.js":
 /*!******************************************!*\
   !*** ./frontend/actions/form_actions.js ***!
@@ -1341,6 +1425,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _comments_comment_show_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../comments/comment_show_container */ "./frontend/components/comments/comment_show_container.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -1381,7 +1466,7 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-// this will open up a detail view of the card
+
 
 
 
@@ -1454,6 +1539,15 @@ var CardsShow = function CardsShow(props) {
     deleteCard(card.id).then(closeCardDetails());
   };
 
+  var renderComments = function renderComments() {
+    return card.comments.map(function (id) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comments_comment_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        key: "comment-".concat(id),
+        commentId: id
+      });
+    });
+  };
+
   if (!card) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_1__["default"], null);
   } else {
@@ -1480,7 +1574,7 @@ var CardsShow = function CardsShow(props) {
     }, "Color:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       value: color || '',
       onChange: handleColorChange
-    })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonContainer, {
+    })), renderComments(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonContainer, {
       key: "nav"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: handleSubmit
@@ -2346,6 +2440,96 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
 
 /***/ }),
 
+/***/ "./frontend/components/comments/comment_show.jsx":
+/*!*******************************************************!*\
+  !*** ./frontend/components/comments/comment_show.jsx ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  padding-bottom: 3px;\n  border-bottom: 1px solid gray;\n  margin-bottom: 5px;\n\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 15px;\n  margin-bottom: 10px;\n  color: black;\n  background: white;\n  border-radius: 5px;\n  padding: 10px 5px;\n  display: flex;\n  flex-direction: column;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+
+
+var Comment = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].li(_templateObject());
+var CommentHeader = styled_components__WEBPACK_IMPORTED_MODULE_1__["default"].div(_templateObject2());
+
+var CommentShow = function CommentShow(props) {
+  var comment = props.comment,
+      commentId = props.commentId;
+  console.log(props);
+
+  var parseDate = function parseDate(commentDate) {
+    var date = new Date(commentDate);
+    return date.getMonth() + '-' + date.getDate() + '-' + date.getFullYear();
+  };
+
+  if (!comment) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_2__["default"], null);
+  } else {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Comment, {
+      key: commentId
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CommentHeader, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, comment.author), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, parseDate(comment.updated_at))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, comment.body));
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (CommentShow);
+
+/***/ }),
+
+/***/ "./frontend/components/comments/comment_show_container.js":
+/*!****************************************************************!*\
+  !*** ./frontend/components/comments/comment_show_container.js ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _comment_show__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./comment_show */ "./frontend/components/comments/comment_show.jsx");
+
+
+
+var mapStateToProps = function mapStateToProps(_ref, _ref2) {
+  var entities = _ref.entities;
+  var commentId = _ref2.commentId;
+  return {
+    comment: entities.comments[commentId]
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps)(_comment_show__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
 /***/ "./frontend/components/loading.jsx":
 /*!*****************************************!*\
   !*** ./frontend/components/loading.jsx ***!
@@ -2960,7 +3144,9 @@ var cardFormReducer = function cardFormReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
 /* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/card_actions */ "./frontend/actions/card_actions.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/comment_actions */ "./frontend/actions/comment_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2982,6 +3168,12 @@ var cardsReducer = function cardsReducer() {
       var deleteId = action.payload.card.id;
       delete newState[deleteId];
       return newState;
+
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_SINGLE_COMMENT"]:
+      return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
+
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__["DELETE_COMMENT"]:
+      return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
 
     default:
       return state;
@@ -3118,6 +3310,52 @@ var collectionsReducer = function collectionsReducer() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/comments_reducer.js":
+/*!***********************************************!*\
+  !*** ./frontend/reducers/comments_reducer.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
+/* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var commentsReducer = function commentsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = Object.assign({}, state);
+
+  switch (action.type) {
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_BOARDS"]:
+      return action.payload.comments || {};
+
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_COMMENTS"]:
+      return Object.assign(state, action.comments);
+
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SINGLE_COMMENT"]:
+      return Object.assign({}, state, _defineProperty({}, action.payload.comment.id, action.payload.comment));
+
+    case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_COMMENT"]:
+      targetId = action.payload.comment.id;
+      delete newState[targetId];
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (commentsReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/entities_reducer.js":
 /*!***********************************************!*\
   !*** ./frontend/reducers/entities_reducer.js ***!
@@ -3133,6 +3371,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _boards_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./boards_reducer */ "./frontend/reducers/boards_reducer.js");
 /* harmony import */ var _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./board_columns_reducer */ "./frontend/reducers/board_columns_reducer.js");
 /* harmony import */ var _cards_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cards_reducer */ "./frontend/reducers/cards_reducer.js");
+/* harmony import */ var _comments_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./comments_reducer */ "./frontend/reducers/comments_reducer.js");
+
 
 
 
@@ -3144,7 +3384,8 @@ __webpack_require__.r(__webpack_exports__);
   collections: _collections_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   boards: _boards_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   boardColumns: _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
-  cards: _cards_reducer__WEBPACK_IMPORTED_MODULE_5__["default"]
+  cards: _cards_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
+  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 }));
 
 /***/ }),
@@ -3712,6 +3953,56 @@ var destroyCollection = function destroyCollection(collectionId) {
   return $.ajax({
     method: 'DELETE',
     url: "/api/collections/".concat(collectionId)
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/comment_util.js":
+/*!***************************************!*\
+  !*** ./frontend/util/comment_util.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+var fetchComments = function fetchComments(cardId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/cards/".concat(cardId, "/comments")
+  });
+};
+
+var fetchComment = function fetchComment(commentId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/comments/".concat(commentId)
+  });
+};
+
+var postComment = function postComment(cardId, comment) {
+  return $.ajax({
+    method: 'POST',
+    url: "/api/cards/".concat(cardId, "/comments"),
+    data: {
+      comment: comment
+    }
+  });
+};
+
+var patchComment = function patchComment(commentId, comment) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/comments/".concat(commentId),
+    data: {
+      comment: comment
+    }
+  });
+};
+
+var deleteComment = function deleteComment(commentId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/comments/".concat(commentId)
   });
 };
 

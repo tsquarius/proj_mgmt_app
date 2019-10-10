@@ -20,7 +20,17 @@ json.cards do
   @boards.each do |board|
     board.cards.each do |card|
       json.set! card.id do
-        json.extract! card, :id, :title, :order, :archived, :color, :due_date, :description
+        json.partial! 'api/cards/card', card: card
+      end
+    end
+  end
+end
+
+json.comments do
+  @boards.each do |board|
+    board.comments.each do |comment|
+      json.set! comment.id do
+        json.partial! 'api/comments/comment', comment: comment
       end
     end
   end

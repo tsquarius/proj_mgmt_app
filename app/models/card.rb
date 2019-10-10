@@ -20,6 +20,7 @@ class Card < ApplicationRecord
   validates :author_id, :title, :board_column_id, presence: true
   # validates :order, uniqueness: {scope: :board_column_id}
   belongs_to :board_column
+  has_many :comments
 
   def self.find_next_order(id)
     cards = Card.where(board_column_id: id)
@@ -30,8 +31,9 @@ class Card < ApplicationRecord
     end
   end
 
-  def ordered_cards
-    self.board_column.ordered_cards
+  def comments_array
+    self.comments.pluck(:id)
   end
+
 
 end

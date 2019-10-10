@@ -1,5 +1,5 @@
 json.card do
-  json.extract! @card, :id, :title, :order, :archived, :color, :due_date, :description
+  json.partial! 'api/cards/card', card: @card
 end
 
 json.boardColumn do

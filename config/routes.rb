@@ -17,9 +17,8 @@ Rails.application.routes.draw do
       resources :cards, only: [:create]
     end
     resources :cards, only: [:show, :destroy, :update] do
-      collection do
-        patch :reorder
-      end
+      resources :comments, only: [:create, :index]
     end
+    resources :comments, only: [:show, :update, :destroy]
   end
 end
