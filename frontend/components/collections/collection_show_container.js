@@ -1,7 +1,7 @@
 import {connect} from 'react-redux';
 import CollectionShow from './collection_show';
 import {fetchBoards, createBoard} from '../../actions/board_actions';
-import {fetchCollection} from '../../actions/collection_actions';
+import {fetchCollection, destroyCollection, updateCollection} from '../../actions/collection_actions';
 import {reorderCards} from '../../actions/board_column_actions';
 import {patchCard} from '../../actions/card_actions';
 
@@ -20,6 +20,8 @@ const mapStateToProps = ({entities, ui}, {match}) => {
 const mapDispatchToProps = (dispatch, {match}) => ({
   fetchCollection: collectionId => dispatch(fetchCollection(collectionId)),
   fetchBoards: collectionId => dispatch(fetchBoards(collectionId)),
+  deleteCollection: collectionId => dispatch(destroyCollection(collectionId)),
+  updateCollection: (collection, collectionId) => dispatch(updateCollection(collection,collectionId)),
   newBoard: (collectionId, board) => dispatch(createBoard(collectionId, board)),
   //below are included for drag&drop features
   patchCard: (cardId, card) => dispatch(patchCard(cardId,card)),

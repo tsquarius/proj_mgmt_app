@@ -8,39 +8,47 @@ import NewCardsFormContainer from '../cards/new_cards_form_container';
 
 const Column = styled.div`
   width: 200px;
-  border: 1px solid green;
   margin-right: 10px;
-  background: lightgray;
+  background: inherit;
   }
 `;
 
 const HeaderSection = styled.header`
-  display: flex;
+padding: 0px;
+background: rgba(255,255,255,0.4);
+display: flex;
+width: 180px;
+min-height: 45px;
+margin-left: 10px;
+flex-direction: row;
   input {
+    background: none;
     font-size: 15px;
     font-weight: bold;
-    padding: 5px;
-    border: none;
-    background: inherit;
-    width: 90%;
-    float: left;
+    padding: 10px;
+    width: 70%;
     :focus {
-      border: 1px solid black;
+      text-decoration: underline;
     }
   }
 `;
 
 const ToggleNav = styled.nav`
-  float: right;
+  overflow-x: wrap;
+  width: 20px;
+  font-size: 12px;
   display: none;
   ${HeaderSection}:hover & {
     display: flex;
+    flex-direction: column;
+    padding-top: 7px;
   }
 `;
 
 const CardsSection = styled.article`
-  padding: 10px;
-  background: ${props => (props.isDraggingOver ? 'gray' : 'inherit')};
+  width: 180px;
+  margin: 10px 0 0 10px;
+  border: ${props => (props.isDraggingOver ? '1px dashed white' : 'none')};
   transition: background-color 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -50,13 +58,19 @@ const PseudoCard = styled.div`
   min-height: 20px;
 `;
 
-const Form = styled.div`
-  padding: 10px;
+const CardButton = styled.button`
+  padding-left: 12px;
+  visibility: hidden;
+  opacity: 0;
+  ${Column}:hover & {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s linear;
+  }
 `;
 
-const DragBar = styled.div`
-  background: green;
-  height: 10px;
+const Form = styled.div`
+  padding: 10px;
 `;
 
 const BoardColumnsShow = props => {
@@ -140,11 +154,11 @@ const BoardColumnsShow = props => {
             </div>
           </Form>
 
-          <button
+          <CardButton
             className='submit'
             onClick={renderNewCardForm}>
             Add card...
-          </button>
+          </CardButton>
       </Column>
     )
   }

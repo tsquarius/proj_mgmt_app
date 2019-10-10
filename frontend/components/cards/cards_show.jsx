@@ -1,33 +1,63 @@
 // this will open up a detail view of the card
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
+import Loading from '../loading';
 import {withRouter} from 'react-router-dom';
+import styled from 'styled-components';
+
+const CardTitle = styled.h3`
+  input {
+    font-size: 25px;
+  }
+  padding-bottom: 5px;
+  border-bottom: 2px solid white;
+  margin-bottom: 20px;
+`;
+
+const CardFormItems = styled.li`
+  font-size: 15px;
+  margin-bottom: 10px;
+  color: black;
+  background: white;
+  border-radius: 5px;
+  padding: 10px 5px;
+  input {
+    padding: 5px;
+    margin: 0 0 5px 5px;;
+    :focus {
+      border-bottom: 2px solid darkgray;
+    }
+  }
+`;
+
+const ButtonContainer = styled.nav`
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  button {
+    cursor: pointer;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+
 
 const CardsShow = (props) => {
-  const {card, fetchCard, patchCard, deleteCard} = props;  
-  const cardId = props.match.params.cardId;
-  const collectionId = props.match.params.collectionId;
+  const {card, closeCardDetails, patchCard, deleteCard} = props;  
   
-  useEffect(() => {
-    fetchCard(props.match.params.cardId);
-    localStorage.setItem('state', JSON.stringify(card));
-  }, []);
-
-  // const mounted = useRef();
-  // useEffect(() => {
-  //   if (!mounted.current) {
-  //     mounted.current = true;
-  //   } else {
-  //     fetchCard(props.match.params.cardId);
-  //   }
-  // });
-  
-  window.props = props;
-
-  const [title, setTitle] = useState(card ? card.title : localStorage.getItem('state').title);
+  const [title, setTitle] = useState(card ? card.title : '');
   const [color, setColor] = useState(card ? card.color : '');
   const [dueDate, setDueDate] = useState(card ? card.due_date : '');
-  const [description, setDescription] = useState(card ? card.description : '');
-  
+  const [description, setDescription] = useState(card ? card.description : '');  
+
+  const handleCloseCardDetails = e => {
+    e.preventDefault();
+    closeCardDetails();
+  };
+
   const cardObj = {
     title: title,
     color: color,
@@ -35,68 +65,76 @@ const CardsShow = (props) => {
     description: description
   };
 
-  function handleTitleChange(e) {
+  const handleTitleChange = e => {
     setTitle(e.target.value);
-  }
+  };
 
-  function handleColorChange(e) {
+  const handleColorChange = e => {
     setColor(e.target.value);
-  }
+  };
 
-  function handleDueDateChange(e) {
+  const handleDueDateChange = e => {
     setDueDate(e.target.value);
-  }
+  };
 
-  function handleDescriptionChange(e) {
+  const handleDescriptionChange = e => {
     setDescription(e.target.value);
-  }
+  };
 
-  function handleSubmit(e) {
+  const handleSubmit = e => {
     e.preventDefault();
-    patchCard(cardId, cardObj)
-      .then(props.history.push(`/collection/${collectionId}`));
-  }
+    patchCard(card.id, cardObj)
+      .then(closeCardDetails());
+  };
 
-  function handleDelete(e) {
+  const handleDelete = e => {
     e.preventDefault();
-    deleteCard(cardId)
-      .then(props.history.push(`/collection/${collectionId}`));
+    deleteCard(card.id)
+      .then(closeCardDetails());
+  };
+
+  if (!card) {
+    return (
+      <Loading />
+    )
+  } else {
+
+    return (
+      <section className='card-details'>
+        <CardTitle><input
+          value={title || ''}
+          type='text'
+          onChange={handleTitleChange} /></CardTitle>
+        <ul>
+          <CardFormItems key='duedate'>
+            Due: 
+            <input
+              value={dueDate || ''}
+              type='date'
+              onChange={handleDueDateChange} />
+          </CardFormItems>
+          <CardFormItems key='description'>
+            Description: 
+            <input
+              value={description || ''}
+              type='text'
+              onChange={handleDescriptionChange} />
+          </CardFormItems>
+          <CardFormItems key='color'>
+            Color:
+            <input
+              value={color || ''}
+              onChange={handleColorChange}
+            />
+          </CardFormItems>
+          <ButtonContainer key='nav'>
+            <button onClick={handleSubmit}>Save/Close</button>
+            <button onClick={handleDelete}>Delete</button>
+          </ButtonContainer>
+        </ul>
+      </section>
+    )
   }
-
-  console.log(cardId);
-
-  return (
-    <section className='card-details'>
-      <ul>
-        <li>
-          <input  
-            value={title || ''} 
-            onChange={handleTitleChange}/>
-        </li>
-        <li>
-          Due: 
-          <input
-            value={dueDate || ''}
-            onChange={handleDueDateChange} />
-        </li>
-        <li>
-          Description: 
-          <input
-            value={description || ''}
-            onChange={handleDescriptionChange} />
-        </li>
-        <li>
-          Color
-          <input
-            value={color || ''}
-            onChange={handleColorChange}
-          />
-        </li>
-        <button onClick={handleSubmit}>Save</button>
-        <button onClick={handleDelete}>Delete</button>
-      </ul>
-    </section>
-  )
 
 }
 

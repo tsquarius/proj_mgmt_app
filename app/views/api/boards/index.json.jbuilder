@@ -20,7 +20,7 @@ json.cards do
   @boards.each do |board|
     board.cards.each do |card|
       json.set! card.id do
-        json.extract! card, :id, :title, :board_column_id, :order
+        json.extract! card, :id, :title, :order, :archived, :color, :due_date, :description
       end
     end
   end

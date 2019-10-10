@@ -2,8 +2,7 @@
 #root {
   font-family: sans-serif;
   width: 1500px;
-  height: 600px;
-  border: 1px solid black;
+  min-height: 600px;
   margin: auto;
 }
 
@@ -15,14 +14,13 @@
 
 .header {
   display: flex;
-  border: 1px solid blueviolet;
   justify-content: space-between;
+  margin: 30px 0 30px 20px;
 }
 
 .nav-bar {
   display: flex;
   float: right;
-  border: 1px solid black;
 }
 
 .nav-bar div {
@@ -40,7 +38,6 @@
 .logo {
   font-size: 40px;
   float: left;
-  border: 1px solid red;
   padding: 0 10px;
 }
 
@@ -48,10 +45,13 @@
 
 // Side navigation
 
+.main {
+  min-height: 500px;
+  overflow-y: initial;
+}
 .main-nav {
-  border: 1px solid orange;
-  width: 20%;
-  height: 350px;
+  width: 15%;
+  min-height: 500px;
   font-size: 15px;
   float: left;
 }
@@ -72,11 +72,11 @@
 // Body
 
 .main-body {
-  border: 1px solid greenyellow;
-  width: 79%;
-  height: 500px;
+  width: 83%;
+  min-height: 500px;
   float: right;
-  overflow-y: scroll;
+  border-left: 1px solid white;
+  padding-left: 25px;
 }
 
 
@@ -96,24 +96,51 @@
   display: flex;
 }
 
+.session-input {
+  background: rgba(255,255,255,0.1);
+  margin-right: 15px;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding: 4px 0;
+}
+
 
 
 //Buttons
 
-.btn-nav {
-  display: inline-block;
-  background: lightgray;
-  border-radius: 7px;
-  border: 1px solid darkgray;
-  padding: 0px 5px;
-  margin: 5px;
-  height: 30px;
+// .btn-nav {
+//   display: inline-block;
+//   padding: 0px 5px;
+//   margin: 5px;
+//   cursor: pointer;
+// }
+
+button.btn-nav {
   cursor: pointer;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  margin: 9px 0;
+  padding: 5px 3px;
+  border-radius: 5px;
+  min-width: 60px;
 }
 
+a.btn-nav{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  margin-top: 10px;
+  padding: 5px 3px;
+  cursor: pointer;
+  border-radius: 5px;
+  min-width: 60px;
+  margin-left: 10px;
+};
+
 .btn-nav:hover {
-  background: darkgray;
-  transition: background 0.3s;
+  background: rgb(233, 132, 0);
+  transition: background ease 0.3s;
 }
 
 .btn-link {
@@ -136,4 +163,31 @@
 
 .submit:hover {
   text-decoration: underline;
+}
+
+// modal
+
+.modal-screen {
+  z-index: 998;
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background: rgba(0, 0, 0, .3);
+}
+
+.modal-content {
+  z-index: 999;
+  position: absolute;
+  background: orange;
+  border-radius: 5px;
+  font-size: 20px;
+  padding: 20px;
+  width: 300px;
+  height: 500px;
+  top: 50%;
+  left: 50%;
+  text-align: left;
+  transform: translateX(-50%) translateY(-50%);
 }

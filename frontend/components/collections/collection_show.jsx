@@ -8,10 +8,41 @@ import Loading from '../loading';
 //Styles
 const Container = styled.div``;
 const Title = styled.h2`
+  display: flex;
   padding: 10px;
   font-size: 30px;
-  font-style: italic;
+  font-weight: 700;
+  width: 90%
+  border-bottom: 2px solid gray; 
+  justify-content: space-between;
+  button {
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    visibility: hidden;
+    opacity: 0;
+  }
 `;
+
+const TitleInput = styled.input`
+  :focus {
+    border-radius: 5px;
+    background: rgba(255,255,255,0.4);
+    margin-right: 5px;
+  }
+`;
+
+const Button = styled.button`
+  ${Title}:hover & {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s linear;
+  }
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const Boards = styled.section`
   display: flex;
   flex-direction: column;
@@ -20,6 +51,7 @@ const Boards = styled.section`
 const PseudoBoard = styled.div`
   display: block
   padding: 10px;
+  margin-left: 10px;
   button {
     font-size: 20px;
   }
@@ -31,11 +63,32 @@ const CollectionShow = props => {
   
   const {fetchBoards, collectionId, patchCard,
     newBoard, collection, loading, boardColumns,
-    reorderCards } = props;
+    reorderCards, deleteCollection, updateCollection, history } = props;
+
+  const [title, setTitle] = useState(collection ? collection.title : '')
+
+  const handleTitleChange = e => {
+    e.preventDefault();
+    setTitle(e.target.value);
+  };
+
+  const handleDeleteCollection = e => {
+    e.preventDefault();
+    deleteCollection(collectionId)
+      .then(history.push('/'));
+  };
+
+  const submitTitleChange = e => {
+    e.preventDefault();
+    updateCollection({title: title}, collectionId);
+  };
 
   useEffect(() => { 
     fetchBoards(collectionId);
-   }, [collectionId]);
+    if (collection) {
+      setTitle(collection.title);
+    }
+   }, [collectionId, collection ? collection.title : '']);
 
   const createNewBoard = e => {
     e.preventDefault();
@@ -46,6 +99,8 @@ const CollectionShow = props => {
     <BoardShowContainer key={id} boardId={id} />
   );
 
+
+  // Drag-drop functionality
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
     console.log(result);
@@ -97,7 +152,15 @@ const CollectionShow = props => {
   } else {
     return (
       <Container>
-        <Title>{collection ? collection.title: ''}</Title>
+        <Title>
+          <div>
+            <TitleInput type='text' value={title} onChange={handleTitleChange} />
+            <Button onClick={submitTitleChange}>save</Button>
+          </div>
+          <div>
+            <Button onClick={handleDeleteCollection}>Delete</Button>
+          </div>
+        </Title>
           <Boards>
             <DragDropContext onDragEnd={onDragEnd}>
               {boardsList()}

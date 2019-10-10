@@ -1,5 +1,27 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import styled from 'styled-components';
+
+
+const Title = styled.h2`
+  display: flex;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 30px;
+  font-weight: 700;
+  width: 90%
+  border-bottom: 2px solid gray;  
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  border-radius: 5px;
+  width: 70px;
+  padding: 4px 0px;
+  :hover {
+    background: rgb(233, 132, 0);
+  }
+`;
+
 
 
 class SessionForm extends React.Component {
@@ -41,6 +63,7 @@ class SessionForm extends React.Component {
         <label>
           Email:
             <input
+            className='session-input'
             type='email'
             value={this.state.email}
             onChange={this.updateState('email')}
@@ -51,7 +74,7 @@ class SessionForm extends React.Component {
     
     return (
       <div className='session-form'>
-        <h3>{this.props.type}</h3>
+        <Title>{this.props.type}</Title>
         <ul className="errors-list">
           {this.renderErrors()}
         </ul>
@@ -59,6 +82,7 @@ class SessionForm extends React.Component {
           <label>
             Username:
             <input
+              className='session-input'
               type='text'
               value={this.state.username}
               onChange={this.updateState('username')}
@@ -68,12 +92,13 @@ class SessionForm extends React.Component {
           <label>
             Password:
             <input
+              className='session-input'
               type='password'
               value={this.state.password}
               onChange={this.updateState('password')}
             />
           </label>
-          <button className="submit" onClick={this.handleClick}>{this.props.type}</button>
+          <Button onClick={this.handleClick}>{this.props.type}</Button>
         </form>
       </div>
     )

@@ -4,12 +4,12 @@ import {Link} from 'react-router-dom';
 const UserNav = ({currentUser, logout}) => {
   
   const navBar = currentUser ? (
-    <React.Fragment>
+    <div>
       <p>
         Welcome, {currentUser.username}
       </p>
       <button className='btn-nav' onClick={logout}>Log out</button>
-    </React.Fragment>
+    </div>
   ) : (
     <React.Fragment>
       <Link className='btn-nav' to='/login'>Log in</Link>

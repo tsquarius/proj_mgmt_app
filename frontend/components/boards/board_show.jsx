@@ -7,15 +7,19 @@ import { Droppable } from 'react-beautiful-dnd';
 const Container = styled.div`
   display: block
   padding-left: 12px;
+  border-bottom: 2px dashed gray;
+  width: 90%;
+  margin-left: 10px;
 `;
 
 const HeaderSection = styled.header`
   display: flex;
+  width: 35%;
   input {
     font-size: 20px;
-    padding: 5px 0;
+    padding: 8px 10px;;
     :focus {
-      border: 1px solid black;
+      border-bottom: 1px solid white;
     }
   }
 `;
@@ -39,14 +43,13 @@ const PseudoColumn = styled.div`
 
 const ButtonToggle = styled.button`
   display: none;
+  margin-top: 5px;
+  font-size: 13px;
   :hover {
-    color: orange;
-    transition: color 0.3s;
+    text-decoration: underline;
   }
   ${HeaderSection}:hover & {
     display: block;
-    background: inherit;
-    border: none;
     cursor: pointer;
   }
 `;
