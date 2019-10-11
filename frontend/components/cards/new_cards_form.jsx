@@ -1,4 +1,21 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import styled from 'styled-components';
+
+const TextBox = styled.textarea`
+  border-radius: 5px;
+  padding: 5px;
+  background: rgba(255, 255, 255, .6);
+`;
+
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  nav {
+    margin-top: 2px;
+  }
+`;
 
 const CardsForm = props => {
 
@@ -25,11 +42,21 @@ const CardsForm = props => {
   };
 
   return(
-    <form>
-      <textarea onChange={handleChange} value={title} />
-      <button className='submit' onClick={handleSubmit}>save</button>
-      <button className='submit' onClick={handleClose}>x</button>
-    </form>
+    <Form>
+      <TextBox onChange={handleChange} value={title} />
+      <nav>
+        <FontAwesomeIcon
+          className='btn'
+          onClick={handleSubmit}
+          icon={['far', 'save']}
+          style={{'font-size': '14px', 'margin-left': '1px'}} />
+        <FontAwesomeIcon
+          className='btn'
+          style={{ 'margin-left': '10px', 'font-size': '14px' }}
+          onClick={handleClose}
+          icon={['far', 'trash-alt']} />
+      </nav>
+    </Form>
   )
 
 }

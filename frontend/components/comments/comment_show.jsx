@@ -4,9 +4,9 @@ import Loading from '../loading';
 
 const Comment = styled.li`
   font-size: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: black;
-  background: white;
+  background: ${props => props.index % 2 === 0 ? 'white' : 'rgb(226, 226, 226)'};
   border-radius: 5px;
   padding: 10px 5px;
   display: flex;
@@ -16,20 +16,28 @@ const Comment = styled.li`
 const CommentHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-bottom: 3px;
-  border-bottom: 1px solid gray;
-  margin-bottom: 5px;
-
+  margin-top: 10px;
+  padding: 0 5px;
 `;
 
+const Author = styled.span`
+  font-size: 10px
+`;
+
+const DateTag = styled.span`
+  font-size: 10px;
+`;
 
 const CommentShow = props => {
-  const {comment, commentId} = props;
+  const {comment, commentId, index} = props;
   console.log(props);
   
   const parseDate = commentDate => {
     let date = new Date(commentDate);
-    return (date.getMonth() + '-' + date.getDate() + '-' + date.getFullYear());
+    return (
+      date.getMonth() + '-' + date.getDate() + '-' + date.getFullYear() + ' ' +
+       date.getHours()%12 + ':' + date.getMinutes() + 
+       (date.getHours() > 12 && date.getHours() < 24 ? 'PM' : 'AM' ) );
   };
 
   if (!comment) {
@@ -38,12 +46,14 @@ const CommentShow = props => {
     )
   } else {
     return (
-      <Comment key={commentId}>
-        <CommentHeader>
-          <span>{comment.author}</span>
-          <span>{parseDate(comment.updated_at)}</span>
-        </CommentHeader>
+      <Comment key={commentId} index={index}>
         <p>{comment.body}</p>
+        <CommentHeader>
+          <DateTag>{parseDate(comment.updated_at)}</DateTag>
+          <Author>{comment.author}</Author>
+
+        </CommentHeader>
+        
       </Comment>
     )
   }

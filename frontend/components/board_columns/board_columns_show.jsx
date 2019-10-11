@@ -7,7 +7,7 @@ import CardsIndexContainer from '../cards/cards_index_container';
 import NewCardsFormContainer from '../cards/new_cards_form_container';
 
 const Column = styled.div`
-  width: 200px;
+  width: 275px;
   margin-right: 10px;
   background: inherit;
   }
@@ -17,7 +17,7 @@ const HeaderSection = styled.header`
 padding: 0px;
 background: rgba(255,255,255,0.4);
 display: flex;
-width: 180px;
+width: 220px;
 min-height: 45px;
 margin-left: 10px;
 flex-direction: row;
@@ -46,7 +46,7 @@ const ToggleNav = styled.nav`
 `;
 
 const CardsSection = styled.article`
-  width: 180px;
+  width: 220px;
   margin: 10px 0 0 10px;
   border: ${props => (props.isDraggingOver ? '1px dashed white' : 'none')};
   transition: background-color 0.3s ease;

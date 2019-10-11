@@ -165,6 +165,17 @@ a.btn-nav{
   text-decoration: underline;
 }
 
+.btn {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.btn:hover {
+  color: black;
+  transition: color 0.3s ease;
+}
+
 // modal
 
 .modal-screen {
@@ -177,6 +188,7 @@ a.btn-nav{
   background: rgba(0, 0, 0, .3);
 }
 
+
 .modal-content {
   z-index: 999;
   position: absolute;
@@ -185,9 +197,21 @@ a.btn-nav{
   font-size: 20px;
   padding: 20px;
   width: 300px;
-  height: 500px;
+  height: 550px;
   top: 50%;
   left: 50%;
   text-align: left;
   transform: translateX(-50%) translateY(-50%);
+}
+
+
+// scroll
+
+.scroll-card-details {
+
+}
+
+
+.scroll-card-comments {
+  margin: 20px 0 5px 0;
 }

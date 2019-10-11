@@ -30,8 +30,8 @@ export const fetchComment = commentId => dispatch => Util.fetchComment(commentId
   .then(payload => dispatch(receiveSingleComment(payload)));
 
 export const postComment = (cardId, comment) => dispatch => 
-  Util.postComment(cardId, comment
-    ).then(payload => dispatch(receiveSingleComment(payload)));
+  Util.postComment(cardId, comment)
+    .then(payload => dispatch(receiveSingleComment(payload)));
 
 export const patchComment = (commentId, comment) => dispatch =>
   Util.patchComment(commentId, comment)

@@ -1,18 +1,18 @@
-const fetchComments = cardId => (
+export const fetchComments = cardId => (
   $.ajax({
     method: 'GET',
     url: `/api/cards/${cardId}/comments`
   })
 );
 
-const fetchComment = commentId => (
+export const fetchComment = commentId => (
   $.ajax({
     method: 'GET',
     url: `/api/comments/${commentId}`
   })
 );
 
-const postComment = (cardId, comment) => (
+export const postComment = (cardId, comment) => (
   $.ajax({
     method: 'POST',
     url: `/api/cards/${cardId}/comments`,
@@ -20,7 +20,7 @@ const postComment = (cardId, comment) => (
   })
 );
 
-const patchComment = (commentId, comment) => (
+export const patchComment = (commentId, comment) => (
   $.ajax({
     method: 'GET',
     url: `/api/comments/${commentId}`,
@@ -28,7 +28,7 @@ const patchComment = (commentId, comment) => (
   })
 );
 
-const deleteComment = commentId => (
+export const deleteComment = commentId => (
   $.ajax({
     method: 'DELETE',
     url: `/api/comments/${commentId}`,

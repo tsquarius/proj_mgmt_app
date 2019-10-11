@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, Link} from 'react-router-dom';
+import {Switch, Link} from 'react-router-dom';
 import {AuthRoute, ProtectedRoute} from '../util/route_util';
 import styled from 'styled-components';
 

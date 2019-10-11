@@ -1,17 +1,35 @@
-import React, {useState, useEffect} from 'react';
-import Loading from '../loading';
+import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom';
+
+import CommentIndexContainer from '../comments/comment_index_container';
+import Loading from '../loading';
+
 import styled from 'styled-components';
+import { Scrollbars } from 'react-custom-scrollbars';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import CommentShowContainer from '../comments/comment_show_container';
-
-const CardTitle = styled.h3`
+const CardTitle = styled.h2`
   input {
     font-size: 25px;
+    width: 70%;
+  }
+  button {
+    cursor: pointer;
+    :hover {
+      color: black;
+      transition: color 0.3s ease;
+    }
   }
   padding-bottom: 5px;
   border-bottom: 2px solid white;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const SubTitle = styled.h3`
+  margin: 10px 0;
+  text-decoration: underline;
 `;
 
 const CardFormItems = styled.li`
@@ -20,42 +38,43 @@ const CardFormItems = styled.li`
   color: black;
   background: white;
   border-radius: 5px;
-  padding: 10px 5px;
+  padding: 5px;
+  span {
+    font-weight: 700;
+  }
   input {
-    padding: 5px;
-    margin: 0 0 5px 5px;;
+    margin-left: 5px;
+  }
+  textarea {
+    font-size: 13px;
+    padding: 5px 0 ;
+    margin: 0 0 5px 0px;
+    width: 90%;
     :focus {
-      border-bottom: 2px solid darkgray;
+      border: 2px solid darkgray;
     }
   }
 `;
 
 const ButtonContainer = styled.nav`
-  font-size: 15px;
-  font-weight: 700;
-  margin-top: 30px;
+  margin: 10px 0;
   display: flex;
-  justify-content: space-between;
-  button {
-    cursor: pointer;
-    :hover {
-      text-decoration: underline;
-    }
+  padding-bottom: 10px;
+  border-bottom: 1px dashed white;
   }
 `;
 
-const CardsShow = (props) => {
+const Selector = styled.select`
+  margin-left: 5px; 
+`;
+
+const CardsShow = props => {
   const {card, closeCardDetails, patchCard, deleteCard} = props;  
-  
+
   const [title, setTitle] = useState(card ? card.title : '');
   const [color, setColor] = useState(card ? card.color : '');
   const [dueDate, setDueDate] = useState(card ? card.due_date : '');
-  const [description, setDescription] = useState(card ? card.description : '');  
-
-  const handleCloseCardDetails = e => {
-    e.preventDefault();
-    closeCardDetails();
-  };
+  const [description, setDescription] = useState(card ? card.description : '');
 
   const cardObj = {
     title: title,
@@ -92,9 +111,10 @@ const CardsShow = (props) => {
       .then(closeCardDetails());
   };
 
-  const renderComments = () => card.comments.map(id => 
-    <CommentShowContainer key={`comment-${id}`} commentId={id} />
-  )
+  const handleCloseCardDetails = e => {
+    e.preventDefault();
+    closeCardDetails();
+  };
 
   if (!card) {
     return (
@@ -104,39 +124,68 @@ const CardsShow = (props) => {
 
     return (
       <section className='card-details'>
-        <CardTitle><input
-          value={title || ''}
-          type='text'
-          onChange={handleTitleChange} /></CardTitle>
+        <CardTitle>
+          <input
+            value={title || ''}
+            type='text'
+            onChange={handleTitleChange} />
+          <button onClick={handleCloseCardDetails}>
+            x
+          </button>
+        </CardTitle>
         <ul>
-          <CardFormItems key='duedate'>
-            Due: 
-            <input
-              value={dueDate || ''}
-              type='date'
-              onChange={handleDueDateChange} />
-          </CardFormItems>
-          <CardFormItems key='description'>
-            Description: 
-            <input
-              value={description || ''}
-              type='text'
-              onChange={handleDescriptionChange} />
-          </CardFormItems>
-          <CardFormItems key='color'>
-            Color:
-            <input
-              value={color || ''}
-              onChange={handleColorChange}
-            />
-          </CardFormItems>
-          
-          {renderComments()}
+          <SubTitle>Card Details</SubTitle>
+          <Scrollbars 
+            autoHeight
+            autoHeightMin={0}
+            autoHeightMax={175}
+            hideTracksWhenNotNeeded={true}
+          >
+            <CardFormItems key='duedate'>
+              <span>Due:</span> 
+              <input
+                value={dueDate || ''}
+                type='date'
+                onChange={handleDueDateChange} />
+            </CardFormItems>
+
+            <CardFormItems key='color'>
+              <span>Color:</span>
+              <Selector onChange={handleColorChange}>
+                <option value='' selected={color === ''} >none</option>
+                <option value='red' selected={color === 'red'}>Red</option>
+                <option value='yellow' selected={color === 'yellow'}>Yellow</option>
+                <option value='deepskyblue' selected={color === 'deepskyblue'}>Blue</option>
+                <option value='magenta' selected={color === 'magenta'}>Magenta</option>
+              </Selector>
+            </CardFormItems>
+
+            <CardFormItems key='description'>
+              <span>Description:</span> 
+              <textarea
+                value={description || ''}
+                onChange={handleDescriptionChange} />
+            </CardFormItems>
+
+          </Scrollbars>
 
           <ButtonContainer key='nav'>
-            <button onClick={handleSubmit}>Save/Close</button>
-            <button onClick={handleDelete}>Delete</button>
+            <FontAwesomeIcon
+              className='btn'
+              style={{ 'margin-right': '20px' }}
+              onClick={handleSubmit}
+              icon={['far', 'save']}
+              alt='save' />
+            <FontAwesomeIcon
+              className='btn'
+              style={{'margin-left': '20px'}}
+              onClick={handleDelete}
+              alt='delete'
+              icon={['far', 'trash-alt']} />
           </ButtonContainer>
+
+          <CommentIndexContainer cardId={card.id} key='new-comment' />
+          
         </ul>
       </section>
     )

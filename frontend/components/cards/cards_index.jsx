@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
 import CardsShowContainer from './cards_show_container';
 import styled from 'styled-components';
 import Loading from '../loading';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const CardName = styled.span`
+  display: flex;
+  flex-direction: column;
+  width: 85%;
 `;
 
 const ToggleCardDetails = styled.div`
@@ -27,6 +32,11 @@ const Card = styled.div`
   display: flex;
 `;
 
+const CommentIcon = styled.div`
+  display: ${props => props.active ? 'flex' : 'none'};
+  font-size: 12px;
+`;
+
 const CardsIndex = props => {
   const { card, index, deleteCard, renderCardDetails, activeForm } = props;
 
@@ -45,7 +55,7 @@ const CardsIndex = props => {
   } else {
 
     return [
-      <Draggable draggableId={card.id} index={index} type='card'>
+      <Draggable draggableId={card.id} index={index} type='card' key={`card-${card.id}`}>
         {(provided, snapshot) => (
           <Card
             {...provided.draggableProps}
@@ -54,12 +64,24 @@ const CardsIndex = props => {
             isDragging={snapshot.isDragging}
           >
 
-            <CardName onClick={toggleActive}>{card.title} </CardName>
+            <CardName onClick={toggleActive}>
+              {card.title} 
+              <FontAwesomeIcon 
+                style={card.color ? {color: card.color, 'margin-top': '2px', opacity: 0.6} : {display: 'none'}} 
+                icon='circle' />
+            </CardName>
+            <CommentIcon active={card.comments.length > 0}>
+              {card.comments.length}
+              <FontAwesomeIcon 
+                style={{'margin-left': '3px', 'font-size': '15px'}} 
+                onClick={toggleActive} 
+                icon={['far', 'comment']} />
+            </CommentIcon>
           </Card>
         )}
       </Draggable>,
 
-      <ToggleCardDetails active={activeForm} cardId={card.id}>
+      <ToggleCardDetails key="card-details" active={activeForm} cardId={card.id}>
         <div className='modal-screen'>
           <div className='modal-content'>
             <CardsShowContainer  card={card}/>
