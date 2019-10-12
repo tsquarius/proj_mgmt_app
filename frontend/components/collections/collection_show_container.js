@@ -17,7 +17,7 @@ const mapStateToProps = ({entities, ui}, {match}) => {
 
 
 //import fetchCollection && then include the boards in here
-const mapDispatchToProps = (dispatch, {match}) => ({
+const mapDispatchToProps = (dispatch) => ({
   fetchCollection: collectionId => dispatch(fetchCollection(collectionId)),
   fetchBoards: collectionId => dispatch(fetchBoards(collectionId)),
   deleteCollection: collectionId => dispatch(destroyCollection(collectionId)),

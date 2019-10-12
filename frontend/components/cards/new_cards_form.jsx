@@ -49,10 +49,10 @@ const CardsForm = props => {
           className='btn'
           onClick={handleSubmit}
           icon={['far', 'save']}
-          style={{'font-size': '14px', 'margin-left': '1px'}} />
+          style={{fontSize: '14px', marginLeft: '1px'}} />
         <FontAwesomeIcon
           className='btn'
-          style={{ 'margin-left': '10px', 'font-size': '14px' }}
+          style={{ marginLeft: '10px', fontSize: '14px' }}
           onClick={handleClose}
           icon={['far', 'trash-alt']} />
       </nav>

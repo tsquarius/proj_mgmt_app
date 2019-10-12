@@ -697,6 +697,64 @@ var signup = function signup(user) {
 
 /***/ }),
 
+/***/ "./frontend/actions/tag_actions.js":
+/*!*****************************************!*\
+  !*** ./frontend/actions/tag_actions.js ***!
+  \*****************************************/
+/*! exports provided: RECEIVE_TAG, DELETE_TAG, receiveTag, deleteTag, fetchTag, addTag, destroyTag */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_TAG", function() { return RECEIVE_TAG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_TAG", function() { return DELETE_TAG; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveTag", function() { return receiveTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTag", function() { return deleteTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTag", function() { return fetchTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTag", function() { return addTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "destroyTag", function() { return destroyTag; });
+/* harmony import */ var _util_tags_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/tags_util */ "./frontend/util/tags_util.js");
+
+var RECEIVE_TAG = 'RECEIVE_TAG';
+var DELETE_TAG = 'DELETE_TAG'; // actions
+
+var receiveTag = function receiveTag(payload) {
+  return {
+    type: RECEIVE_TAG,
+    payload: payload
+  };
+};
+var deleteTag = function deleteTag(payload) {
+  return {
+    type: DELETE_TAG,
+    payload: payload
+  };
+}; // thunk actions
+
+var fetchTag = function fetchTag(tagId) {
+  return function (dispatch) {
+    return _util_tags_util__WEBPACK_IMPORTED_MODULE_0__["fetchTag"](tagId).then(function (payload) {
+      return dispatch(receiveTag(payload));
+    });
+  };
+};
+var addTag = function addTag(cardId, tag) {
+  return function (dispatch) {
+    return _util_tags_util__WEBPACK_IMPORTED_MODULE_0__["addTag"](cardId, tag).then(function (payload) {
+      return dispatch(receiveTag(payload));
+    });
+  };
+};
+var destroyTag = function destroyTag(tagId) {
+  return function (dispatch) {
+    return _util_tags_util__WEBPACK_IMPORTED_MODULE_0__["deleteTag"](tagId).then(function (payload) {
+      return dispatch(deleteTag(payload));
+    });
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/components/App.jsx":
 /*!*************************************!*\
   !*** ./frontend/components/App.jsx ***!
@@ -1130,8 +1188,6 @@ var BoardShow = function BoardShow(props) {
       setTitle = _useState2[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    fetchBoard(boardId);
-
     if (board) {
       setTitle(board.title);
     }
@@ -1283,7 +1339,7 @@ function _templateObject4() {
 }
 
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  background: ", ";\n  color: ", "\n  margin-bottom: 3px;\n  padding: 10px;\n  :hover {\n    background: orange;\n    transition: background 0.3s;\n  }\n  min-height: 20px;\n  justify-content: space-between;\n  display: flex;\n"]);
+  var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  background: ", ";\n  color: ", "\n  margin-bottom: 3px;\n  padding: 10px;\n  :hover {\n    background: orange;\n    transition: background 0.3s;\n  }\n  min-height: 40px;\n  justify-content: space-between;\n  display: flex;\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -1368,7 +1424,7 @@ var CardsIndex = function CardsIndex(props) {
       }, card.title, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
         style: card.color ? {
           color: card.color,
-          'margin-top': '2px',
+          marginTop: '2px',
           opacity: 0.6
         } : {
           display: 'none'
@@ -1378,8 +1434,8 @@ var CardsIndex = function CardsIndex(props) {
         active: card.comments.length > 0
       }, card.comments.length, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
         style: {
-          'margin-left': '3px',
-          'font-size': '15px'
+          marginLeft: '3px',
+          fontSize: '15px'
         },
         onClick: toggleActive,
         icon: ['far', 'comment']
@@ -1605,17 +1661,22 @@ var CardsShow = function CardsShow(props) {
   } else {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
       className: "card-details"
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardTitle, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardTitle, {
+      key: "card-title"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
       value: title || '',
       type: "text",
       onChange: handleTitleChange
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
       onClick: handleCloseCardDetails
-    }, "x")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SubTitle, null, "Card Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_5__["Scrollbars"], {
+    }, "x")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SubTitle, {
+      key: "card-details"
+    }, "Card Details"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_5__["Scrollbars"], {
       autoHeight: true,
       autoHeightMin: 0,
       autoHeightMax: 175,
-      hideTracksWhenNotNeeded: true
+      hideTracksWhenNotNeeded: true,
+      key: "card-scroll"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardFormItems, {
       key: "duedate"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Due:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -1625,22 +1686,18 @@ var CardsShow = function CardsShow(props) {
     })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardFormItems, {
       key: "color"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Color:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Selector, {
-      onChange: handleColorChange
+      onChange: handleColorChange,
+      defaultValue: color
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      value: "",
-      selected: color === ''
+      value: ""
     }, "none"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      value: "red",
-      selected: color === 'red'
+      value: "red"
     }, "Red"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      value: "yellow",
-      selected: color === 'yellow'
+      value: "yellow"
     }, "Yellow"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      value: "deepskyblue",
-      selected: color === 'deepskyblue'
+      value: "deepskyblue"
     }, "Blue"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("option", {
-      value: "magenta",
-      selected: color === 'magenta'
+      value: "magenta"
     }, "Magenta"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CardFormItems, {
       key: "description"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Description:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
@@ -1651,7 +1708,7 @@ var CardsShow = function CardsShow(props) {
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
       className: "btn",
       style: {
-        'margin-right': '20px'
+        marginRight: '20px'
       },
       onClick: handleSubmit,
       icon: ['far', 'save'],
@@ -1659,7 +1716,7 @@ var CardsShow = function CardsShow(props) {
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
       className: "btn",
       style: {
-        'margin-left': '20px'
+        marginLeft: '20px'
       },
       onClick: handleDelete,
       alt: "delete",
@@ -1802,14 +1859,14 @@ var CardsForm = function CardsForm(props) {
     onClick: handleSubmit,
     icon: ['far', 'save'],
     style: {
-      'font-size': '14px',
-      'margin-left': '1px'
+      fontSize: '14px',
+      marginLeft: '1px'
     }
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
     className: "btn",
     style: {
-      'margin-left': '10px',
-      'font-size': '14px'
+      marginLeft: '10px',
+      fontSize: '14px'
     },
     onClick: handleClose,
     icon: ['far', 'trash-alt']
@@ -2533,8 +2590,7 @@ var mapStateToProps = function mapStateToProps(_ref, _ref2) {
 }; //import fetchCollection && then include the boards in here
 
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref3) {
-  var match = _ref3.match;
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchCollection: function fetchCollection(collectionId) {
       return dispatch(Object(_actions_collection_actions__WEBPACK_IMPORTED_MODULE_3__["fetchCollection"])(collectionId));
@@ -2686,12 +2742,15 @@ var CommentIndex = function CommentIndex(props) {
     });
   };
 
-  return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SubTitle, null, "Comments"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1__["Scrollbars"], {
+  return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(SubTitle, {
+    key: "comment-title"
+  }, "Comments"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1__["Scrollbars"], {
     autoHeight: true,
     autoHeightMin: 0,
     autoHeightMax: 100,
     hideTracksWhenNotNeeded: true,
-    className: "scroll-card-comments"
+    className: "scroll-card-comments",
+    key: "comment-scroll"
   }, renderComments()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AddComment, {
     key: "comment-form",
     active: active
@@ -2701,15 +2760,15 @@ var CommentIndex = function CommentIndex(props) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "btn",
     style: {
-      'text-align': 'left',
-      'font-size': '15px'
+      textAlgin: 'left',
+      fontSize: '15px'
     },
     onClick: submitComment
   }, "Post")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(ButtonContainer, {
     key: "comment-add"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     style: {
-      'font-size': '17px'
+      fontSize: '17px'
     },
     className: !active ? 'btn' : 'hide',
     onClick: toggleCommentActive
@@ -2825,7 +2884,6 @@ var CommentShow = function CommentShow(props) {
   var comment = props.comment,
       commentId = props.commentId,
       index = props.index;
-  console.log(props);
 
   var parseDate = function parseDate(commentDate) {
     var date = new Date(commentDate);
@@ -3246,7 +3304,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_4__["library"].add(_fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faEdit"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faComment"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faTrashAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faCircle"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faSave"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_4__["library"].add(_fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faEdit"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faComment"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faTrashAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faCircle"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faSave"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSearch"]);
 document.addEventListener("DOMContentLoaded", function () {
   var store;
 
@@ -3494,7 +3552,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
 /* harmony import */ var _actions_card_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/card_actions */ "./frontend/actions/card_actions.js");
 /* harmony import */ var _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/comment_actions */ "./frontend/actions/comment_actions.js");
+/* harmony import */ var _actions_tag_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/tag_actions */ "./frontend/actions/tag_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -3522,6 +3582,12 @@ var cardsReducer = function cardsReducer() {
       return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
 
     case _actions_comment_actions__WEBPACK_IMPORTED_MODULE_2__["DELETE_COMMENT"]:
+      return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
+
+    case _actions_tag_actions__WEBPACK_IMPORTED_MODULE_3__["RECEIVE_TAG"]:
+      return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
+
+    case _actions_tag_actions__WEBPACK_IMPORTED_MODULE_3__["DELETE_TAG"]:
       return Object.assign({}, state, _defineProperty({}, action.payload.card.id, action.payload.card));
 
     default:
@@ -3721,6 +3787,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./board_columns_reducer */ "./frontend/reducers/board_columns_reducer.js");
 /* harmony import */ var _cards_reducer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./cards_reducer */ "./frontend/reducers/cards_reducer.js");
 /* harmony import */ var _comments_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./comments_reducer */ "./frontend/reducers/comments_reducer.js");
+/* harmony import */ var _tags_reducer__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tags_reducer */ "./frontend/reducers/tags_reducer.js");
+
 
 
 
@@ -3734,7 +3802,8 @@ __webpack_require__.r(__webpack_exports__);
   boards: _boards_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
   boardColumns: _board_columns_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
   cards: _cards_reducer__WEBPACK_IMPORTED_MODULE_5__["default"],
-  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
+  comments: _comments_reducer__WEBPACK_IMPORTED_MODULE_6__["default"],
+  tags: _tags_reducer__WEBPACK_IMPORTED_MODULE_7__["default"]
 }));
 
 /***/ }),
@@ -4012,6 +4081,51 @@ var sessionReducer = function sessionReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (sessionReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/tags_reducer.js":
+/*!*******************************************!*\
+  !*** ./frontend/reducers/tags_reducer.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_tag_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/tag_actions */ "./frontend/actions/tag_actions.js");
+/* harmony import */ var _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/board_actions */ "./frontend/actions/board_actions.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+var tagsReducer = function tagsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+  var newState = Object.assign({}, state);
+  var tag;
+
+  switch (action.type) {
+    case _actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_BOARDS"]:
+      return action.payload.tags || {};
+
+    case _actions_tag_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_TAG"]:
+      tag = action.payload.tag;
+      return Object.assign({}, state, _defineProperty({}, tag.id, tag));
+
+    case _actions_tag_actions__WEBPACK_IMPORTED_MODULE_0__["DELETE_TAG"]:
+      tag = action.payload.tag;
+      delete newState[tag.id];
+      return newState;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (tagsReducer);
 
 /***/ }),
 
@@ -4472,6 +4586,42 @@ var deleteSession = function deleteSession() {
   return $.ajax({
     url: '/api/session',
     method: 'DELETE'
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/tags_util.js":
+/*!************************************!*\
+  !*** ./frontend/util/tags_util.js ***!
+  \************************************/
+/*! exports provided: fetchTag, addTag, deleteTag */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchTag", function() { return fetchTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addTag", function() { return addTag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteTag", function() { return deleteTag; });
+var fetchTag = function fetchTag(tagId) {
+  return $.ajax({
+    method: 'GET',
+    url: "/api/tags/".concat(tagId)
+  });
+};
+var addTag = function addTag(cardId, tag) {
+  return $.ajax({
+    method: 'POST',
+    url: "/api/cards/".concat(cardId, "/tags"),
+    data: {
+      tag: tag
+    }
+  });
+};
+var deleteTag = function deleteTag(tagId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/tags/".concat(tagId)
   });
 };
 

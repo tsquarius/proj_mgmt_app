@@ -60,7 +60,6 @@ const BoardShow = props => {
   const [title, setTitle] = useState('');
 
   useEffect(() => { 
-    fetchBoard(boardId); 
     if (board) {setTitle(board.title);} 
   }, [board ? board.title : '']);
 

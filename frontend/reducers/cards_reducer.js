@@ -4,6 +4,10 @@ import {
   RECEIVE_SINGLE_COMMENT,
   DELETE_COMMENT
 } from '../actions/comment_actions';
+import {
+  RECEIVE_TAG,
+  DELETE_TAG
+} from '../actions/tag_actions';
 
 
 const cardsReducer = (state={}, action) => {
@@ -22,6 +26,10 @@ const cardsReducer = (state={}, action) => {
     case RECEIVE_SINGLE_COMMENT:
       return Object.assign({}, state, {[action.payload.card.id]: action.payload.card});
     case DELETE_COMMENT:
+      return Object.assign({}, state, { [action.payload.card.id]: action.payload.card });
+    case RECEIVE_TAG:
+      return Object.assign({}, state, { [action.payload.card.id]: action.payload.card });
+    case DELETE_TAG:
       return Object.assign({}, state, { [action.payload.card.id]: action.payload.card });
     default:
       return state;

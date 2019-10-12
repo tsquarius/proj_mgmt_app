@@ -65,7 +65,7 @@ const CollectionShow = props => {
     newBoard, collection, loading, boardColumns,
     reorderCards, deleteCollection, updateCollection, history } = props;
 
-  const [title, setTitle] = useState(collection ? collection.title : '')
+  const [title, setTitle] = useState(collection ? collection.title : '');
 
   const handleTitleChange = e => {
     e.preventDefault();

@@ -30,7 +30,6 @@ const DateTag = styled.span`
 
 const CommentShow = props => {
   const {comment, commentId, index} = props;
-  console.log(props);
   
   const parseDate = commentDate => {
     let date = new Date(commentDate);

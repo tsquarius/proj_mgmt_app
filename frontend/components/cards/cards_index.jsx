@@ -27,7 +27,7 @@ const Card = styled.div`
     background: orange;
     transition: background 0.3s;
   }
-  min-height: 20px;
+  min-height: 40px;
   justify-content: space-between;
   display: flex;
 `;
@@ -67,13 +67,13 @@ const CardsIndex = props => {
             <CardName onClick={toggleActive}>
               {card.title} 
               <FontAwesomeIcon 
-                style={card.color ? {color: card.color, 'margin-top': '2px', opacity: 0.6} : {display: 'none'}} 
+                style={card.color ? {color: card.color, marginTop: '2px', opacity: 0.6} : {display: 'none'}} 
                 icon='circle' />
             </CardName>
             <CommentIcon active={card.comments.length > 0}>
               {card.comments.length}
               <FontAwesomeIcon 
-                style={{'margin-left': '3px', 'font-size': '15px'}} 
+                style={{marginLeft: '3px', fontSize: '15px'}} 
                 onClick={toggleActive} 
                 icon={['far', 'comment']} />
             </CommentIcon>

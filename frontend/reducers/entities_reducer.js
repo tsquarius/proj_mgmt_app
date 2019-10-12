@@ -6,6 +6,7 @@ import boards from './boards_reducer';
 import boardColumns from './board_columns_reducer';
 import cards from './cards_reducer';
 import comments from './comments_reducer';
+import tags from './tags_reducer';
 
 export default combineReducers({
   users,
@@ -13,5 +14,6 @@ export default combineReducers({
   boards,
   boardColumns,
   cards,
-  comments
+  comments,
+  tags
 });

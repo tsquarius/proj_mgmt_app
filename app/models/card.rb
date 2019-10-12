@@ -21,6 +21,7 @@ class Card < ApplicationRecord
   # validates :order, uniqueness: {scope: :board_column_id}
   belongs_to :board_column
   has_many :comments
+  has_many :tags
 
   def self.find_next_order(id)
     cards = Card.where(board_column_id: id)
@@ -35,5 +36,18 @@ class Card < ApplicationRecord
     self.comments.pluck(:id)
   end
 
+  def tags_array
+    self.tags.pluck(:id)
+  end
+
+  def receive_tag(tag_params)
+    tag = self.tags.find_or_create_by(name: tag_params[:name])
+    
+    if tag_params[:color]
+      tag.update_attributes(color: tag_params[:color])
+    end
+
+    return tag
+  end
 
 end

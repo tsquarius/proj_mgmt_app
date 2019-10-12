@@ -124,7 +124,7 @@ const CardsShow = props => {
 
     return (
       <section className='card-details'>
-        <CardTitle>
+        <CardTitle key='card-title'>
           <input
             value={title || ''}
             type='text'
@@ -134,12 +134,13 @@ const CardsShow = props => {
           </button>
         </CardTitle>
         <ul>
-          <SubTitle>Card Details</SubTitle>
+          <SubTitle key='card-details'>Card Details</SubTitle>
           <Scrollbars 
             autoHeight
             autoHeightMin={0}
             autoHeightMax={175}
             hideTracksWhenNotNeeded={true}
+            key='card-scroll'
           >
             <CardFormItems key='duedate'>
               <span>Due:</span> 
@@ -151,12 +152,12 @@ const CardsShow = props => {
 
             <CardFormItems key='color'>
               <span>Color:</span>
-              <Selector onChange={handleColorChange}>
-                <option value='' selected={color === ''} >none</option>
-                <option value='red' selected={color === 'red'}>Red</option>
-                <option value='yellow' selected={color === 'yellow'}>Yellow</option>
-                <option value='deepskyblue' selected={color === 'deepskyblue'}>Blue</option>
-                <option value='magenta' selected={color === 'magenta'}>Magenta</option>
+              <Selector onChange={handleColorChange} defaultValue={color}>
+                <option value='' >none</option>
+                <option value='red' >Red</option>
+                <option value='yellow' >Yellow</option>
+                <option value='deepskyblue'>Blue</option>
+                <option value='magenta' >Magenta</option>
               </Selector>
             </CardFormItems>
 
@@ -172,13 +173,13 @@ const CardsShow = props => {
           <ButtonContainer key='nav'>
             <FontAwesomeIcon
               className='btn'
-              style={{ 'margin-right': '20px' }}
+              style={{ marginRight: '20px' }}
               onClick={handleSubmit}
               icon={['far', 'save']}
               alt='save' />
             <FontAwesomeIcon
               className='btn'
-              style={{'margin-left': '20px'}}
+              style={{marginLeft: '20px'}}
               onClick={handleDelete}
               alt='delete'
               icon={['far', 'trash-alt']} />

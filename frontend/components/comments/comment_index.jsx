@@ -55,7 +55,7 @@ const CommentIndex = props => {
   )
 
   return [
-      <SubTitle>Comments</SubTitle>,
+      <SubTitle key='comment-title'>Comments</SubTitle>,
 
       <Scrollbars
         autoHeight
@@ -63,6 +63,7 @@ const CommentIndex = props => {
         autoHeightMax={100}
         hideTracksWhenNotNeeded={true}
         className='scroll-card-comments'
+        key='comment-scroll'
       >
         {renderComments()}
       </Scrollbars>,
@@ -74,7 +75,7 @@ const CommentIndex = props => {
         />
         <button 
           className='btn' 
-          style={{'text-align': 'left', 'font-size': '15px'}} 
+          style={{textAlgin: 'left', fontSize: '15px'}} 
           onClick={submitComment}>
             Post
         </button>
@@ -82,7 +83,7 @@ const CommentIndex = props => {
 
       <ButtonContainer key='comment-add'>
         <button 
-          style={{'font-size': '17px'}} 
+          style={{fontSize: '17px'}} 
           className={!active ? 'btn' : 'hide'} 
           onClick={toggleCommentActive}>+ Add comment</button>
       </ButtonContainer>
