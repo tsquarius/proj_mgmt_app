@@ -1,5 +1,7 @@
 class Api::BoardColumnsController < ApplicationController
 
+  before_action :require_logged_in
+
   def index
     @board_columns = BoardColumn.where(board_id: params[:board_id])
     render :index

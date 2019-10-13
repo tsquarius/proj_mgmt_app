@@ -1,5 +1,7 @@
 class Api::TagsController < ApplicationController
 
+  before_action :require_logged_in
+
   def show
     @tag = Tag.find(params[:id])
     render :show
@@ -7,7 +9,7 @@ class Api::TagsController < ApplicationController
 
   def create
     card = Card.find(params[:card_id])
-    @tag = receive_tag(tag_params)
+    @tag = card.receive_tag(tag_params)
     if @tag
       render :show
     else

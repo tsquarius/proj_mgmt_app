@@ -1,5 +1,7 @@
 class Api::CardsController < ApplicationController
 
+  before_action :require_logged_in
+
   def show
     @card = Card.find(params[:id])
     render :show

@@ -24,6 +24,17 @@ class User < ApplicationRecord
   has_many :collections, foreign_key: :author_id
   has_many :comments, foreign_key: :author_id
 
+  has_many :memberships, 
+    foreign_key: :member_id,
+    class_name: :Member
+  
+  has_many :team_collections, through: :memberships
+
+  def subscribed_collections
+    (self.collections + self.team_collections)
+  end
+
+
   def password=(password)
     @password = password
 

@@ -1,7 +1,8 @@
 class Api::CollectionsController < ApplicationController
+  before_action :require_logged_in
 
   def index
-    @collections = Collection.where(author_id: current_user.id)
+    @collections = current_user.subscribed_collections
     render :index
   end
   
@@ -32,6 +33,10 @@ class Api::CollectionsController < ApplicationController
 
   def destroy
     @collection = Collection.find(params[:id])
+    if @collection.author_id != current_user.id
+      render json: ['You are not the owner of this collection']
+    end
+
     if @collection
       @collection.destroy
       render :show
@@ -44,6 +49,11 @@ class Api::CollectionsController < ApplicationController
 
   def collection_params
     params.require(:collection).permit(:title)
+  end
+
+  def require_membership
+    #should render error message unless we're a user
+    #impacts show
   end
 
 end

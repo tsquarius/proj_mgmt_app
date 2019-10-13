@@ -16,6 +16,7 @@ class Collection < ApplicationRecord
   has_many :boards, dependent: :destroy
   has_many :board_columns, through: :boards
   has_many :cards, through: :board_columns
+  has_many :members
 
   def ordered_boards
     self.boards.order(order: :asc).pluck(:id)

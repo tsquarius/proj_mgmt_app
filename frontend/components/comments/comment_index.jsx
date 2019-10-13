@@ -75,7 +75,7 @@ const CommentIndex = props => {
         />
         <button 
           className='btn' 
-          style={{textAlgin: 'left', fontSize: '15px'}} 
+          style={{textAlign: 'left', fontSize: '15px'}} 
           onClick={submitComment}>
             Post
         </button>

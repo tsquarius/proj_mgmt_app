@@ -1,11 +1,15 @@
 class Api::BoardsController < ApplicationController
 
+  before_action :require_logged_in
+
   def index
+    collections = current_user.subscribed_collections.pluck(:id)
+
     @boards = Board
       .includes(:board_columns)
       .includes(:cards)
       .includes(:comments)
-      .where(author_id: current_user.id, collection_id: params[:collection_id])
+      .where(collection_id: collections)
     render :index
   end
 

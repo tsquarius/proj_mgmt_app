@@ -2,9 +2,10 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
 import CardsShowContainer from './cards_show_container';
-import styled from 'styled-components';
+import TagsIndex from '../tags/tags_index';
 import Loading from '../loading';
 
+import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CardName = styled.span`
@@ -35,6 +36,10 @@ const Card = styled.div`
 const CommentIcon = styled.div`
   display: ${props => props.active ? 'flex' : 'none'};
   font-size: 12px;
+`;
+
+const Tags = styled.div`
+
 `;
 
 const CardsIndex = props => {
@@ -69,6 +74,9 @@ const CardsIndex = props => {
               <FontAwesomeIcon 
                 style={card.color ? {color: card.color, marginTop: '2px', opacity: 0.6} : {display: 'none'}} 
                 icon='circle' />
+              <Tags>
+                <TagsIndex tagsArray={card.tags} cardId={card.id} boardView={true} />
+              </Tags>
             </CardName>
             <CommentIcon active={card.comments.length > 0}>
               {card.comments.length}

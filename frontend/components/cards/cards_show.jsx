@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {withRouter} from 'react-router-dom';
 
 import CommentIndexContainer from '../comments/comment_index_container';
+import TagsIndex from '../tags/tags_index';
 import Loading from '../loading';
 
 import styled from 'styled-components';
@@ -133,6 +134,8 @@ const CardsShow = props => {
             x
           </button>
         </CardTitle>
+
+        <TagsIndex key='tags-index' tagsArray={card.tags} cardId={card.id} />
         <ul>
           <SubTitle key='card-details'>Card Details</SubTitle>
           <Scrollbars 
