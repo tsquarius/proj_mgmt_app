@@ -5,6 +5,9 @@ import {fetchCollection, destroyCollection, updateCollection} from '../../action
 import {reorderCards} from '../../actions/board_column_actions';
 import {patchCard} from '../../actions/card_actions';
 
+import { renderCollectionDetails } from '../../actions/form_actions';
+
+
 //need to pull bcId => cards mapping
 const mapStateToProps = ({entities, ui}, {match}) => {
   return ({
@@ -23,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
   deleteCollection: collectionId => dispatch(destroyCollection(collectionId)),
   updateCollection: (collection, collectionId) => dispatch(updateCollection(collection,collectionId)),
   newBoard: (collectionId, board) => dispatch(createBoard(collectionId, board)),
+  //
+  openDetails: () => dispatch(renderCollectionDetails()),
+
   //below are included for drag&drop features
   patchCard: (cardId, card) => dispatch(patchCard(cardId,card)),
   reorderCards: cardArr => dispatch(reorderCards(cardArr))

@@ -1,7 +1,6 @@
 import {connect} from 'react-redux';
 import {
   destroyBoardColumn,
-  fetchBoardColumn,
   updateBoardColumn,
 } from '../../actions/board_column_actions';
 import { renderNewCardForm } from '../../actions/form_actions';
@@ -16,7 +15,6 @@ const mapStateToProps = ({entities, ui}, {bcId}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBoardColumn: boardId => dispatch(fetchBoardColumn(boardId)),
   destroyBoardColumn: boardColumnId => dispatch(destroyBoardColumn(boardColumnId)),
   updateBoardColumn: (boardColumnId, boardColumn) => dispatch(updateBoardColumn(boardColumnId, boardColumn)),
 

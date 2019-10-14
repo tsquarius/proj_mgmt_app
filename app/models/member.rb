@@ -18,7 +18,7 @@ class Member < ApplicationRecord
     foreign_key: :collection_id,
     primary_key: :id
   
-  belongs_to :member,
+  belongs_to :team_member,
     class_name: :User,
     foreign_key: :member_id,
     primary_key: :id

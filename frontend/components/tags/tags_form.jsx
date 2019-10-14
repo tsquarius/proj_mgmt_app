@@ -1,41 +1,14 @@
 import React, {useState} from 'react';
-import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const AddTag = styled.div`
-  display: ${props => props.active ? 'flex' : 'none'}
-  font-size: 12px;
-  flex-direction: row;
-  margin-top: 10px;
-`;
 
-const ButtonContainer = styled.nav`
-  margin-left: 2px;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed white;
-  justify-content: space-between;
-  display: flex;
-`;
-
-const Selector = styled.select`
-  margin-left: 2px;
-`;
-
-const CardFormItems = styled.li`
-  display: flex;
-  flex-direction: row;
-  width: 105px;
-  margin-bottom: 10px;
-  color: black;
-  background: white;
-  border-radius: 5px;
-  span {
-    font-weight: 700;
-    padding: 2px 0 0 2px;
-  }
-  input {
-    margin-left: 5px;
-  }
-`;
+import {
+  AddTag,
+  TagButtonContainer,
+  TagSelector,
+  TagFormItems,
+  TagNav
+} from '../../styled_components/modal_styles';
 
 const TagsForm = props => {
   const {cardId, addTag} = props;
@@ -72,48 +45,59 @@ const TagsForm = props => {
 
   return [
     <AddTag key='form' active={active}>
-      <CardFormItems key='tag-name'>
+      <TagFormItems key='tag-name'>
       <span>Tag:</span>
       <input 
         type='text' 
         value={tagName} 
         onChange={handleTagNameChange} 
       />
-      </CardFormItems>
+      </TagFormItems>
 
-      <CardFormItems key='tag-color' style={{marginLeft: '2px'}}>
-      <span>Color:</span>
-      <Selector onChange={handleColorChange} defaultValue={color}>
-        <option value='' >none</option>
-        <option value='red' >Red</option>
-        <option value='yellow' >Yellow</option>
-        <option value='deepskyblue'>Blue</option>
-        <option value='magenta' >Magenta</option>
-      </Selector>
-      </CardFormItems>
-      <ButtonContainer key='tag-nav'>
+      <TagFormItems key='tag-color'>
+        <span>Color:</span>
+        <TagSelector onChange={handleColorChange} defaultValue={color}>
+          <option value='' >none</option>
+          <option value='#a33301'>Dark Red</option>
+          <option value='#e95e10'>Salmon</option>
+          <option value='#0e0c40'>Night Blue</option>
+          <option value='#beced0'>Pale Blue </option>
+          <option value='#c3e1e5'>Light Blue </option>
+          <option value='#1f8da6'>Dark Teal</option>  
+        </TagSelector>
+      </TagFormItems>
+
+      <FontAwesomeIcon
+        style={{ color: color, marginTop: '2px', background: 'black' }}
+        icon='circle' />
+
+      <TagNav key='tag-nav'>
         <button 
-          className='btn' 
-          onClick={submitTag}
-          style={{fontSize: '12px', marginLeft: '10px'}}>
+          className='btn-modal' 
+          onClick={submitTag} >
           Save
         </button>
-        <button className='btn'
-          onClick={toggleActive}
-          style={{fontSize: '12px', marginLeft: '20px'}}>
+        <button className='btn-modal'
+          onClick={toggleActive} >
           X
         </button>
-      </ButtonContainer>
+      </TagNav>
+
     </AddTag>,
-    <ButtonContainer key='tag-add' style={active ? {display: 'none'} : {display: 'flex', marginTop: '10px'} }>
-      <button className='btn' 
-        onClick={toggleActive} 
-        style={{ textAlign: 'left', fontSize: '12px' }}>
+    <TagButtonContainer key='tag-add' active={active}>
+      <button className='btn-modal' 
+        onClick={toggleActive} >
           + Add Tag
       </button>
-    </ButtonContainer>
+    </TagButtonContainer>
   ]
 
 };
 
 export default TagsForm;
+
+// <option value='' >none</option>
+// <option value='red' >Red</option>
+// <option value='yellow' >Yellow</option>
+// <option value='deepskyblue'>Blue</option>
+// <option value='magenta' >Magenta</option>

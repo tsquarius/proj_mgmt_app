@@ -1,7 +1,8 @@
 import {
   RECEIVE_COLLECTIONS, 
   RECEIVE_SINGLE_COLLECTION, 
-  DELETE_COLLECTION} from '../actions/collection_actions';
+  DELETE_COLLECTION
+} from '../actions/collection_actions';
 
 import {
   RECEIVE_SINGLE_BOARD,

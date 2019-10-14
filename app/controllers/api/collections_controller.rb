@@ -45,15 +45,58 @@ class Api::CollectionsController < ApplicationController
     end
   end
 
+  def add_member
+    user = User.find_by(member_params)
+    @collection = Collection.find(params[:id])
+
+    if !user
+      render json: ['User does not exist. Please try again'], status: 422
+      return
+    end
+
+    if @collection.author_id != current_user.id
+      render json: ['You are not the owner of this collection'], status: 422
+      return
+    end
+    
+    if @collection.team_members << user
+      render :show
+    else
+      render json: ['Unable to add user...'], status: 422
+    end
+
+  end
+
+  def remove_member
+    user = User.find_by(member_params)
+    @collection = Collection.find(params[:id])
+
+    if !user
+      render json: ['User does not exist. Please try again'], status: 422
+      return
+    end
+
+    unless @collection.author_id == current_user.id || user.id == current_user.id
+      render json: ['You do not have permission to remove this user'], status: 422
+      return
+    end
+
+    if @collection.team_members.delete(user)
+      render :show
+    else
+      render json: ['We were unable to remove the user'], status: 422
+    end
+
+  end
+
   private
 
   def collection_params
     params.require(:collection).permit(:title)
   end
 
-  def require_membership
-    #should render error message unless we're a user
-    #impacts show
+  def member_params
+    params.require(:member).permit(:email, :username)
   end
 
 end

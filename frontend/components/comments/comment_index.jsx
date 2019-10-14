@@ -1,30 +1,14 @@
 import React, { useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
-import styled from 'styled-components';
 import CommentShowContainer from '../comments/comment_show_container';
 
-const SubTitle = styled.h3`
-  margin: 10px 0;
-  text-decoration: underline;
-`;
+import { ButtonContainer } from '../../styled_components/modal_styles';
 
-const AddComment = styled.div`
-  display: ${props => props.active ? 'flex' : 'none'}
-  font-size: 15px;
-  flex-direction: column;
-
-`;
-
-const TextBox = styled.textarea`
-  border-radius: 5px;
-  padding: 5px;
-`;
-
-const ButtonContainer = styled.nav`
-  margin: 10px 0;
-  padding-bottom: 10px;
-  border-bottom: 1px dashed white;
-`;
+import {
+  AddComment,
+  TextBox,
+  Button
+} from '../../styled_components/comment_styles';
 
 const CommentIndex = props => {
   const { commentsArr, postComment, cardId } = props;
@@ -55,7 +39,7 @@ const CommentIndex = props => {
   )
 
   return [
-      <SubTitle key='comment-title'>Comments</SubTitle>,
+      <h4 className='subtitle' key='comment-title'>Comments</h4>,
 
       <Scrollbars
         autoHeight
@@ -73,19 +57,19 @@ const CommentIndex = props => {
           value={comment}
           onChange={handleCommentChange}
         />
-        <button 
-          className='btn' 
-          style={{textAlign: 'left', fontSize: '15px'}} 
+        <Button 
           onClick={submitComment}>
             Post
-        </button>
+        </Button>
       </AddComment>,
 
       <ButtonContainer key='comment-add'>
-        <button 
-          style={{fontSize: '17px'}} 
-          className={!active ? 'btn' : 'hide'} 
-          onClick={toggleCommentActive}>+ Add comment</button>
+        <Button
+          className={!active ? '' : 'hide'} 
+          onClick={toggleCommentActive}
+        >
+          + Add comment
+        </Button>
       </ButtonContainer>
     ]
 };

@@ -16,10 +16,17 @@ class Collection < ApplicationRecord
   has_many :boards, dependent: :destroy
   has_many :board_columns, through: :boards
   has_many :cards, through: :board_columns
-  has_many :members
+  has_many :memberships, 
+    foreign_key: :collection_id, 
+    class_name: :Member
+  has_many :team_members, through: :memberships
 
   def ordered_boards
     self.boards.order(order: :asc).pluck(:id)
+  end
+
+  def team_names
+    (self.team_members + [self.author]).pluck(:username) 
   end
 
 

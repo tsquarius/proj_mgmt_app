@@ -39,3 +39,22 @@ export const destroyCollection = collectionId => (
     url: `/api/collections/${collectionId}`
   })
 );
+
+
+// collection membership
+
+export const addMember = (collectionId, member) => (
+  $.ajax({
+    method: 'POST',
+    url: `/api/collections/${collectionId}/add_member`,
+    data: {member}
+  })
+);
+
+export const removeMember = (collectionId, member) => (
+  $.ajax({
+    method: 'DELETE',
+    url: `/api/collections/${collectionId}/remove_member`,
+    data: {member}
+  })
+);

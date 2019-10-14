@@ -1,19 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const Tag = styled.li`
-  border-radius: 5px;
-  font-size: 12px;
-  background: ${props => props.color}
-  min-width: 30px;
-  height: 13px;
-  padding: 3px 5px;
-  display: flex;
-  margin-right: 1px;
-  justify-content: space-between;
-  color: ${props => props.offSet ? 'black' : 'white' };
-`;
-
+import { 
+  Tag,
+  CloseTag } from '../../styled_components/tag_styles';
 
 const TagIndexItem = props => {
   const {tag, deleteTag, tagId, boardView} = props;
@@ -23,15 +11,31 @@ const TagIndexItem = props => {
     deleteTag(tagId);
   };
 
+  const offSetColor = () => {
+    if (tag.color === '#beced0') {
+      return(
+        'black'
+      );
+    } else if (tag.color === '#c3e1e5') {
+      return (
+        '#bf3415'
+      );
+    } else {
+      return 'white';
+    }
+  };
+
   return(
-    <Tag color={tag.color} offSet={tag.color === 'yellow' || tag.color === 'deepskyblue' }>
+    <Tag 
+      color={tag.color} 
+      offSet={offSetColor()}
+    >
       {tag.name}
-      <button 
-        className='btn'
-        onClick={submitDeleteTag}
-        style={boardView ? {display : 'none'} : {fontSize: '12px', marginLeft: '10px'}}>
+      <CloseTag 
+        boardView={boardView}
+        onClick={submitDeleteTag}>
           x
-      </button>
+      </CloseTag>
     </Tag>
   );
 

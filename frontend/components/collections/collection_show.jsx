@@ -1,71 +1,46 @@
 import React, {useState, useEffect } from 'react';
-import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import BoardShowContainer from '../boards/board_show_container';
 import Loading from '../loading';
+import MemberIndexContainer from '../members/member_index_container';
 
-//Styles
-const Container = styled.div``;
-const Title = styled.h2`
-  display: flex;
-  padding: 10px;
-  font-size: 30px;
-  font-weight: 700;
-  width: 90%
-  border-bottom: 2px solid gray; 
-  justify-content: space-between;
-  button {
-    font-size: 20px;
-    font-weight: 400;
-    cursor: pointer;
-    visibility: hidden;
-    opacity: 0;
-  }
-`;
+import {
+  Title, 
+  TitleInput, 
+  HiddenButton, 
+  BoardSection, 
+  PseudoBoardSection,
+  FocusButton
+} from '../../styled_components/collection_styles';
 
-const TitleInput = styled.input`
-  :focus {
-    border-radius: 5px;
-    background: rgba(255,255,255,0.4);
-    margin-right: 5px;
-  }
-`;
-
-const Button = styled.button`
-  ${Title}:hover & {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.3s linear;
-  }
-  :hover {
-    text-decoration: underline;
-  }
-`;
-
-const Boards = styled.section`
-  display: flex;
-  flex-direction: column;
-`;
-
-const PseudoBoard = styled.div`
-  display: block
-  padding: 10px;
-  margin-left: 10px;
-  button {
-    font-size: 20px;
-  }
-`;
-
-// end
+import {
+  DropButton,
+  DropDownContent,
+  DropDown
+} from '../../styled_components/dropdown_styles';
 
 const CollectionShow = props => {
   
   const {fetchBoards, collectionId, patchCard,
     newBoard, collection, loading, boardColumns,
-    reorderCards, deleteCollection, updateCollection, history } = props;
+    reorderCards, deleteCollection, updateCollection, history,
+    openDetails } = props;
 
   const [title, setTitle] = useState(collection ? collection.title : '');
+  const [focused, setFocused] = useState(false);
+  const [active, setActive] = useState(false);
+
+  const toggleActive = e => {
+    e.preventDefault();
+    setActive(!active);
+  };
+  
+  const openCollectionDetails = e => {
+    e.preventDefault();
+    openDetails();
+    setActive(false);
+  };
 
   const handleTitleChange = e => {
     e.preventDefault();
@@ -94,6 +69,11 @@ const CollectionShow = props => {
     e.preventDefault();
     newBoard(collectionId ,{title: 'New Board'});
   };
+
+  const toggleFocus = e => {
+    e.preventDefault();
+    setFocused(!focused);
+  };
   
   const boardsList = () => collection.boards.map(id =>
     <BoardShowContainer key={id} boardId={id} />
@@ -103,7 +83,6 @@ const CollectionShow = props => {
   // Drag-drop functionality
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
-    console.log(result);
 
     if (!destination) { return; }
 
@@ -145,32 +124,46 @@ const CollectionShow = props => {
 
   if (loading || !collection) {
     return (
-      <Container>
+      <div>
         <Loading />
-      </Container>
+      </div>
     )
   } else {
-    return (
-      <Container>
-        <Title>
+    return [
+      <div>
+        <Title className='h2'>
           <div>
-            <TitleInput type='text' value={title} onChange={handleTitleChange} />
-            <Button onClick={submitTitleChange}>save</Button>
+            <TitleInput 
+              onFocus={toggleFocus}
+              onBlur={toggleFocus}
+              type='text' 
+              value={title} 
+              onChange={handleTitleChange} />
+            <FocusButton focused={focused} onClick={submitTitleChange}>save</FocusButton>
           </div>
-          <div>
-            <Button onClick={handleDeleteCollection}>Delete</Button>
-          </div>
+
+          <DropDown>
+            <DropButton onClick={toggleActive}>...</DropButton>
+            <DropDownContent active={active}>
+              <button onClick={openCollectionDetails}>Manage Members</button>
+              <button onClick={handleDeleteCollection}>Delete</button>
+            </DropDownContent>
+          </DropDown>
         </Title>
-          <Boards>
-            <DragDropContext onDragEnd={onDragEnd}>
-              {boardsList()}
-            </DragDropContext>
-          </Boards>
-          <PseudoBoard>
-            <button className='submit' onClick={createNewBoard}>Add Board...</button>
-          </PseudoBoard>
-      </Container>
-    )
+
+        <BoardSection>
+          <DragDropContext onDragEnd={onDragEnd}>
+            {boardsList()}
+          </DragDropContext>
+        </BoardSection>
+
+        <PseudoBoardSection>
+          <button className='submit' onClick={createNewBoard}>Add Board...</button>
+        </PseudoBoardSection>
+      </div>,
+
+      <MemberIndexContainer title={title} collectionId={collection.id} /> 
+    ]
   }
 }
 

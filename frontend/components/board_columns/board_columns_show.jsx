@@ -1,91 +1,41 @@
 import React, {useState, useEffect} from 'react';
-import styled from 'styled-components';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 import Loading from '../loading';
 
 import CardsIndexContainer from '../cards/cards_index_container';
 import NewCardsFormContainer from '../cards/new_cards_form_container';
 
-const Column = styled.div`
-  width: 275px;
-  margin-right: 10px;
-  background: inherit;
-  }
-`;
+import {
+  Column,
+  HeaderSection,
+  ToggleNav,
+  CardsSection,
+  PseudoCard,
+  CardButton,
+  Form,
+  HiddenButton
+} from '../../styled_components/board_column_styles';
 
-const HeaderSection = styled.header`
-padding: 0px;
-background: rgba(255,255,255,0.4);
-display: flex;
-width: 220px;
-min-height: 45px;
-margin-left: 10px;
-flex-direction: row;
-  input {
-    background: none;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px;
-    width: 70%;
-    :focus {
-      text-decoration: underline;
-    }
-  }
-`;
-
-const ToggleNav = styled.nav`
-  overflow-x: wrap;
-  width: 20px;
-  font-size: 12px;
-  display: none;
-  ${HeaderSection}:hover & {
-    display: flex;
-    flex-direction: column;
-    padding-top: 7px;
-  }
-`;
-
-const CardsSection = styled.article`
-  width: 220px;
-  margin: 10px 0 0 10px;
-  border: ${props => (props.isDraggingOver ? '1px dashed white' : 'none')};
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
-`;
-
-const PseudoCard = styled.div`
-  min-height: 20px;
-`;
-
-const CardButton = styled.button`
-  padding-left: 12px;
-  visibility: hidden;
-  opacity: 0;
-  ${Column}:hover & {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.3s linear;
-  }
-`;
-
-const Form = styled.div`
-  padding: 10px;
-`;
+import { FocusButton } from '../../styled_components/board_styles';
 
 const BoardColumnsShow = props => {
 
-  const { fetchBoardColumn, destroyBoardColumn, boardColumn, 
-    updateBoardColumn, activeForm, newCard, bcId, index } = props;
+  const { destroyBoardColumn, boardColumn, 
+    updateBoardColumn, activeForm, newCard, bcId } = props;
 
   const [title, setTitle] = useState('');
-
+  const [focused, setFocused] = useState(false);
 
   useEffect(() => {
     if (boardColumn) {
       setTitle(boardColumn.title);
     }
   }, [boardColumn ? boardColumn.title : ''] );
+
+  const toggleFocus = e => {
+    e.preventDefault();
+    setFocused(!focused);
+  };
 
   const handleTitleChange = e => {
     e.preventDefault();
@@ -100,6 +50,11 @@ const BoardColumnsShow = props => {
   const removeColumn = e => {
     e.preventDefault();
     destroyBoardColumn(boardColumn.id);
+  };
+
+  const renderNewCardForm = e => {
+    e.preventDefault();
+    newCard(boardColumn.id);
   };
 
   const renderCards = () => {
@@ -124,11 +79,6 @@ const BoardColumnsShow = props => {
     )
   };
 
-  const renderNewCardForm = e => {
-    e.preventDefault();
-    newCard(boardColumn.id);
-  };
-
   if (!boardColumn) {
     return (
       <Loading />
@@ -138,13 +88,12 @@ const BoardColumnsShow = props => {
     return(
       <Column>
         <HeaderSection >
-          <input type='text' value={title} onChange={handleTitleChange} />
+          <input onFocus={toggleFocus} onBlur={toggleFocus} type='text' value={title} onChange={handleTitleChange} />
           <ToggleNav>
-            <button onClick={handleSubmitTitle} className='submit'>Save</button>
-            <button onClick={removeColumn} className='submit'>Del</button>
+            <FocusButton focused={focused} onClick={handleSubmitTitle}>Save</FocusButton>
+            <HiddenButton onClick={removeColumn}>Del</HiddenButton>
           </ToggleNav>
         </HeaderSection>
-
 
           {renderCards()}
 
@@ -155,7 +104,6 @@ const BoardColumnsShow = props => {
           </Form>
 
           <CardButton
-            className='submit'
             onClick={renderNewCardForm}>
             Add card...
           </CardButton>

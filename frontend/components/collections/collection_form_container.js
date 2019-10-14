@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { updateCollection, postCollection } from '../../actions/collection_actions';
+import { updateCollection, postCollection, addMember, removeMember } from '../../actions/collection_actions';
 import {closeCollectionForm} from '../../actions/form_actions';
 
 import CollectionForm from './collection_form';

@@ -62,3 +62,12 @@ Util.patchCollection(collection,collectionId)
 export const destroyCollection = collection => dispatch => Util.destroyCollection(collection)
   .then(collection => dispatch(deleteCollection(collection)))
   .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
+
+export const addMember = (collectionId, member) => dispatch => Util.addMember(collectionId, member)
+  .then(collection => dispatch(receiveSingleCollection(collection)))
+  .fail(errs => dispatch(receiveErrors(errs.responseJSON)));
+
+export const removeMember = (collectionId, member) => dispatch => 
+  Util.removeMember(collectionId, member)
+    .then(collection => dispatch(receiveSingleCollection(collection)))
+    .fail(errs => dispatch(receiveErrors(errs.responseJSON)));

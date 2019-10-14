@@ -1,58 +1,25 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Draggable } from 'react-beautiful-dnd';
+
 import CardsShowContainer from './cards_show_container';
 import TagsIndex from '../tags/tags_index';
 import Loading from '../loading';
 
-import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const CardName = styled.span`
-  display: flex;
-  flex-direction: column;
-  width: 85%;
-`;
-
-const ToggleCardDetails = styled.div`
-  display: ${props => props.active.id === props.cardId ? 'flex' : 'none'}
-`;
-
-const Card = styled.div`
-  cursor: pointer;
-  background: ${props => props.isDragging ? 'orange' : 'rgba(255,255,255,0.1)'};
-  color: ${props => props.isDragging ? 'white' : 'inherit'}
-  margin-bottom: 3px;
-  padding: 10px;
-  :hover {
-    background: orange;
-    transition: background 0.3s;
-  }
-  min-height: 40px;
-  justify-content: space-between;
-  display: flex;
-`;
-
-const CommentIcon = styled.div`
-  display: ${props => props.active ? 'flex' : 'none'};
-  font-size: 12px;
-`;
-
-const Tags = styled.div`
-
-`;
+import {
+  CardName,
+  ToggleCardDetails,
+  Card,
+  CommentIcon
+} from '../../styled_components/card_styles';
 
 const CardsIndex = props => {
-  const { card, index, deleteCard, renderCardDetails, activeForm } = props;
+  const { card, index, renderCardDetails, activeForm } = props;
 
   const toggleActive = e => {
     e.preventDefault();
     renderCardDetails(card.id);
-  };
-
-  const handleDelete = e => {
-    e.preventDefault();
-    deleteCard(card.id);
   };
 
   if (!card) {
@@ -71,20 +38,21 @@ const CardsIndex = props => {
 
             <CardName onClick={toggleActive}>
               {card.title} 
-              <FontAwesomeIcon 
-                style={card.color ? {color: card.color, marginTop: '2px', opacity: 0.6} : {display: 'none'}} 
-                icon='circle' />
-              <Tags>
+
+              <div>
                 <TagsIndex tagsArray={card.tags} cardId={card.id} boardView={true} />
-              </Tags>
+              </div>
+
             </CardName>
+
             <CommentIcon active={card.comments.length > 0}>
               {card.comments.length}
               <FontAwesomeIcon 
-                style={{marginLeft: '3px', fontSize: '15px'}} 
+                className='comment-icon'
                 onClick={toggleActive} 
                 icon={['far', 'comment']} />
             </CommentIcon>
+
           </Card>
         )}
       </Draggable>,
@@ -101,5 +69,5 @@ const CardsIndex = props => {
   }
 }
 
-export default withRouter(CardsIndex);
+export default CardsIndex;
 

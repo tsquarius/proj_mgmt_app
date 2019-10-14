@@ -1,37 +1,6 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import FormContainer from '../collections/collection_form_container';
-import styled from 'styled-components';
-
-const List = styled.li`
-  cursor: pointer;
-  margin: 0 0px 20px 10px;
-  font-weight: 500;
-  width: 65%;
-  background: ${props => 
-    props.active ? 'white' : 'inherit' }
-  color: ${props =>
-    props.active ? '#6D6F6D' : 'white' }
-  a {
-    display: block;
-    padding: 4px 0px 0px 13px;
-    :hover {
-      text-decoration: underline;
-    }
-  }
-`;
-
-const Button = styled.button`
-  margin-left: 10px;
-  cursor: pointer;
-  width: 65%;
-  display: block;
-  padding: 4px 0px 4px 13px;
-  text-align: left;
-  :hover {
-    background: rgb(233, 132, 0);
-  }
-`;
+import {List, Button} from '../../styled_components/collection_styles';
 
 class CollectionIndex extends React.Component {
 

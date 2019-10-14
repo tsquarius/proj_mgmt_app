@@ -1,63 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import BoardColumnsContainer from '../board_columns/board_columns_show_container';
 import Loading from '../loading';
-import styled from 'styled-components';
-import { Droppable } from 'react-beautiful-dnd';
+import {
+  BoardDiv,
+  HeaderSection,
+  ColumnsSection,
+  PseudoColumn,
+  ButtonToggle,
+  FocusButton
+} from '../../styled_components/board_styles';
 
-const Container = styled.div`
-  display: block
-  padding-left: 12px;
-  border-bottom: 2px dashed gray;
-  width: 90%;
-  margin-left: 10px;
-`;
-
-const HeaderSection = styled.header`
-  display: flex;
-  width: 35%;
-  input {
-    font-size: 20px;
-    padding: 8px 10px;;
-    :focus {
-      border-bottom: 1px solid white;
-    }
-  }
-`;
-
-const ColumnsSection = styled.section`
-  min-width: 1100px;
-  min-height: 200px;
-  display: flex;
-  flex-direction: row;
-  margin: 10px 0;
-`;
-
-const PseudoColumn = styled.div`
-  width: 200px;
-  border: 1px solid green;
-  margin-right: 10px;
-  background: inherit;
-  border: none;
-  }
-`;
-
-const ButtonToggle = styled.button`
-  display: none;
-  margin-top: 5px;
-  font-size: 13px;
-  :hover {
-    text-decoration: underline;
-  }
-  ${HeaderSection}:hover & {
-    display: block;
-    cursor: pointer;
-  }
-`;
 
 const BoardShow = props => {
 
-  const {deleteBoard, board, updateBoard, boardId, fetchBoard, loading, createColumn} = props;
-  const [title, setTitle] = useState('');
+  const {deleteBoard, board, updateBoard, boardId, loading, createColumn} = props;
+  const [title, setTitle] = useState(''); 
+  const [focused, setFocused] = useState(false);
+
+  const toggleFocus = e => {
+    e.preventDefault();
+    setFocused(!focused);
+  };
 
   useEffect(() => { 
     if (board) {setTitle(board.title);} 
@@ -95,21 +58,23 @@ const BoardShow = props => {
 
   if (!board || loading) {
     return (
-      <Container>
+      <BoardDiv>
         <Loading />
-      </Container>
+      </BoardDiv>
     )
   } else{
 
   return (
-    <Container key={board.id}>
+    <BoardDiv key={board.id}>
       <HeaderSection>
         <input 
           type='text' 
           value={title} 
+          onFocus={toggleFocus}
+          onBlur={toggleFocus}
           onChange={handleTitleChange} />
         <nav>
-          <ButtonToggle onClick={handleUpdate(board.id)}>Save Change</ButtonToggle>
+          <FocusButton focused={focused} onClick={handleUpdate(board.id)}>Save Change</FocusButton>
           <ButtonToggle onClick={handleDelete(board.id)}>Del</ButtonToggle>
         </nav>
       </HeaderSection>
@@ -123,7 +88,7 @@ const BoardShow = props => {
           
         </ColumnsSection>
 
-    </Container>
+    </BoardDiv>
   )}
 }
 

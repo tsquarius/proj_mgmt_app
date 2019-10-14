@@ -18,7 +18,6 @@
 class Card < ApplicationRecord
   
   validates :author_id, :title, :board_column_id, presence: true
-  # validates :order, uniqueness: {scope: :board_column_id}
   belongs_to :board_column
   has_many :comments
   has_many :tags

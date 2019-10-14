@@ -6,7 +6,10 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resources :collections, only: [:show, :create, :destroy, :update, :index] do
       resources :boards, only: [:index, :create]
-      resources :members, only: [:index, :create, :destroy]
+      member do
+        delete 'remove_member'
+        post 'add_member'
+      end
     end
     
     resources :boards, only: [:show, :destroy, :update] do
