@@ -68,14 +68,15 @@ const BoardShow = props => {
     <BoardDiv key={board.id}>
       <HeaderSection>
         <input 
+          title='Click to edit the Board name'
           type='text' 
           value={title} 
           onFocus={toggleFocus}
           onBlur={toggleFocus}
           onChange={handleTitleChange} />
         <nav>
-          <FocusButton focused={focused} onClick={handleUpdate(board.id)}>Save Change</FocusButton>
-          <ButtonToggle onClick={handleDelete(board.id)}>Del</ButtonToggle>
+          <FocusButton title='Save title name' focused={focused} onClick={handleUpdate(board.id)}>Save Change</FocusButton>
+          <ButtonToggle title='Delete this board' onClick={handleDelete(board.id)}>Del</ButtonToggle>
         </nav>
       </HeaderSection>
 

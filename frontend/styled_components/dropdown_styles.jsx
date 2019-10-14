@@ -17,7 +17,7 @@ export const DropDown = styled.div`
 export const DropDownContent = styled.div`
   display: ${props => props.active ? 'block' : 'none'};
   position: absolute;
-  background: rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.7);
   min-width: 160px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   z-index: 1;
@@ -43,6 +43,3 @@ export const DropDownContent = styled.div`
 
 `;
 
-// .dropdown:hover .dropdown-content {
-//   display: block;
-// }

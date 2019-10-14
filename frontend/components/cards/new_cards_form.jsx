@@ -1,21 +1,6 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import styled from 'styled-components';
-
-const TextBox = styled.textarea`
-  border-radius: 5px;
-  padding: 5px;
-  background: rgba(255, 255, 255, .6);
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 220px;
-  nav {
-    margin-top: 2px;
-  }
-`;
+import { Form, TextBox } from '../../styled_components/card_styles';
 
 const CardsForm = props => {
 
@@ -46,12 +31,12 @@ const CardsForm = props => {
       <TextBox onChange={handleChange} value={title} />
       <nav>
         <FontAwesomeIcon
-          className='btn'
+          className='btn-modal'
           onClick={handleSubmit}
           icon={['far', 'save']}
           style={{fontSize: '14px', marginLeft: '1px'}} />
         <FontAwesomeIcon
-          className='btn'
+          className='btn-modal'
           style={{ marginLeft: '10px', fontSize: '14px' }}
           onClick={handleClose}
           icon={['far', 'trash-alt']} />

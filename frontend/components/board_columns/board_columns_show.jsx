@@ -88,10 +88,15 @@ const BoardColumnsShow = props => {
     return(
       <Column>
         <HeaderSection >
-          <input onFocus={toggleFocus} onBlur={toggleFocus} type='text' value={title} onChange={handleTitleChange} />
+          <input title='Click to edit column title' 
+            onFocus={toggleFocus} 
+            onBlur={toggleFocus} 
+            type='text' 
+            value={title} 
+            onChange={handleTitleChange} />
           <ToggleNav>
-            <FocusButton focused={focused} onClick={handleSubmitTitle}>Save</FocusButton>
-            <HiddenButton onClick={removeColumn}>Del</HiddenButton>
+            <FocusButton title='Save title name' focused={focused} onClick={handleSubmitTitle}>Save</FocusButton>
+            <HiddenButton title='Delete Column' onClick={removeColumn}>Del</HiddenButton>
           </ToggleNav>
         </HeaderSection>
 

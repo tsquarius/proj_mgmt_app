@@ -66,10 +66,11 @@ const CardsShow = props => {
       <section className='card-details'>
         <Title className='h3' key='card-title'>
           <input
+            title='Click to change card name'
             value={title || ''}
             type='text'
             onChange={handleTitleChange} />
-          <button className='btn-modal' onClick={handleCloseCardDetails}>
+          <button title='Close screen' className='btn-modal' onClick={handleCloseCardDetails}>
             x
           </button>
         </Title>
@@ -104,10 +105,12 @@ const CardsShow = props => {
 
           <ButtonContainer key='nav'>
             <FontAwesomeIcon
+              title = 'Save updates and close'
               className='btn-modal icon'
               onClick={handleSubmit}
               icon={['far', 'save']} />
             <FontAwesomeIcon
+              title = 'Delete this card'
               className='btn-modal icon'
               onClick={handleDelete}
               icon={['far', 'trash-alt']} />

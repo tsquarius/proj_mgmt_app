@@ -63,7 +63,8 @@ const TagsForm = props => {
           <option value='#0e0c40'>Night Blue</option>
           <option value='#beced0'>Pale Blue </option>
           <option value='#c3e1e5'>Light Blue </option>
-          <option value='#1f8da6'>Dark Teal</option>  
+          <option value='#1f8da6'>Dark Teal</option>
+          <option value='#daa520'>Goldenrod</option>
         </TagSelector>
       </TagFormItems>
 

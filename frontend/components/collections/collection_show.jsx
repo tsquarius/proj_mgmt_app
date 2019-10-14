@@ -8,7 +8,6 @@ import MemberIndexContainer from '../members/member_index_container';
 import {
   Title, 
   TitleInput, 
-  HiddenButton, 
   BoardSection, 
   PseudoBoardSection,
   FocusButton
@@ -130,16 +129,17 @@ const CollectionShow = props => {
     )
   } else {
     return [
-      <div>
+      <div key='collection-container'>
         <Title className='h2'>
           <div>
-            <TitleInput 
+            <TitleInput
+              title='Click to edit the collection title'
               onFocus={toggleFocus}
               onBlur={toggleFocus}
               type='text' 
               value={title} 
               onChange={handleTitleChange} />
-            <FocusButton focused={focused} onClick={submitTitleChange}>save</FocusButton>
+            <FocusButton title='Save title name' focused={focused} onClick={submitTitleChange}>save</FocusButton>
           </div>
 
           <DropDown>
@@ -162,7 +162,7 @@ const CollectionShow = props => {
         </PseudoBoardSection>
       </div>,
 
-      <MemberIndexContainer title={title} collectionId={collection.id} /> 
+      <MemberIndexContainer key='member-details' title={title} collectionId={collection.id} /> 
     ]
   }
 }

@@ -14,7 +14,7 @@ const TagsIndex = ({tagsArray, cardId, boardView}) => {
 
   if (boardView) {
     return (
-      <TagsList style={{marginTop: '5px', opacity: 0.7}} key='tags-list'>
+      <TagsList style={{marginTop: '10px', opacity: 0.7}} key='tags-list'>
         {renderTags()}
       </TagsList>
     )

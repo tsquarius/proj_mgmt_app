@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import Home from './home';
 
-const mapStateToProps = state => ({
-
+const mapStateToProps = ({entities, session}) => ({
+  collections: entities.collections,
+  user: entities.users[session.userId]
 });
 
 const mapDispatchToProps = dispatch => ({

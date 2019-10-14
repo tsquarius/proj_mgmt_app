@@ -16,7 +16,7 @@ const collectionsReducer = (state = {}, action) => {
 
   switch(action.type) {
     case RECEIVE_COLLECTIONS:
-      return Object.assign({}, state, action.collections);
+      return action.collections;
     case RECEIVE_SINGLE_COLLECTION:
       return Object.assign({}, state, {[action.collection.id]: action.collection});
     case DELETE_COLLECTION:

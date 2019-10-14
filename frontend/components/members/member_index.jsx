@@ -10,7 +10,6 @@ import {
 
 const MemberIndex = props => {
   const { members, removeMember, collectionId, title, detailsActive, closeDetails } = props;
-  console.log(props);
 
   const submitRemoveMember = username => e => {
     e.preventDefault();
@@ -25,7 +24,7 @@ const MemberIndex = props => {
   const renderMembers = () => members.map((member, index) =>
     <TeamList key={`member-${index}`}>
       <span>{member}</span>
-      <Button className='btn-modal' onClick={submitRemoveMember}>Remove</Button>
+      <Button title='remove member' className='btn-modal' onClick={submitRemoveMember}>Remove</Button>
     </TeamList>
   )
 
@@ -42,7 +41,7 @@ const MemberIndex = props => {
           >
             <Title key='title' className='h3'>
               <span>{title} members</span>
-              <Button className='btn-modal' onClick={closeModal}>x</Button>
+              <Button title='Close screen' className='btn-modal' onClick={closeModal}>x</Button>
             </Title>
             <ul>
               {renderMembers()}

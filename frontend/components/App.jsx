@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import SignupFormContainer from './session/signup_form_container';
 import LoginFormContainer from './session/login_form_container';
 import UserNavContainer from './nav/user_nav_container';
+import HomeContainer from './home_container';
 
 import CollectionShowContainer from './collections/collection_show_container';
 import CardsShowContainer from './cards/cards_show_container';
@@ -28,6 +29,7 @@ const App = () => (
       </section>
       <section className='main-body'>
         <Switch>
+          <ProtectedRoute exact={true} path='/' component={HomeContainer} />
           <AuthRoute path='/login' component={LoginFormContainer} />
           <AuthRoute path='/signup' component={SignupFormContainer} />
           <ProtectedRoute 
