@@ -1,3 +1,10 @@
+export const fetchCards = () => (
+  $.ajax({
+    method: 'GET',
+    url: `/api/cards`
+  })
+);
+
 export const fetchCard = cardId => (
   $.ajax({
     method: 'GET',

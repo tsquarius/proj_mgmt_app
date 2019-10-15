@@ -11,7 +11,7 @@ width: 220px;
 min-height: 45px;
 margin-left: 10px;
 flex-direction: row;
-  input {
+  input, h4 {
     background: none;
     font-size: 15px;
     font-weight: bold;
@@ -50,7 +50,7 @@ export const CardsSection = styled.article`
 `;
 
 export const PseudoCard = styled.div`
-  min-height: 20px;
+  min-height: 30px;
 `;
 
 export const CardButton = styled.button`

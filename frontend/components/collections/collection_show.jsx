@@ -55,6 +55,7 @@ const CollectionShow = props => {
   const submitTitleChange = e => {
     e.preventDefault();
     updateCollection({title: title}, collectionId);
+    setFocused(false);
   };
 
   useEffect(() => { 
@@ -135,7 +136,6 @@ const CollectionShow = props => {
             <TitleInput
               title='Click to edit the collection title'
               onFocus={toggleFocus}
-              onBlur={toggleFocus}
               type='text' 
               value={title} 
               onChange={handleTitleChange} />

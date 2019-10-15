@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :board_columns, only: [:show, :destroy, :update] do
       resources :cards, only: [:create]
     end
-    resources :cards, only: [:show, :destroy, :update] do
+    resources :cards, only: [:index, :show, :destroy, :update] do
       resources :comments, only: [:create, :index]
       resources :tags, only: [:create]
     end

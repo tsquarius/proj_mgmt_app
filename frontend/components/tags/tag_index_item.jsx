@@ -1,4 +1,5 @@
 import React from 'react';
+import Loading from '../loading';
 import { 
   Tag,
   CloseTag } from '../../styled_components/tag_styles';
@@ -24,6 +25,12 @@ const TagIndexItem = props => {
       return 'white';
     }
   };
+
+  if (!tag) {
+    return(
+      <Loading />
+    )
+  }
 
   return(
     <Tag 

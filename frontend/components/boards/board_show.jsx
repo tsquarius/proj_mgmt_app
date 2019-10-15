@@ -41,8 +41,8 @@ const BoardShow = props => {
   const handleUpdate = boardId => {
     return e => {
       e.preventDefault();
-      const newBoard = Object.assign({}, board);
-      updateBoard(boardId, newBoard);
+      updateBoard(boardId, {title: title});
+      setFocused(false);
     };
   };
 
@@ -72,10 +72,12 @@ const BoardShow = props => {
           type='text' 
           value={title} 
           onFocus={toggleFocus}
-          onBlur={toggleFocus}
           onChange={handleTitleChange} />
         <nav>
-          <FocusButton title='Save title name' focused={focused} onClick={handleUpdate(board.id)}>Save Change</FocusButton>
+          <FocusButton 
+            title='Save title name' 
+            focused={focused} 
+            onClick={handleUpdate(board.id)}>Save Change</FocusButton>
           <ButtonToggle title='Delete this board' onClick={handleDelete(board.id)}>Del</ButtonToggle>
         </nav>
       </HeaderSection>

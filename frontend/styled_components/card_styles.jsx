@@ -23,6 +23,15 @@ export const Card = styled.div`
   min-height: 40px;
   justify-content: space-between;
   display: flex;
+  p {
+    :first-of-type {
+      font-size: 15px;
+      min-width: 40%;
+      margin-right: 5px;
+    }
+    width: 60%;
+    font-size: 15px;
+  }
 `;
 
 export const CommentIcon = styled.div`

@@ -4,6 +4,7 @@ import {
   RECEIVE_SINGLE_COMMENT, 
   DELETE_COMMENT
 } from '../actions/comment_actions';
+import { RECEIVE_CARDS } from '../actions/card_actions';
 
 const commentsReducer = (state={}, action) => {
   Object.freeze(state);
@@ -11,6 +12,8 @@ const commentsReducer = (state={}, action) => {
 
   switch(action.type) {
     case RECEIVE_BOARDS:
+      return action.payload.comments || {};
+    case RECEIVE_CARDS:
       return action.payload.comments || {};
     case RECEIVE_COMMENTS:
       return Object.assign(state, action.comments);

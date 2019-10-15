@@ -9,8 +9,8 @@ import UserNavContainer from './nav/user_nav_container';
 import HomeContainer from './home_container';
 
 import CollectionShowContainer from './collections/collection_show_container';
-import CardsShowContainer from './cards/cards_show_container';
 import CollectionIndexContainer from './collections/collection_index_container';
+import CardShowContainer from '../components/cards/cards_show_container';
 
 const Logo = styled.h1`
   color: rgb(233, 132, 0);
@@ -36,11 +36,6 @@ const App = () => (
             exact={true} 
             path='/collection/:collectionId' 
             component={CollectionShowContainer} />
-          <ProtectedRoute
-            exact={true}
-            path='/collection/:collectionId/card/:cardId'
-            component={CardsShowContainer}
-          />
         </Switch>
       </section>      
     </main>

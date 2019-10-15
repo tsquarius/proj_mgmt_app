@@ -15,17 +15,40 @@ import {
 } from '../../styled_components/card_styles';
 
 const CardsIndex = props => {
-  const { card, index, renderCardDetails, activeForm } = props;
+  const { card, index, renderCardDetails, activeForm, home } = props;
 
   const toggleActive = e => {
     e.preventDefault();
     renderCardDetails(card.id);
   };
 
+  const cardModal = () => (
+    <ToggleCardDetails key="card-details" active={activeForm} cardId={card.id}>
+      <div className='modal-screen'>
+        <div className='modal-content'>
+          <CardsShowContainer card={card} />
+        </div>
+      </div>
+    </ToggleCardDetails>
+  )
+
   if (!card) {
     return <Loading />
-  } else {
+  } 
 
+  if (home === true) {
+    return[
+      <Card onClick={toggleActive} key={card.id}>
+        <p>{card.due_date}</p>
+        <p>{card.title}</p>
+      </Card>,
+      <React.Fragment key='modal'>
+        {cardModal()}
+      </React.Fragment>
+    ]
+  }
+  
+  else if (!home) {
     return [
       <Draggable draggableId={card.id} index={index} type='card' key={`card-${card.id}`}>
         {(provided, snapshot) => (
@@ -38,11 +61,9 @@ const CardsIndex = props => {
 
             <CardName onClick={toggleActive}>
               {card.title} 
-
               <div>
                 <TagsIndex tagsArray={card.tags} cardId={card.id} boardView={true} />
               </div>
-
             </CardName>
 
             <CommentIcon active={card.comments.length > 0}>
@@ -52,19 +73,12 @@ const CardsIndex = props => {
                 onClick={toggleActive} 
                 icon={['far', 'comment']} />
             </CommentIcon>
-
           </Card>
         )}
       </Draggable>,
-
-      <ToggleCardDetails key="card-details" active={activeForm} cardId={card.id}>
-        <div className='modal-screen'>
-          <div className='modal-content'>
-            <CardsShowContainer  card={card}/>
-          </div>
-        </div>
-      </ToggleCardDetails>
-
+      <React.Fragment key='modal'>
+        {cardModal()}
+      </React.Fragment>
     ]
   }
 }

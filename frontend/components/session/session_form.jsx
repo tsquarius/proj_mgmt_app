@@ -1,109 +1,96 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import { Title, Button } from '../../styled_components/home_styles';
 
+const SessionForm = props => {
 
-const Title = styled.h2`
-  display: flex;
-  padding: 10px;
-  margin-bottom: 20px;
-  font-size: 30px;
-  font-weight: 700;
-  width: 90%
-  border-bottom: 2px solid gray;  
-`;
+  const { submit, errors, type } = props;
 
-const Button = styled.button`
-  cursor: pointer;
-  border-radius: 5px;
-  width: 70px;
-  padding: 4px 0px;
-  :hover {
-    background: rgb(233, 132, 0);
-  }
-`;
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
+  const userObj = {
+    username: username,
+    email: email,
+    password: password
+  };
 
-
-class SessionForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      username: '',
-      email: '',
-      password: ''
-    };
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick(e) {
+  const handleSubmitForm = e => {
     e.preventDefault();
-    let user = Object.assign({}, this.state);
-    this.props.submit(user);
-  }
+    submit(userObj);
+  };
 
-  updateState(type) {
-    return e => this.setState({[type]: e.target.value});
-  }
+  const handleUsernameChange = e => {
+    e.preventDefault();
+    setUsername(e.target.value);
+  };
 
-  renderErrors() {
-    const errors = this.props.errors.map(error =>
+  const handleEmailChange = e => {
+    e.preventDefault();
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = e => {
+    e.preventDefault();
+    setPassword(e.target.value);
+  };
+
+  const renderErrors = () => {
+    const errorsList = errors.map(error =>
       <li key={error}>
         {error}
       </li>)
-    
-    return errors
-  }
+    return errorsList;
+  };
 
-  render() {
-
-    let email;
-    if (this.props.type === 'Sign Up') {
-      email = (
+  const promptEmail = () => {
+    if (type === 'Sign Up') {
+      return (
         <label>
           Email:
             <input
             className='session-input'
             type='email'
-            value={this.state.email}
-            onChange={this.updateState('email')}
+            value={email}
+            onChange={handleEmailChange}
           />
         </label>
       )
-    };
+    } else {
+      return;
+    }
+  };
     
-    return (
-      <div className='session-form'>
-        <Title>{this.props.type}</Title>
-        <ul className="errors-list">
-          {this.renderErrors()}
-        </ul>
-        <form>
-          <label>
-            Username:
-            <input
-              className='session-input'
-              type='text'
-              value={this.state.username}
-              onChange={this.updateState('username')}
-            />
-          </label>
-          {email}
-          <label>
-            Password:
-            <input
-              className='session-input'
-              type='password'
-              value={this.state.password}
-              onChange={this.updateState('password')}
-            />
-          </label>
-          <Button onClick={this.handleClick}>{this.props.type}</Button>
-        </form>
-      </div>
-    )
-  }
-
+  return (
+    <div className='session-form'>
+      <Title>{type}</Title>
+      <ul className="errors-list">
+        {renderErrors()}
+      </ul>
+      <form>
+        <label>
+          Username:
+          <input
+            className='session-input'
+            type='text'
+            value={username}
+            onChange={handleUsernameChange}
+          />
+        </label>
+        {promptEmail()}
+        <label>
+          Password:
+          <input
+            className='session-input'
+            type='password'
+            value={password}
+            onChange={handlePasswordChange}
+          />
+        </label>
+        <Button onClick={handleSubmitForm}>{type}</Button>
+      </form>
+    </div>
+  )
 }
 
 export default SessionForm;

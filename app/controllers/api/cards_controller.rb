@@ -2,6 +2,11 @@ class Api::CardsController < ApplicationController
 
   before_action :require_logged_in
 
+  def index
+    @cards = current_user.due_cards
+    render :index
+  end
+
   def show
     @card = Card.find(params[:id])
     render :show

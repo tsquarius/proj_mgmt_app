@@ -34,6 +34,16 @@ class User < ApplicationRecord
     (self.collections + self.team_collections)
   end
 
+  def due_cards
+    cards = []
+    user_collections = self.collections.includes(:cards) + self.team_collections.includes(:cards)
+    user_collections.each do |col|
+      cards += col.cards
+    end
+
+    return cards.select {|card| card.due_date != nil}
+  end
+
 
   def password=(password)
     @password = password

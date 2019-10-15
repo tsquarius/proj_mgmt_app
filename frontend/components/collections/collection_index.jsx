@@ -1,6 +1,10 @@
 import React, {useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import {List, Button} from '../../styled_components/collection_styles';
+import {
+  List, 
+  Button,
+  ListTitle
+} from '../../styled_components/collection_styles';
 
 const CollectionIndex = props => {
 
@@ -8,14 +12,12 @@ const CollectionIndex = props => {
     postCollection, redirectId, location
   } = props;
 
-  console.log(props);
-
   useEffect(() => {
     fetchCollections();
   }, [currentUser]);
 
   useEffect(() => {
-    if (props.location.pathname === '/') {
+    if (props.location.pathname === '/' && typeof redirectId !== 'object' ) {
       props.history.push(`/collection/${redirectId}`);
     }
   },[redirectId]);
@@ -40,6 +42,7 @@ const CollectionIndex = props => {
 
   return (
     <ul className='side-nav-list'>
+      <ListTitle key='title'>Collections</ListTitle>
       {renderCollections()}
 
       <Button  

@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 
 // side bar
+export const ListTitle = styled.li`
+  margin: 0 0px 15px 10px;
+  font-weight: 700;
+  width: 65%;
+`;
+
 export const List = styled.li`
   cursor: pointer;
   margin: 0 0px 20px 10px;

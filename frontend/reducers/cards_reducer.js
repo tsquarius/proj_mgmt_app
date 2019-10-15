@@ -1,5 +1,9 @@
 import {RECEIVE_BOARDS} from '../actions/board_actions';
-import {RECEIVE_CARD, DELETE_CARD} from '../actions/card_actions';
+import {
+  RECEIVE_CARD, 
+  DELETE_CARD,
+  RECEIVE_CARDS
+} from '../actions/card_actions';
 import {
   RECEIVE_SINGLE_COMMENT,
   DELETE_COMMENT
@@ -17,6 +21,8 @@ const cardsReducer = (state={}, action) => {
   switch(action.type) {
     case RECEIVE_BOARDS:
       return action.payload.cards || {};
+    case RECEIVE_CARDS:
+      return action.payload.cards;
     case RECEIVE_CARD:
       return Object.assign({}, state, {[action.payload.card.id]: action.payload.card});
     case DELETE_CARD:

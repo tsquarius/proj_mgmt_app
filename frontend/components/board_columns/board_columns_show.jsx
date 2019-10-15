@@ -26,6 +26,7 @@ const BoardColumnsShow = props => {
   const [title, setTitle] = useState('');
   const [focused, setFocused] = useState(false);
 
+  
   useEffect(() => {
     if (boardColumn) {
       setTitle(boardColumn.title);
@@ -45,6 +46,7 @@ const BoardColumnsShow = props => {
   const handleSubmitTitle = e => {
     e.preventDefault();
     updateBoardColumn(boardColumn.id, {title: title});
+    setFocused(false);
   };
 
   const removeColumn = e => {
@@ -90,7 +92,6 @@ const BoardColumnsShow = props => {
         <HeaderSection >
           <input title='Click to edit column title' 
             onFocus={toggleFocus} 
-            onBlur={toggleFocus} 
             type='text' 
             value={title} 
             onChange={handleTitleChange} />
