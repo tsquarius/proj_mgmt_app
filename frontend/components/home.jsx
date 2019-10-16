@@ -38,16 +38,26 @@ const Home = props => {
     return convertedDate; 
   };
 
+  const daysDifference = (date2, date1) => {
+    const cardDate = date2.getTime();
+    const todayDate = date1.getTime();
+
+    return parseInt((cardDate - todayDate) / (24 * 3600 * 1000));
+  };
+
+
   const renderCards = () => { 
     let upcomingCards = [];
     let pastDueCards = [];
     const today = new Date();
 
     cards.forEach((card) => {
-      let cardDate = dateConverter(card.due_date);
-      if (cardDate > today) {
+      const cardDate = dateConverter(card.due_date);
+      const daysFromToday = daysDifference(cardDate, today);
+
+      if (daysFromToday < 6 && daysFromToday > 0  ) {
         upcomingCards.push(card);
-      } else {
+      } else if (daysFromToday < 0) {
         pastDueCards.push(card);
       }
     });
@@ -88,13 +98,21 @@ const Home = props => {
     )
   }
 
-  if (collectionsLength() > 0 ) {
+  if (collectionsLength() > 0 && cards.length > 0 ) {
     return [
       <Title key='title'>Home page</Title>,
       <Body key='body'> 
         <h3>Welcome back!</h3>
         <h4>The following cards may need your attention:</h4>
         {renderCards()}
+      </Body>
+    ]
+  } else if (collectionsLength() > 0 ) {
+    return [
+      <Title key='title'>Home page</Title>,
+      <Body key='body'>
+        <h3>Welcome back!</h3>
+        <h4>There are no cards that require your immediate attention.</h4>
       </Body>
     ]
   } else {

@@ -2318,16 +2318,23 @@ var Home = function Home(props) {
     return convertedDate;
   };
 
+  var daysDifference = function daysDifference(date2, date1) {
+    var cardDate = date2.getTime();
+    var todayDate = date1.getTime();
+    return parseInt((cardDate - todayDate) / (24 * 3600 * 1000));
+  };
+
   var renderCards = function renderCards() {
     var upcomingCards = [];
     var pastDueCards = [];
     var today = new Date();
     cards.forEach(function (card) {
       var cardDate = dateConverter(card.due_date);
+      var daysFromToday = daysDifference(cardDate, today);
 
-      if (cardDate > today) {
+      if (daysFromToday < 6 && daysFromToday > 0) {
         upcomingCards.push(card);
-      } else {
+      } else if (daysFromToday < 0) {
         pastDueCards.push(card);
       }
     });
@@ -2353,12 +2360,18 @@ var Home = function Home(props) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_1__["default"], null);
   }
 
-  if (collectionsLength() > 0) {
+  if (collectionsLength() > 0 && cards.length > 0) {
     return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Title"], {
       key: "title"
     }, "Home page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Body"], {
       key: "body"
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome back!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "The following cards may need your attention:"), renderCards())];
+  } else if (collectionsLength() > 0) {
+    return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Title"], {
+      key: "title"
+    }, "Home page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Body"], {
+      key: "body"
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Welcome back!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "There are no cards that require your immediate attention."))];
   } else {
     return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Title"], {
       key: "title"
