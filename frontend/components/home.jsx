@@ -45,7 +45,6 @@ const Home = props => {
     return parseInt((cardDate - todayDate) / (24 * 3600 * 1000));
   };
 
-
   const renderCards = () => { 
     let upcomingCards = [];
     let pastDueCards = [];
@@ -69,26 +68,29 @@ const Home = props => {
       <CardIndexContainer key={past.id} cardId={past.id} home={true} />
       )
 
-    return (
-      <ColumnsSection>
-        <Column>
-          <HeaderSection>
-            <h4>Upcoming:</h4>
-          </HeaderSection>
-          <CardsSection>
-            {upComingList}
-          </CardsSection>
-        </Column>
-
-        <Column>
-          <HeaderSection>
-            <h4>Past due:</h4>
+    if (upcomingCards.length + pastDueCards.length === 0) {
+      return false;
+    } else {
+      return (
+        <ColumnsSection>
+          <Column>
+            <HeaderSection>
+              <h4>Upcoming:</h4>
             </HeaderSection>
-          <CardsSection>{pastDueList}</CardsSection>
-        </Column>
-      </ColumnsSection>
-    );
+            <CardsSection>
+              {upComingList}
+            </CardsSection>
+          </Column>
 
+          <Column>
+            <HeaderSection>
+              <h4>Past due:</h4>
+              </HeaderSection>
+            <CardsSection>{pastDueList}</CardsSection>
+          </Column>
+        </ColumnsSection>
+      );
+    }
   }
 
   if (!collections) {
@@ -97,7 +99,7 @@ const Home = props => {
     )
   }
 
-  if (collectionsLength() > 0 && cards.length > 0 ) {
+  if (collectionsLength() > 0 && renderCards() ) {
     return [
       <Title key='title'>Home page</Title>,
       <Body key='body'> 

@@ -2352,14 +2352,19 @@ var Home = function Home(props) {
         home: true
       });
     });
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_styles__WEBPACK_IMPORTED_MODULE_5__["ColumnsSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["Column"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["HeaderSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Upcoming:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["CardsSection"], null, upComingList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["Column"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["HeaderSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Past due:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["CardsSection"], null, pastDueList)));
+
+    if (upcomingCards.length + pastDueCards.length === 0) {
+      return false;
+    } else {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_styles__WEBPACK_IMPORTED_MODULE_5__["ColumnsSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["Column"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["HeaderSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Upcoming:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["CardsSection"], null, upComingList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["Column"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["HeaderSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Past due:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["CardsSection"], null, pastDueList)));
+    }
   };
 
   if (!collections) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_1__["default"], null);
   }
 
-  if (collectionsLength() > 0 && cards.length > 0) {
+  if (collectionsLength() > 0 && renderCards()) {
     return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Title"], {
       key: "title"
     }, "Home page"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_3__["Body"], {
