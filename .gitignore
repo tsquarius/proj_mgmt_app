@@ -6,8 +6,7 @@
 
 # Ignore bundler config.
 /.bundle
-/assets/javascripts/bundle.js
-/assets/javascripts/bundle.js.map
+/assets/javascripts/bundle.js*
 
 # Ignore all logfiles and tempfiles.
 /log/*
