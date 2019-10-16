@@ -19,7 +19,7 @@ const Logo = styled.h1`
 const App = () => (
  <div>
     <header className='header'>
-      <Logo><Link to='/'>Project Management App</Link></Logo>
+      <Logo><Link to='/'>DASH.</Link></Logo>
       <UserNavContainer />
     </header>
     <main className='main'>
