@@ -6,9 +6,6 @@ import {
 import { renderNewCardForm } from '../../actions/form_actions';
 import BoardColumnsShow from './board_columns_show';
 
-
-
-// need to pull in the forms reducer for this
 const mapStateToProps = ({entities, ui}, {bcId}) => ({
   boardColumn: entities.boardColumns[bcId],
   activeForm: ui.forms.cards
@@ -17,7 +14,6 @@ const mapStateToProps = ({entities, ui}, {bcId}) => ({
 const mapDispatchToProps = dispatch => ({
   destroyBoardColumn: boardColumnId => dispatch(destroyBoardColumn(boardColumnId)),
   updateBoardColumn: (boardColumnId, boardColumn) => dispatch(updateBoardColumn(boardColumnId, boardColumn)),
-
   newCard: (bcId) => dispatch(renderNewCardForm(bcId))
 });
 

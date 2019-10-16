@@ -36,7 +36,7 @@ const CardsIndex = props => {
     return <Loading />
   } 
 
-  if (home === true) {
+  if (home) {
     return[
       <Card onClick={toggleActive} key={card.id}>
         <p>{card.due_date}</p>
@@ -48,7 +48,7 @@ const CardsIndex = props => {
     ]
   }
   
-  else if (!home) {
+  else {
     return [
       <Draggable draggableId={card.id} index={index} type='card' key={`card-${card.id}`}>
         {(provided, snapshot) => (

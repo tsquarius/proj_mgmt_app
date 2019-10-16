@@ -801,7 +801,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _home_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./home_container */ "./frontend/components/home_container.js");
 /* harmony import */ var _collections_collection_show_container__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./collections/collection_show_container */ "./frontend/components/collections/collection_show_container.js");
 /* harmony import */ var _collections_collection_index_container__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./collections/collection_index_container */ "./frontend/components/collections/collection_index_container.js");
-/* harmony import */ var _components_cards_cards_show_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/cards/cards_show_container */ "./frontend/components/cards/cards_show_container.js");
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n  color: rgb(233, 132, 0);\n  font-size: 40px;\n"]);
 
@@ -813,7 +812,6 @@ function _templateObject() {
 }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 
 
 
@@ -923,7 +921,7 @@ var BoardColumnsShow = function BoardColumnsShow(props) {
 
   var toggleFocus = function toggleFocus(e) {
     e.preventDefault();
-    setFocused(!focused);
+    setFocused(true);
   };
 
   var handleTitleChange = function handleTitleChange(e) {
@@ -1014,7 +1012,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
- // need to pull in the forms reducer for this
+
 
 var mapStateToProps = function mapStateToProps(_ref, _ref2) {
   var entities = _ref.entities,
@@ -1091,7 +1089,7 @@ var BoardShow = function BoardShow(props) {
 
   var toggleFocus = function toggleFocus(e) {
     e.preventDefault();
-    setFocused(!focused);
+    setFocused(true);
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -1273,14 +1271,14 @@ var CardsIndex = function CardsIndex(props) {
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
   }
 
-  if (home === true) {
+  if (home) {
     return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_6__["Card"], {
       onClick: toggleActive,
       key: card.id
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, card.due_date), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, card.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, {
       key: "modal"
     }, cardModal())];
-  } else if (!home) {
+  } else {
     return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_1__["Draggable"], {
       draggableId: card.id,
       index: index,
@@ -1885,7 +1883,7 @@ var CollectionShow = function CollectionShow(props) {
 
   var toggleFocus = function toggleFocus(e) {
     e.preventDefault();
-    setFocused(!focused);
+    setFocused(true);
   };
 
   var boardsList = function boardsList() {
@@ -2433,11 +2431,15 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+
 
 
 var Loader = function Loader() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-    src: "https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif"
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__["FontAwesomeIcon"], {
+    icon: "spinner",
+    size: "6x",
+    className: "fa-spin"
   });
 };
 
@@ -3210,11 +3212,7 @@ var TagsForm = function TagsForm(props) {
   }, "+ Add Tag"))];
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (TagsForm); // <option value='' >none</option>
-// <option value='red' >Red</option>
-// <option value='yellow' >Yellow</option>
-// <option value='deepskyblue'>Blue</option>
-// <option value='magenta' >Magenta</option>
+/* harmony default export */ __webpack_exports__["default"] = (TagsForm);
 
 /***/ }),
 
@@ -3329,7 +3327,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_4__["library"].add(_fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faEdit"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faComment"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faTrashAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faCircle"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faSave"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSearch"]);
+_fortawesome_fontawesome_svg_core__WEBPACK_IMPORTED_MODULE_4__["library"].add(_fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faEdit"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faComment"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faTrashAlt"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faCircle"], _fortawesome_free_regular_svg_icons__WEBPACK_IMPORTED_MODULE_6__["faSave"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSearch"], _fortawesome_free_solid_svg_icons__WEBPACK_IMPORTED_MODULE_5__["faSpinner"]);
 document.addEventListener("DOMContentLoaded", function () {
   var store;
 

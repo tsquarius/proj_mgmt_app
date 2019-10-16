@@ -35,7 +35,7 @@ const BoardColumnsShow = props => {
 
   const toggleFocus = e => {
     e.preventDefault();
-    setFocused(!focused);
+    setFocused(true);
   };
 
   const handleTitleChange = e => {

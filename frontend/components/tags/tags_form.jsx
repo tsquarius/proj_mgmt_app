@@ -96,9 +96,3 @@ const TagsForm = props => {
 };
 
 export default TagsForm;
-
-// <option value='' >none</option>
-// <option value='red' >Red</option>
-// <option value='yellow' >Yellow</option>
-// <option value='deepskyblue'>Blue</option>
-// <option value='magenta' >Magenta</option>

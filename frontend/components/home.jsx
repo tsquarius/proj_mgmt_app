@@ -7,7 +7,12 @@ import {
   Body
 } from '../styled_components/home_styles';
 
-import { Column, HeaderSection, CardsSection } from '../styled_components/board_column_styles';
+import { 
+  Column, 
+  HeaderSection, 
+  CardsSection 
+} from '../styled_components/board_column_styles';
+
 import { ColumnsSection } from '../styled_components/board_styles';
 
 const Home = props => {
@@ -65,6 +70,7 @@ const Home = props => {
             {upComingList}
           </CardsSection>
         </Column>
+
         <Column>
           <HeaderSection>
             <h4>Past due:</h4>

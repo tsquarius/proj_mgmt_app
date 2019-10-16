@@ -1,8 +1,11 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 const Loader = () => {
   return (
-    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" />
+    <FontAwesomeIcon
+      icon='spinner' size='6x' className='fa-spin' />
   )
 };
 

@@ -72,7 +72,7 @@ const CollectionShow = props => {
 
   const toggleFocus = e => {
     e.preventDefault();
-    setFocused(!focused);
+    setFocused(true);
   };
   
   const boardsList = () => collection.boards.map(id =>

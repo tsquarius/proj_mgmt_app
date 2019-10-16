@@ -19,7 +19,7 @@ const BoardShow = props => {
 
   const toggleFocus = e => {
     e.preventDefault();
-    setFocused(!focused);
+    setFocused(true);
   };
 
   useEffect(() => { 

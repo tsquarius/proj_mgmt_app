@@ -4,10 +4,10 @@ import configureStore from './store/store';
 import Root from './components/root';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCircle, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { faComment, faEdit, faTrashAlt, faSave } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faEdit, faComment, faTrashAlt, faCircle, faSave, faSearch);
+library.add(faEdit, faComment, faTrashAlt, faCircle, faSave, faSearch, faSpinner);
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
