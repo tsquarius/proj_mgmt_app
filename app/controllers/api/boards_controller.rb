@@ -9,6 +9,7 @@ class Api::BoardsController < ApplicationController
       .includes(:board_columns)
       .includes(:cards)
       .includes(:comments)
+      .includes(:tags)
       .where(collection_id: collections)
     render :index
   end

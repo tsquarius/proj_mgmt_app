@@ -36,8 +36,11 @@ class User < ApplicationRecord
 
   def due_cards
     cards = []
-    user_collections = self.collections.includes(:cards) + self.team_collections.includes(:cards)
-    user_collections.each do |col|
+    user_collections = (
+      self.collections.includes(cards: [:tags, :comments]) + 
+      self.team_collections.includes(cards: [:tags, :comments]))
+   
+      user_collections.each do |col|
       cards += col.cards
     end
 
