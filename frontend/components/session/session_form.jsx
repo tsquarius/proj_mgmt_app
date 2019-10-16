@@ -20,6 +20,11 @@ const SessionForm = props => {
     submit(userObj);
   };
 
+  const demoLogin = e => {
+    e.preventDefault();
+    submit({username: 'demo', password: 'password'});
+  };
+
   const handleUsernameChange = e => {
     e.preventDefault();
     setUsername(e.target.value);
@@ -47,7 +52,7 @@ const SessionForm = props => {
     if (type === 'Sign Up') {
       return (
         <label>
-          Email:
+          <span> Email:</span>
             <input
             className='session-input'
             type='email'
@@ -61,15 +66,14 @@ const SessionForm = props => {
     }
   };
     
-  return (
+  return [
     <div className='session-form'>
       <Title>{type}</Title>
-      <ul className="errors-list">
-        {renderErrors()}
-      </ul>
+
       <form>
+
         <label>
-          Username:
+          <span> Username: </span>
           <input
             className='session-input'
             type='text'
@@ -77,20 +81,25 @@ const SessionForm = props => {
             onChange={handleUsernameChange}
           />
         </label>
+
         {promptEmail()}
         <label>
-          Password:
+          <span>Password: </span>
           <input
             className='session-input'
             type='password'
             value={password}
             onChange={handlePasswordChange}
           />
+          <Button className='form-button' onClick={handleSubmitForm}>{type}</Button>
+          <Button className='demo' onClick={demoLogin}>Demo Login</Button>
+          <ul className="errors-list">
+            {renderErrors()}
+          </ul>
         </label>
-        <Button onClick={handleSubmitForm}>{type}</Button>
       </form>
     </div>
-  )
+  ]
 }
 
 export default SessionForm;

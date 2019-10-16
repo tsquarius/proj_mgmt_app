@@ -2352,7 +2352,6 @@ var Home = function Home(props) {
         home: true
       });
     });
-    console.log(pastDueCards);
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_styles__WEBPACK_IMPORTED_MODULE_5__["ColumnsSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["Column"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["HeaderSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Upcoming:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["CardsSection"], null, upComingList)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["Column"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["HeaderSection"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Past due:")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__["CardsSection"], null, pastDueList)));
   };
 
@@ -2912,6 +2911,14 @@ var SessionForm = function SessionForm(props) {
     submit(userObj);
   };
 
+  var demoLogin = function demoLogin(e) {
+    e.preventDefault();
+    submit({
+      username: 'demo',
+      password: 'password'
+    });
+  };
+
   var handleUsernameChange = function handleUsernameChange(e) {
     e.preventDefault();
     setUsername(e.target.value);
@@ -2938,7 +2945,7 @@ var SessionForm = function SessionForm(props) {
 
   var promptEmail = function promptEmail() {
     if (type === 'Sign Up') {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Email:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " Email:"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "session-input",
         type: "email",
         value: email,
@@ -2949,23 +2956,27 @@ var SessionForm = function SessionForm(props) {
     }
   };
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "session-form"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_1__["Title"], null, type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-    className: "errors-list"
-  }, renderErrors()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Username:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_1__["Title"], null, type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, " Username: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     className: "session-input",
     type: "text",
     value: username,
     onChange: handleUsernameChange
-  })), promptEmail(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Password:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+  })), promptEmail(), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Password: "), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     className: "session-input",
     type: "password",
     value: password,
     onChange: handlePasswordChange
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    className: "form-button",
     onClick: handleSubmitForm
-  }, type)));
+  }, type), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_home_styles__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    className: "demo",
+    onClick: demoLogin
+  }, "Demo Login"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "errors-list"
+  }, renderErrors()))))];
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SessionForm);
@@ -4459,7 +4470,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return Form; });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
 function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  width: 220px;\n  nav {\n    margin-top: 2px;\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  padding: 0;\n  width: 210px;\n  nav {\n    margin-top: 2px;\n  }\n"]);
 
   _templateObject6 = function _templateObject6() {
     return data;

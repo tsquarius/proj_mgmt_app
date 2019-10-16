@@ -48,7 +48,8 @@ export const TextBox = styled.textarea`
 export const Form = styled.div`
   display: flex;
   flex-direction: column;
-  width: 220px;
+  padding: 0;
+  width: 210px;
   nav {
     margin-top: 2px;
   }

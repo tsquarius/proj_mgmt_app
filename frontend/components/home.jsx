@@ -68,7 +68,6 @@ const Home = props => {
     const pastDueList = pastDueCards.map(past => 
       <CardIndexContainer key={past.id} cardId={past.id} home={true} />
       )
-    console.log(pastDueCards);
 
     return (
       <ColumnsSection>
