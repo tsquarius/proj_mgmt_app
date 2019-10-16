@@ -2332,7 +2332,7 @@ var Home = function Home(props) {
       var cardDate = dateConverter(card.due_date);
       var daysFromToday = daysDifference(cardDate, today);
 
-      if (daysFromToday < 6 && daysFromToday > 0) {
+      if (daysFromToday < 6 && daysFromToday >= 0) {
         upcomingCards.push(card);
       } else if (daysFromToday < 0) {
         pastDueCards.push(card);
