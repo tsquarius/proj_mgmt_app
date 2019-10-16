@@ -22,7 +22,7 @@ const cardsReducer = (state={}, action) => {
     case RECEIVE_BOARDS:
       return action.payload.cards || {};
     case RECEIVE_CARDS:
-      return action.payload.cards;
+      return action.payload.cards || {};
     case RECEIVE_CARD:
       return Object.assign({}, state, {[action.payload.card.id]: action.payload.card});
     case DELETE_CARD:
