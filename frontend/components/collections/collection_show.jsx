@@ -130,8 +130,8 @@ const CollectionShow = props => {
     )
   } else {
     return [
-      <div key='collection-container'>
-        <Title className='h2'>
+      <article className='collection' key='collection'>
+        <h2 className='collection-title'>
           <div>
             <TitleInput
               title='Click to edit the collection title'
@@ -149,20 +149,17 @@ const CollectionShow = props => {
               <button onClick={handleDeleteCollection}>Delete</button>
             </DropDownContent>
           </DropDown>
-        </Title>
-
-        <BoardSection>
-          <DragDropContext onDragEnd={onDragEnd}>
-            {boardsList()}
-          </DragDropContext>
-        </BoardSection>
-
-        <PseudoBoardSection>
-          <button className='submit' onClick={createNewBoard}>Add Board...</button>
-        </PseudoBoardSection>
-      </div>,
-
-      <MemberIndexContainer key='member-details' title={title} collectionId={collection.id} /> 
+        </h2>
+        
+        <DragDropContext onDragEnd={onDragEnd}>
+          {boardsList()}
+        </DragDropContext>
+        
+        <div className='board'>
+          <button className='button' onClick={createNewBoard}>Add Board...</button>
+        </div>
+        <MemberIndexContainer key='member-details' title={title} collectionId={collection.id} /> 
+      </article>
     ]
   }
 }

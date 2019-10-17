@@ -88,8 +88,8 @@ const BoardColumnsShow = props => {
   } else {
 
     return(
-      <Column>
-        <HeaderSection >
+      <ul className='board-column'>
+        <h3>
           <input title='Click to edit column title' 
             onFocus={toggleFocus} 
             type='text' 
@@ -99,7 +99,7 @@ const BoardColumnsShow = props => {
             <FocusButton title='Save title name' focused={focused} onClick={handleSubmitTitle}>Save</FocusButton>
             <HiddenButton title='Delete Column' onClick={removeColumn}>Del</HiddenButton>
           </ToggleNav>
-        </HeaderSection>
+        </h3>
 
           {renderCards()}
 
@@ -113,7 +113,7 @@ const BoardColumnsShow = props => {
             onClick={renderNewCardForm}>
             Add card...
           </CardButton>
-      </Column>
+      </ul>
     )
   }
 }

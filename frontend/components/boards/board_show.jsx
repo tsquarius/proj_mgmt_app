@@ -58,15 +58,15 @@ const BoardShow = props => {
 
   if (!board || loading) {
     return (
-      <BoardDiv>
+      <div className='board'>
         <Loading />
-      </BoardDiv>
+      </div>
     )
   } else{
 
   return (
-    <BoardDiv key={board.id}>
-      <HeaderSection>
+    <div className='board' key={board.id}>
+      <h2 className='board-title'>
         <input 
           title='Click to edit the Board name'
           type='text' 
@@ -80,18 +80,18 @@ const BoardShow = props => {
             onClick={handleUpdate(board.id)}>Save Change</FocusButton>
           <ButtonToggle title='Delete this board' onClick={handleDelete(board.id)}>Del</ButtonToggle>
         </nav>
-      </HeaderSection>
+      </h2>
 
-        <ColumnsSection>
+        <div className='board-content'>
           {renderColumns()}
           
-          <PseudoColumn>
-            <button className='submit' onClick={addColumn}>Add Column...</button>
-          </PseudoColumn>
+          <ul className='board-column'>
+            <button className='button' onClick={addColumn}>Add Column...</button>
+          </ul>
           
-        </ColumnsSection>
+        </div>
 
-    </BoardDiv>
+    </div>
   )}
 }
 

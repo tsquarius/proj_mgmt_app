@@ -22,36 +22,34 @@ const CollectionIndex = props => {
     }
   },[redirectId]);
 
-
   const createNewCollection = e => {
     e.preventDefault();
     postCollection({title: 'New Collection'});
   };
 
+  // consider adding the "active" class for this link, trigger onClick
   const renderCollections = () => {
     const collectionArray = collections.map(col =>
-      <List 
-        active={`/collection/${col.id}` === location.pathname} 
+      <li 
+        active={`/collection/${col.id}` === location.pathname ? true : undefined} 
         key={col.id}
       >
         <Link to={`/collection/${col.id}`}>{col.title}</Link>
-      </List>
+      </li>
     )
     return collectionArray;
   }
 
-  return (
-    <ul className='side-nav-list'>
-      <ListTitle key='title'>Collections</ListTitle>
+  return [ 
+    <h3 key='nav-title'>Collections</h3>,
+    <ul key='nav-links'>
       {renderCollections()}
-
-      <Button  
+      <a className='button'  
         onClick={createNewCollection}>
         + Add New
-      </Button>
-    
+      </a>
     </ul>
-  )
+  ]
 }
 
 export default withRouter(CollectionIndex);

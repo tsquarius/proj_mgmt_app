@@ -67,38 +67,34 @@ const SessionForm = props => {
   };
     
   return [
-    <div className='session-form'>
-      <Title>{type}</Title>
+    <h2 key='title'>{type}</h2>,
+    <form key='session-form'>
+      <label>
+        <span> Username: </span>
+        <input
+          className='session-input'
+          type='text'
+          value={username}
+          onChange={handleUsernameChange}
+        />
+      </label>
 
-      <form>
-
-        <label>
-          <span> Username: </span>
-          <input
-            className='session-input'
-            type='text'
-            value={username}
-            onChange={handleUsernameChange}
-          />
-        </label>
-
-        {promptEmail()}
-        <label>
-          <span>Password: </span>
-          <input
-            className='session-input'
-            type='password'
-            value={password}
-            onChange={handlePasswordChange}
-          />
-          <Button className='form-button' onClick={handleSubmitForm}>{type}</Button>
-          <Button className='demo' onClick={demoLogin}>Demo Login</Button>
-          <ul className="errors-list">
-            {renderErrors()}
-          </ul>
-        </label>
-      </form>
-    </div>
+      {promptEmail()}
+      <label>
+        <span>Password: </span>
+        <input
+          className='session-input'
+          type='password'
+          value={password}
+          onChange={handlePasswordChange}
+        />
+        <Button className='form-button' onClick={handleSubmitForm}>{type}</Button>
+        <Button className='demo' onClick={demoLogin}>Demo Login</Button>
+        <ul className="errors-list">
+          {renderErrors()}
+        </ul>
+      </label>
+    </form>
   ]
 }
 

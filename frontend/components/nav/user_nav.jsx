@@ -4,21 +4,29 @@ import {Link} from 'react-router-dom';
 const UserNav = ({currentUser, logout}) => {
   
   const navBar = currentUser ? (
-    <div>
-      <p>
+    <ul>
+      <li key="welcome-user">
         Welcome, {currentUser.username}
-      </p>
-      <button className='btn-nav' onClick={logout}>Log out</button>
-    </div>
+      </li>
+      <li key="logout">
+        <a className='button' onClick={logout}>Log out</a>
+      </li>
+    </ul>
   ) : (
     <React.Fragment>
-      <Link className='btn-nav' to='/login'>Log in</Link>
-      <Link className='btn-nav' to='/signup'>Sign up</Link>
+      <ul>
+        <li key="login">
+          <Link className='button' to='/login'>Log in</Link>
+        </li>
+        <li key="logout">
+          <Link className='button' to='/signup'>Sign up</Link>
+        </li>
+      </ul>
     </React.Fragment>
   )
 
   return (
-    <nav className='nav-bar'>
+    <nav className='main-nav'>
       {navBar}
     </nav>
   )

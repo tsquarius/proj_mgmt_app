@@ -40,13 +40,8 @@ export const HiddenButton = styled.button`
   }
 `;
 
-export const CardsSection = styled.article`
-  width: 220px;
-  margin: 5px 0 0 10px;
+export const CardsSection = styled.div`
   border: ${props => (props.isDraggingOver ? '1px dashed white' : 'none')};
-  transition: background-color 0.3s ease;
-  display: flex;
-  flex-direction: column;
 `;
 
 export const PseudoCard = styled.div`

@@ -52,7 +52,7 @@ const CardsIndex = props => {
     return [
       <Draggable draggableId={card.id} index={index} type='card' key={`card-${card.id}`}>
         {(provided, snapshot) => (
-          <Card
+          <Card className="card"
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -61,7 +61,8 @@ const CardsIndex = props => {
 
             <CardName onClick={toggleActive}>
               {card.title} 
-              <div>
+
+              <div className='card-tags'>
                 <TagsIndex tagsArray={card.tags} cardId={card.id} boardView={true} />
               </div>
             </CardName>
