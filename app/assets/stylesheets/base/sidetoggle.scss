@@ -1,0 +1,61 @@
+$white-dark: rgba(255,255,255,0.8);
+$orange-dark: rgba(255,153,51, 0.9);
+$gray: #CCCCCC;
+$lightblue: #99CCCC;
+$blue: #003399;
+
+.side {
+  width: 0;
+  height: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: $lightblue;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+  border: 0;
+}
+
+.side.active {
+  width: 250px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.button.close {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 20px;
+  margin-left: 50px;
+}
+
+.button.hamburger {
+  font-size: 20px;
+  top: 0;
+  left:0;
+  position: fixed;
+}
+
+@media (min-width: 700px) {
+  .side {
+    width: inherit;
+    height: inherit;
+    position: static;
+    z-index: auto;
+    padding: 0;
+    background: inherit;
+    transition: none;
+    border-right: 1px solid gray;
+    padding-right: 5px;
+  }
+
+  .button.hamburger {
+    display: none;
+  }
+
+  .button.close {
+    display: none;
+  }
+}

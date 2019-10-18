@@ -1,6 +1,6 @@
 html, body, div, span, a, ol, ul, li, form, label, 
 article, aside, figure, figcaption, footer, header, 
-nav , aside, main, input {
+nav, main, input, button {
   margin: 0;
   padding: 0;
   border: 0;
@@ -15,6 +15,7 @@ body {
 
 input {
   display: inline-block;
+  background: none;
   width: 100%;
 }
 
@@ -24,6 +25,15 @@ ol, ul {
 
 a {
   text-decoration: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 100%;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  background: none;
 }
 
 input[type="radio"], select, input[type="submit"] {

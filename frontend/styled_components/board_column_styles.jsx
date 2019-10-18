@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-export const Column = styled.div`
-  width: 275px;
-  margin-right: 10px;
+
+// keep
+export const Column = styled.ul`
 `;
 
 export const HeaderSection = styled.header`
@@ -40,16 +40,18 @@ export const HiddenButton = styled.button`
   }
 `;
 
+// keep
 export const CardsSection = styled.div`
-  border: ${props => (props.isDraggingOver ? '1px dashed white' : 'none')};
+  border: ${props => (props.isDraggingOver ? '1px dashed orange' : 'none')};
 `;
+
 
 export const PseudoCard = styled.div`
   min-height: 30px;
 `;
 
+// keep
 export const CardButton = styled.button`
-  padding-left: 12px;
   visibility: hidden;
   opacity: 0;
   ${Column}:hover & {

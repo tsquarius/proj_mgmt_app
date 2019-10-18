@@ -39,7 +39,7 @@ const CommentIndex = props => {
   )
 
   return [
-      <h4 className='subtitle' key='comment-title'>Comments</h4>,
+      <h4 key='comment-title'>Comments</h4>,
 
       <Scrollbars
         autoHeight
@@ -52,25 +52,25 @@ const CommentIndex = props => {
         {renderComments()}
       </Scrollbars>,
 
-      <AddComment key='comment-form' active={active}>
-        <TextBox
+      <div className={active ? 'comment-form active' : 'comment-form'}  key='comment-form'>
+        <textarea className='comment-textbox'
           value={comment}
           onChange={handleCommentChange}
         />
-        <Button 
+        <button className='button' 
           onClick={submitComment}>
             Post
-        </Button>
-      </AddComment>,
+        </button>
+      </div>,
 
-      <ButtonContainer key='comment-add'>
-        <Button
-          className={!active ? '' : 'hide'} 
+      <nav key='comment-add'>
+        <button
+          className={!active ? 'button comment' : 'hide'} 
           onClick={toggleCommentActive}
         >
           + Add comment
-        </Button>
-      </ButtonContainer>
+        </button>
+      </nav>
     ]
 };
 

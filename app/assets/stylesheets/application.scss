@@ -10,6 +10,19 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require_tree .
- *= require_self
  */
+
+@import "base/colors.scss";
+// @import "base/buttons.scss";
+@import "base/dropdown.scss";
+@import "base/layout.scss";
+@import "base/modal.scss";
+@import "base/sidetoggle.scss";
+@import "reset.scss";
+@import "api/board_columns.scss";
+@import "api/boards.scss";
+@import "api/cards.scss";
+@import "api/collections.scss";
+@import "api/comments.scss";
+@import "api/members.scss";
+@import "api/tags.scss";

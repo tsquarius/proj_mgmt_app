@@ -26,23 +26,19 @@ const CardsForm = props => {
     closeForm();
   };
 
-  return(
-    <Form>
-      <TextBox onChange={handleChange} value={title} />
-      <nav>
+  return[
+      <textarea className='textbox' key='addcard-textbox' onChange={handleChange} value={title} />,
+      <nav className='icon-nav' key='addcard icons'>
         <FontAwesomeIcon
-          className='btn-modal'
+          className='button'
           onClick={handleSubmit}
-          icon={['far', 'save']}
-          style={{fontSize: '14px', marginLeft: '1px'}} />
+          icon={['far', 'save']} />
         <FontAwesomeIcon
-          className='btn-modal'
-          style={{ marginLeft: '10px', fontSize: '14px' }}
+          className='button'
           onClick={handleClose}
           icon={['far', 'trash-alt']} />
       </nav>
-    </Form>
-  )
+    ]
 
 }
 

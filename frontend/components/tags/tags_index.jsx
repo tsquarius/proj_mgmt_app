@@ -14,15 +14,15 @@ const TagsIndex = ({tagsArray, cardId, boardView}) => {
 
   if (boardView) {
     return (
-      <TagsList style={{marginTop: '10px', opacity: 0.7}} key='tags-list'>
+      <ul className='tag-list board' key='tags-list'>
         {renderTags()}
-      </TagsList>
+      </ul>
     )
   } else {
     return [
-      <TagsList key='tags-list'>
+      <ul className='tag-list' key='tags-list'>
         {renderTags()}
-      </TagsList>,
+      </ul>,
       <TagsFormContainer key='tag-form' cardId={cardId} />
     ];
   }

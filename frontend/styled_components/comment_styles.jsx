@@ -1,14 +1,7 @@
 import styled from 'styled-components';
 
 export const Comment = styled.li`
-  font-size: 15px;
-  margin-bottom: 5px;
-  color: black;
   background: ${props => props.index % 2 === 0 ? 'white' : 'rgb(226, 226, 226)'};
-  border-radius: 5px;
-  padding: 10px 5px;
-  display: flex;
-  flex-direction: column;
 `;
 
 export const CommentHeader = styled.div`
@@ -28,8 +21,6 @@ export const DateTag = styled.span`
 
 export const AddComment = styled.div`
   display: ${props => props.active ? 'flex' : 'none'}
-  font-size: 15px;
-  flex-direction: column;
 `;
 
 export const TextBox = styled.textarea`

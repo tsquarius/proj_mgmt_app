@@ -10,6 +10,8 @@ import HomeContainer from './home_container';
 import CollectionShowContainer from './collections/collection_show_container';
 import CollectionIndexContainer from './collections/collection_index_container';
 
+import CardShowContainer from './cards/cards_show_container';
+
 const App = () => [
   <header className='main-head' key='header'>
     <h1> DASH. </h1>
@@ -19,21 +21,26 @@ const App = () => [
 
   <React.Fragment key='fragment'>
     <Switch>
-      
-        <ProtectedRoute exact={true} path='/' component={HomeContainer} />
-        <AuthRoute path='/login' component={LoginFormContainer} />
-        <AuthRoute path='/signup' component={SignupFormContainer} />
-
+      <ProtectedRoute exact={true} path='/' component={HomeContainer} />
+      <AuthRoute path='/login' component={LoginFormContainer} />
+      <AuthRoute path='/signup' component={SignupFormContainer} />
       <ProtectedRoute 
         exact={true} 
         path='/collection/:collectionId' 
         component={CollectionShowContainer} />
     </Switch>
   </React.Fragment>,
+  <ProtectedRoute path='/' component={CollectionIndexContainer} key='sidebar' />
+ ,
+  <div key='hamburger'></div>,
 
-  <aside className='side' key='side-bar'>
-    <ProtectedRoute path='/' component={CollectionIndexContainer} />
-  </aside>,
+  <ProtectedRoute 
+    exact={true}
+    path='/collection/:collectionId/card/:cardId' 
+    component={CardShowContainer}
+    key='modal' />
+  ,
+
   <footer className='main-footer' key='footer'>Project by Toan Tran</footer>
 ]
 

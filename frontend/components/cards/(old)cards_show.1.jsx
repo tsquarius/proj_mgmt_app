@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import {withRouter} from 'react-router-dom';
 
 import CommentIndexContainer from '../comments/comment_index_container';
 import TagsIndex from '../tags/tags_index';
@@ -64,20 +65,21 @@ const CardsShow = props => {
   } else {
 
     return (
-      <section className='modal-details'>
-        <h3>
+      <section className='card-details'>
+        <Title className='h3' key='card-title'>
           <input
             title='Click to change card name'
             value={title || ''}
             type='text'
             onChange={handleTitleChange} />
-        </h3>
-
-        <a className='button modal' onClick={handleCloseCardDetails}>x</a>
+          <button title='Close screen' className='btn-modal' onClick={handleCloseCardDetails}>
+            x
+          </button>
+        </Title>
 
         <TagsIndex key='tags-index' tagsArray={card.tags} cardId={card.id} />
         <ul>
-          <h4 key='card-details'>Card Details</h4>
+          <h4 className='subtitle' key='card-details'>Card Details</h4>
 
           <Scrollbars 
             autoHeight
@@ -86,35 +88,35 @@ const CardsShow = props => {
             hideTracksWhenNotNeeded={true}
             key='card-scroll'
           >
-            <li className='modal-form-item' key='duedate'>
+            <CardFormItems key='duedate'>
               <span>Due:</span> 
               <input
                 value={dueDate || ''}
                 type='date'
                 onChange={handleDueDateChange} />
-            </li>
+            </CardFormItems>
 
-            <li className='modal-form-item' key='description'>
+            <CardFormItems key='description'>
               <span>Description:</span> 
               <textarea
                 value={description || ''}
                 onChange={handleDescriptionChange} />
-            </li>
+            </CardFormItems>
 
           </Scrollbars>
 
-          <nav key='nav'>
+          <ButtonContainer key='nav'>
             <FontAwesomeIcon
               title = 'Save updates and close'
-              className='button'
+              className='btn-modal icon'
               onClick={handleSubmit}
               icon={['far', 'save']} />
             <FontAwesomeIcon
               title = 'Delete this card'
-              className='button'
+              className='btn-modal icon'
               onClick={handleDelete}
               icon={['far', 'trash-alt']} />
-          </nav>
+          </ButtonContainer>
 
           <CommentIndexContainer cardId={card.id} key='new-comment' />
           
@@ -125,4 +127,4 @@ const CardsShow = props => {
 
 }
 
-export default CardsShow;
+export default withRouter(CardsShow);

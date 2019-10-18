@@ -1,8 +1,24 @@
 import React from 'react';
 import Loading from '../loading';
-import { 
-  Tag,
-  CloseTag } from '../../styled_components/tag_styles';
+import styled from 'styled-components';
+
+export const Tag = styled.li`
+  background: ${props => props.color}
+  color: ${props => props.offSet};
+`;
+
+export const CloseTag = styled.button`
+  visibility: hidden;
+  color: inherit;
+  margin-left: 5px;
+  ${props => props.boardView ? '' : `
+    ${Tag}:hover & {
+      visibility: visible;
+      display: inherit;
+      font-weight: bold;
+    }`
+  }
+`;
 
 const TagIndexItem = props => {
   const {tag, deleteTag, tagId, boardView} = props;
@@ -34,6 +50,7 @@ const TagIndexItem = props => {
 
   return(
     <Tag 
+      className='tag'
       color={tag.color} 
       offSet={offSetColor()}
     >

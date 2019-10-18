@@ -1,0 +1,26 @@
+.board {
+  justify-content: space-around;
+}
+
+.board-title {
+  padding-left: 20px;
+  display: flex;
+  width: 50%;
+  font-size: 18px;
+}
+
+.board-title input {
+  width: 80%;
+}
+
+.board > .button {
+  margin: 20px 0;
+  font-size: 20px;
+}
+
+@media (min-width: 700px) {
+  .board-title {
+    padding-left: 20px;
+    font-size: 20px;
+  }
+}

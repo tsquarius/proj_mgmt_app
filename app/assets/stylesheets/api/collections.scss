@@ -1,0 +1,25 @@
+
+.collection-title {
+  display: flex;
+  width: 100%;
+  padding: 0 0 5px 10px;
+  border-bottom: 1px solid $gray;
+}
+
+.collection-title input {
+  width: 80%;
+  font-size: 20px;
+}
+
+li.highlight {
+  background: $gray-dark;
+}
+
+
+@media (min-width: 700px) {
+  .collection-title input {
+    min-width: 300px;
+    font-size: 25px;
+  }
+  
+}

@@ -16,8 +16,6 @@ import {
   HiddenButton
 } from '../../styled_components/board_column_styles';
 
-import { FocusButton } from '../../styled_components/board_styles';
-
 const BoardColumnsShow = props => {
 
   const { destroyBoardColumn, boardColumn, 
@@ -51,7 +49,9 @@ const BoardColumnsShow = props => {
 
   const removeColumn = e => {
     e.preventDefault();
-    destroyBoardColumn(boardColumn.id);
+    if (window.confirm('Are you sure you wish to delete this column?')) {
+      destroyBoardColumn(boardColumn.id);
+    }
   };
 
   const renderNewCardForm = e => {
@@ -71,9 +71,9 @@ const BoardColumnsShow = props => {
             {boardColumn.cards.map((cardId,index) => 
               <CardsIndexContainer cardId={cardId} key={cardId} index={index} />)}
             
-            <PseudoCard>
+            <div className={activeForm.bcId === boardColumn.id ? 'hide' : 'card-placeholder'}>
               {provided.placeholder}
-            </PseudoCard>
+            </div>
             
           </CardsSection>      
         )}
@@ -88,32 +88,35 @@ const BoardColumnsShow = props => {
   } else {
 
     return(
-      <ul className='board-column'>
+      <Column className='board-column'>
         <h3>
           <input title='Click to edit column title' 
             onFocus={toggleFocus} 
             type='text' 
             value={title} 
             onChange={handleTitleChange} />
-          <ToggleNav>
-            <FocusButton title='Save title name' focused={focused} onClick={handleSubmitTitle}>Save</FocusButton>
-            <HiddenButton title='Delete Column' onClick={removeColumn}>Del</HiddenButton>
-          </ToggleNav>
+
+          <div className='dropdown'>
+            <button className='drop-button'>...</button>
+            <ul className='dropdown-content'>
+              <li title='Save title name' onClick={handleSubmitTitle}>Save</li>
+              <li title='Delete Column' onClick={removeColumn}>Del</li>
+            </ul>
+          </div>
         </h3>
 
           {renderCards()}
 
-          <Form>
-            <div className={activeForm.bcId === boardColumn.id ? '' : 'hide'}>
-              <NewCardsFormContainer bcId={boardColumn.id} />
-            </div>
-          </Form>
+          <form className={activeForm.bcId === boardColumn.id ? '' : 'hide'}>
+            <NewCardsFormContainer bcId={boardColumn.id} />
+          </form>
 
           <CardButton
+            className='button'
             onClick={renderNewCardForm}>
             Add card...
           </CardButton>
-      </ul>
+      </Column>
     )
   }
 }

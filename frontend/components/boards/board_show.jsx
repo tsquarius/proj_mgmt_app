@@ -34,7 +34,9 @@ const BoardShow = props => {
   const handleDelete = boardId => {
     return e => {
       e.preventDefault();
-      deleteBoard(boardId);
+      if (window.confirm('Are you sure you wish to delete this board?')) {
+        deleteBoard(boardId);
+      }
     };
   };
 
@@ -73,13 +75,17 @@ const BoardShow = props => {
           value={title} 
           onFocus={toggleFocus}
           onChange={handleTitleChange} />
-        <nav>
-          <FocusButton 
-            title='Save title name' 
-            focused={focused} 
-            onClick={handleUpdate(board.id)}>Save Change</FocusButton>
-          <ButtonToggle title='Delete this board' onClick={handleDelete(board.id)}>Del</ButtonToggle>
-        </nav>
+        <div className='dropdown'>
+          <button className='drop-button'>...</button>
+          <ul className='dropdown-content'>
+            <li 
+              title='Save title name' 
+              onClick={handleUpdate(board.id)}>Save</li>
+            <li 
+              title='Delete this board' 
+              onClick={handleDelete(board.id)}>Delete</li>
+          </ul>
+        </div>
       </h2>
 
         <div className='board-content'>

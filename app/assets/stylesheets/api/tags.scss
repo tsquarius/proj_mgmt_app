@@ -1,3 +1,64 @@
 // Place all the styles related to the api/tags controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tag-list {
+  display: flex;
+  max-height: 60px;
+  flex-wrap: wrap;
+}
+
+.tag-list.board {
+  margin-top: 10px;
+  opacity: 0.8;
+}
+
+.tag {
+  border-radius: 5px;
+  font-size: 12px;
+  min-width: 30px;
+  height: 13px;
+  padding: 3px 5px;
+  display: flex;
+  margin-right: 1px;
+  justify-content: space-between;
+}
+
+.tag-form {
+  font-size: 14px;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.tag-form nav {
+  border: none;
+}
+
+.tag-form nav .button {
+  padding: 0 4px;
+  color: black;
+  margin-bottom: 7px;
+}
+
+.tag-form-items {
+  display: flex;
+  flex-direction: row;
+  width: 105px;
+  margin: 0 5px 10px 0;
+  color: black;
+  background: white;
+  border-radius: 5px;
+}
+
+.tag-form-items span {
+    font-weight: 700;
+    padding: 2px 0 0 2px;
+  }
+
+.tag-form-items input {
+    margin-left: 5px;
+  }
+
+.tag-form-items select {
+  height: 100%;
+}

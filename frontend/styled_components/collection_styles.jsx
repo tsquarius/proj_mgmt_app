@@ -47,7 +47,6 @@ export const Title = styled.h2`
 `;
 
 export const TitleInput = styled.input`
-  margin-right: 5px;
   :focus {
     border-radius: 5px;
     background: rgba(255,255,255,0.4);

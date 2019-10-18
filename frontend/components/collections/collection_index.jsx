@@ -1,10 +1,7 @@
-import React, {useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import {
-  List, 
-  Button,
-  ListTitle
-} from '../../styled_components/collection_styles';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const CollectionIndex = props => {
 
@@ -22,6 +19,14 @@ const CollectionIndex = props => {
     }
   },[redirectId]);
 
+  const [active, setActive] = useState(false);
+
+  const toggleActive = e => {
+    e.preventDefault();
+    setActive(!active);
+  };
+
+
   const createNewCollection = e => {
     e.preventDefault();
     postCollection({title: 'New Collection'});
@@ -31,7 +36,7 @@ const CollectionIndex = props => {
   const renderCollections = () => {
     const collectionArray = collections.map(col =>
       <li 
-        active={`/collection/${col.id}` === location.pathname ? true : undefined} 
+        className={`/collection/${col.id}` === location.pathname ? 'highlight' : undefined } 
         key={col.id}
       >
         <Link to={`/collection/${col.id}`}>{col.title}</Link>
@@ -40,15 +45,24 @@ const CollectionIndex = props => {
     return collectionArray;
   }
 
-  return [ 
-    <h3 key='nav-title'>Collections</h3>,
-    <ul key='nav-links'>
-      {renderCollections()}
-      <a className='button'  
-        onClick={createNewCollection}>
-        + Add New
-      </a>
-    </ul>
+  return [
+    <aside className={active ? 'side active' : 'side'} key='side-panel'>
+      <a className='button close' onClick={toggleActive}>x</a>
+
+      <h3 key='nav-title'>Collections</h3>
+      <ul key='nav-links'>
+        {renderCollections()}
+        <a className='button'  
+          onClick={createNewCollection}>
+          + Add New
+        </a>
+      </ul>
+    </aside>,
+    <FontAwesomeIcon
+      className='button hamburger'
+      onClick={toggleActive}
+      key='hamburger'
+      icon='bars' />
   ]
 }
 

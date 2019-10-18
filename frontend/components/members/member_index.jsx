@@ -24,35 +24,35 @@ const MemberIndex = props => {
   const renderMembers = () => members.map((member, index) =>
     <TeamList key={`member-${index}`}>
       <span>{member}</span>
-      <Button title='remove member' className='btn-modal' onClick={submitRemoveMember}>Remove</Button>
+      <Button title='remove member' className='button' onClick={submitRemoveMember}>Remove</Button>
     </TeamList>
   )
 
   return[
-    <ToggleMembers key='member-modal' active={detailsActive}>
-      <div className='modal-screen'>
-        <div className='modal-content'>
-          <Scrollbars
-            autoHeight
-            autoHeightMin={0}
-            autoHeightMax={400}
-            hideTracksWhenNotNeeded={true}
-            key='card-scroll'
-          >
-            <Title key='title' className='h3'>
-              <span>{title} members</span>
-              <Button title='Close screen' className='btn-modal' onClick={closeModal}>x</Button>
-            </Title>
-            <ul>
-              {renderMembers()}
-            </ul>
-          </Scrollbars>
-          <MemberFormContainer key='member-form' />
-        </div>
+    <div className={detailsActive ? 'modal-screen active' : 'modal-screen'}>
+      <div className={detailsActive ? 'modal-content active' : 'modal-screen'}>
+        <Scrollbars
+          autoHeight
+          autoHeightMin={0}
+          autoHeightMax={400}
+          hideTracksWhenNotNeeded={true}
+          key='card-scroll'
+        >
+          <h3>
+            <span>{title} members</span>
+          </h3>
+          <button 
+            title='Close screen' 
+            className='button modal' 
+            onClick={closeModal}>x</button>
+          <ul>
+            {renderMembers()}
+          </ul>
+        </Scrollbars>
+        <MemberFormContainer key='member-form' />
       </div>
-    </ToggleMembers>
+    </div>
   ]
-
 };
 
 export default MemberIndex;

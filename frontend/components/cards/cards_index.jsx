@@ -1,10 +1,13 @@
 import React from 'react';
-import { Draggable } from 'react-beautiful-dnd';
 
+//Testing
+import { Link, withRouter} from 'react-router-dom';
+
+
+import { Draggable } from 'react-beautiful-dnd';
 import CardsShowContainer from './cards_show_container';
 import TagsIndex from '../tags/tags_index';
 import Loading from '../loading';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
@@ -23,13 +26,11 @@ const CardsIndex = props => {
   };
 
   const cardModal = () => (
-    <ToggleCardDetails key="card-details" active={activeForm} cardId={card.id}>
-      <div className='modal-screen'>
-        <div className='modal-content'>
-          <CardsShowContainer card={card} />
-        </div>
+    <div className={activeForm.id === card.id ? 'modal-screen active' : 'modal-screen'}>
+      <div className={activeForm.id === card.id ? 'modal-content active' : 'modal-content'}>
+        <CardsShowContainer card={card} />
       </div>
-    </ToggleCardDetails>
+    </div>
   )
 
   if (!card) {
@@ -38,7 +39,7 @@ const CardsIndex = props => {
 
   if (home) {
     return[
-      <Card onClick={toggleActive} key={card.id}>
+      <Card className="card" onClick={toggleActive} key={card.id}>
         <p>{card.due_date}</p>
         <p>{card.title}</p>
       </Card>,
@@ -58,8 +59,7 @@ const CardsIndex = props => {
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-
-            <CardName onClick={toggleActive}>
+            <CardName onClick={toggleActive} >
               {card.title} 
 
               <div className='card-tags'>

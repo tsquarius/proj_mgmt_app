@@ -1,0 +1,39 @@
+
+.board-column {
+  background: $gray-light;
+  height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 5px;
+}
+
+.board-column h3 {
+  background: $gray-dark;
+  height: 45px;
+  margin:0 0 3px;
+  width: 100%;
+  display: flex;
+  font-size: 16px;
+}
+
+.board-column h3 > input {
+  margin: 0.5em 0;
+  padding-left: 10px;
+  width: 70%;
+}
+
+.board-column h3 > div {
+  margin: 5px;
+}
+
+
+@media (min-width: 700px) {
+  .board-column {
+    height: 300px;
+  }
+
+  .board-column h3 {
+    font-size: 20px;
+  }
+
+}

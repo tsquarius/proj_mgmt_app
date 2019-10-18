@@ -5,20 +5,6 @@ import BoardShowContainer from '../boards/board_show_container';
 import Loading from '../loading';
 import MemberIndexContainer from '../members/member_index_container';
 
-import {
-  Title, 
-  TitleInput, 
-  BoardSection, 
-  PseudoBoardSection,
-  FocusButton
-} from '../../styled_components/collection_styles';
-
-import {
-  DropButton,
-  DropDownContent,
-  DropDown
-} from '../../styled_components/dropdown_styles';
-
 const CollectionShow = props => {
   
   const {fetchBoards, collectionId, patchCard,
@@ -27,18 +13,12 @@ const CollectionShow = props => {
     openDetails } = props;
 
   const [title, setTitle] = useState(collection ? collection.title : '');
-  const [focused, setFocused] = useState(false);
-  const [active, setActive] = useState(false);
 
-  const toggleActive = e => {
-    e.preventDefault();
-    setActive(!active);
-  };
+  const [active, setActive] = useState(false);
   
   const openCollectionDetails = e => {
     e.preventDefault();
     openDetails();
-    setActive(false);
   };
 
   const handleTitleChange = e => {
@@ -48,14 +28,15 @@ const CollectionShow = props => {
 
   const handleDeleteCollection = e => {
     e.preventDefault();
-    deleteCollection(collectionId)
+    if (window.confirm('Are you sure you wish to delete this collection?')) {
+      deleteCollection(collectionId)
       .then(history.push('/'));
+    }
   };
 
   const submitTitleChange = e => {
     e.preventDefault();
     updateCollection({title: title}, collectionId);
-    setFocused(false);
   };
 
   useEffect(() => { 
@@ -68,11 +49,6 @@ const CollectionShow = props => {
   const createNewBoard = e => {
     e.preventDefault();
     newBoard(collectionId ,{title: 'New Board'});
-  };
-
-  const toggleFocus = e => {
-    e.preventDefault();
-    setFocused(true);
   };
   
   const boardsList = () => collection.boards.map(id =>
@@ -132,23 +108,20 @@ const CollectionShow = props => {
     return [
       <article className='collection' key='collection'>
         <h2 className='collection-title'>
-          <div>
-            <TitleInput
-              title='Click to edit the collection title'
-              onFocus={toggleFocus}
-              type='text' 
-              value={title} 
-              onChange={handleTitleChange} />
-            <FocusButton title='Save title name' focused={focused} onClick={submitTitleChange}>save</FocusButton>
-          </div>
+          <input
+            title='Click to edit the collection title'
+            type='text' 
+            value={title} 
+            onChange={handleTitleChange} />
 
-          <DropDown>
-            <DropButton onClick={toggleActive}>...</DropButton>
-            <DropDownContent active={active}>
-              <button onClick={openCollectionDetails}>Manage Members</button>
-              <button onClick={handleDeleteCollection}>Delete</button>
-            </DropDownContent>
-          </DropDown>
+          <div className='dropdown'>
+            <button className='drop-button'>...</button>
+            <ul className='dropdown-content'>
+              <li title='save title name' onClick={submitTitleChange}>Save</li>
+              <li title='manage members' onClick={openCollectionDetails}>Members</li>
+              <li title='delete' onClick={handleDeleteCollection}>Delete</li>
+            </ul>
+          </div>
         </h2>
         
         <DragDropContext onDragEnd={onDragEnd}>

@@ -1,12 +1,10 @@
 import React from 'react';
 import Loading from '../loading';
+import styled from 'styled-components';
 
-import {
-  Comment,
-  CommentHeader,
-  Author,
-  DateTag
-} from '../../styled_components/comment_styles';
+const Comment = styled.li`
+  background: ${props => props.index % 2 === 0 ? 'white' : 'rgb(226, 226, 226)'};
+`;
 
 const CommentShow = props => {
   const {comment, commentId, index} = props;
@@ -25,13 +23,13 @@ const CommentShow = props => {
     )
   } else {
     return (
-      <Comment key={commentId} index={index}>
+      <Comment className='comment-box' key={commentId} index={index}>
         <p>{comment.body}</p>
         
-        <CommentHeader>
-          <DateTag>{parseDate(comment.updated_at)}</DateTag>
-          <Author>{comment.author}</Author>
-        </CommentHeader>
+        <div className='comment-signed'>
+          <span>{parseDate(comment.updated_at)}</span>
+          <span>{comment.author}</span>
+        </div>
         
       </Comment>
     )

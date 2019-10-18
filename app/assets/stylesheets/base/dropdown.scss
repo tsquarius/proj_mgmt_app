@@ -1,0 +1,42 @@
+
+.drop-button {
+  width: 50px;
+  color: orange;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: $white-dark;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+  right: 0;
+  font-size: 20px;
+}
+
+.dropdown:hover {
+  .dropdown-content {
+    display: block;
+  }
+}
+
+.dropdown-content li {
+  cursor: pointer;
+  text-align: left;
+  padding: 5px 10px;
+  border-bottom: 1px $gray-medium solid;
+}
+
+.dropdown-content li:hover {
+  background: $orange-medium;
+}
+
+@media (min-width: 700px) {
+
+}
