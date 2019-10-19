@@ -1,8 +1,18 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import { ToggleForm, ButtonContainer } from '../../styled_components/member_styles';
-import { TagSelector, CardFormItems } from '../../styled_components/modal_styles';
-
+const ToggleForm = styled.form`
+  display: ${props => props.active ? 'flex' : 'none'};
+  flex-direction: column;
+  margin-top: 5px;
+  li {
+    display: flex;
+    width: 50%;
+      span {
+        margin-right: 5px;
+      }
+  }
+`;
 const MemberForm = props => {
   const { collectionId, addMember } = props;
 
@@ -34,28 +44,24 @@ const MemberForm = props => {
   };
 
   return[
-    <ButtonContainer key='add-member'>
-      <button onClick={toggleActive}>
-        + Add member
-      </button>
-    </ButtonContainer>,
-    
-    <ToggleForm key='member-form' active={active}>
-      
-      <CardFormItems key='search-param'>
+    <button className='button' key='add-member' onClick={toggleActive}>
+      + Add member
+    </button>,
+    <ToggleForm key='toggle' active={active}>          
+      <li className='modal-form-item' key='search-param'>
         <span>Add by:</span>
-        <TagSelector onChange={handleMemberParamChange} defaultValue={memberParam}>
+        <select onChange={handleMemberParamChange} defaultValue={memberParam}>
           <option value='username'>Username</option>
           <option value='email'>Email</option>
-        </TagSelector>
-      </CardFormItems>
+        </select>
+      </li>
 
-      <CardFormItems key='search-input'>
+      <li className='modal-form-item' key='search-input'>
         <span>User:</span>
         <input value={member} onChange={handleMemberInputChange} />
-      </CardFormItems>
+      </li>
 
-      <button key='submit' onClick={submitMember}>Submit</button>
+      <button className='button' onClick={submitMember}>Submit</button>
     </ToggleForm>
   ]
 

@@ -1,17 +1,40 @@
 // modal
 
-.button.modal {
+a.button.modal {
   position: absolute;
-  top: 0;
-  right: 25px;
+  top: 5px;
+  right: 15px;
   font-size: 20px;
-  margin-left: 50px;
+  margin-right: 0;
+  padding: 0 10px;
+  background: none;
 }
 
+.modal-details .button {
+  padding: 1px 5px;
+  color: white;
+  border: 1px solid white;
+  background: none;
+  font-size: 15px;
+}
+
+.modal-details .button.icon {
+  font-size: 25px;
+}
+
+.modal-details .button:hover {
+  background: orange;
+  transition: 0.3s linear;
+  text-decoration: none;
+}
+
+.modal-details .button {
+  margin-right: 40px;
+}
 
 //modal components
 
-.modal-details h3 {
+.modal-details > h3 {
   width: 100%;
   padding-bottom: 2px;
   background: none;
@@ -35,7 +58,7 @@
   border-radius: 5px;
   padding: 5px;
   margin-bottom: 10px;
-  width: 80%;
+  width: 90%;
 }
 
 .modal-form-item span {
@@ -50,13 +73,11 @@
 .modal-details nav {
   // margin: 10px 0;
   display: flex;
-  // padding-bottom: 10px;
+  padding-bottom: 5px;
   border-bottom: 1px dashed white;
 }
 
-.modal-details .button {
-  margin-right: 40px;
-}
+
 
 
 

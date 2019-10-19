@@ -51,23 +51,23 @@ const Home = props => {
       return false;
     } else {
       return (
-        <ColumnsSection>
-          <Column>
-            <HeaderSection>
-              <h4>Upcoming:</h4>
-            </HeaderSection>
+        <div className='board-content'>
+          <Column className='board-column'>
+            <h3>
+              <span>Upcoming:</span>
+            </h3>
             <CardsSection>
               {upComingList}
             </CardsSection>
           </Column>
 
-          <Column>
-            <HeaderSection>
-              <h4>Past due:</h4>
-              </HeaderSection>
+          <Column className='board-column'>
+            <h3>
+              <span>Past due:</span>
+            </h3>
             <CardsSection>{pastDueList}</CardsSection>
           </Column>
-        </ColumnsSection>
+        </div>
       );
     }
   }
@@ -79,16 +79,20 @@ const Home = props => {
   }
 
   if (objLength(collections) > 0 && renderCards() ) {
-    return (
+    return [
       <article className="welcome" key='welcome'>
         <h2 key='title'>Home page</h2>
         <h3 key='subtitle'>Welcome back!</h3>
-        <p key='content'>
+        
           The following cards may need your attention:
-          {/* {renderCards()} */}
-        </p>
-      </article>
-    )
+      </article>,
+      <div className='collection' key='collection'>
+        <div className='board'>
+          {renderCards()}
+        </div>
+      </div>
+      
+    ]
   } else if (objLength(collections) > 0 ) {
     return (
       <article className="welcome">

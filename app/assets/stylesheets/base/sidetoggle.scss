@@ -1,8 +1,4 @@
-$white-dark: rgba(255,255,255,0.8);
-$orange-dark: rgba(255,153,51, 0.9);
-$gray: #CCCCCC;
-$lightblue: #99CCCC;
-$blue: #003399;
+
 
 .side {
   width: 0;
@@ -16,6 +12,15 @@ $blue: #003399;
   padding-top: 60px;
   transition: 0.5s;
   border: 0;
+  text-align: left;
+}
+
+.side ul, .side h3 {
+  margin-left: 20px;
+}
+
+.side ul li {
+  width: 80%;
 }
 
 .side.active {
@@ -29,14 +34,35 @@ $blue: #003399;
   right: 25px;
   font-size: 20px;
   margin-left: 50px;
+  color: white;
 }
+
+.side .button {
+  color: white;
+  padding: 1px 5px;
+  border: 1px solid white;
+  margin-top: 0.5em;
+}
+
+.side .button:hover {
+  background: orange;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
 
 .button.hamburger {
   font-size: 20px;
   top: 0;
   left:0;
   position: fixed;
+  color: $dark-orange;
 }
+
+li.highlight {
+  background: $gray-dark;
+}
+
 
 @media (min-width: 700px) {
   .side {
@@ -47,8 +73,8 @@ $blue: #003399;
     padding: 0;
     background: inherit;
     transition: none;
-    border-right: 1px solid gray;
-    padding-right: 5px;
+    border-right: 1px solid $gray;
+    padding-right: 15px;
   }
 
   .button.hamburger {
@@ -58,4 +84,22 @@ $blue: #003399;
   .button.close {
     display: none;
   }
+
+  .side ul li {
+    width: inherit;
+  }
+
+  .side .button {
+    color: $orange;
+    padding: 1px 5px;
+    border:none;
+    margin-top: 0.5em;
+  }
+
+  .side .button:hover {
+    background: none;
+    text-decoration: underline;
+  }
+
+
 }

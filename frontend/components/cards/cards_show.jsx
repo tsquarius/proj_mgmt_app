@@ -106,12 +106,12 @@ const CardsShow = props => {
           <nav key='nav'>
             <FontAwesomeIcon
               title = 'Save updates and close'
-              className='button'
+              className='button icon'
               onClick={handleSubmit}
               icon={['far', 'save']} />
             <FontAwesomeIcon
               title = 'Delete this card'
-              className='button'
+              className='button icon'
               onClick={handleDelete}
               icon={['far', 'trash-alt']} />
           </nav>

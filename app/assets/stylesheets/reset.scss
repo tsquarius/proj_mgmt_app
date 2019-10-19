@@ -19,7 +19,7 @@ input {
   width: 100%;
 }
 
-ol, ul {
+ol, ul, li {
   list-style: none;
 }
 
@@ -41,6 +41,11 @@ input[type="radio"], select, input[type="submit"] {
   outline: none;
   font: inherit;
   font-size: 100%;
+}
+
+input:focus {
+  border: none;
+  outline: none;
 }
 
 img {

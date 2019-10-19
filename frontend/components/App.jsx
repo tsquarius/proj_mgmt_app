@@ -13,17 +13,18 @@ import CollectionIndexContainer from './collections/collection_index_container';
 import CardShowContainer from './cards/cards_show_container';
 
 const App = () => [
+  <UserNavContainer key='main-nav' />,
   <header className='main-head' key='header'>
     <h1> DASH. </h1>
   </header>,
 
-  <UserNavContainer key='main-nav' />,
+  
 
   <React.Fragment key='fragment'>
     <Switch>
       <ProtectedRoute exact={true} path='/' component={HomeContainer} />
-      <AuthRoute path='/login' component={LoginFormContainer} />
       <AuthRoute path='/signup' component={SignupFormContainer} />
+      <AuthRoute path='/login' component={LoginFormContainer} />
       <ProtectedRoute 
         exact={true} 
         path='/collection/:collectionId' 

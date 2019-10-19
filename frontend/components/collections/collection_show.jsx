@@ -4,6 +4,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import BoardShowContainer from '../boards/board_show_container';
 import Loading from '../loading';
 import MemberIndexContainer from '../members/member_index_container';
+import SearchContainer from '../search/search_container';
 
 const CollectionShow = props => {
   
@@ -123,6 +124,7 @@ const CollectionShow = props => {
             </ul>
           </div>
         </h2>
+        <SearchContainer />
         
         <DragDropContext onDragEnd={onDragEnd}>
           {boardsList()}

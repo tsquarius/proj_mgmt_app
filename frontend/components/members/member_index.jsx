@@ -24,35 +24,34 @@ const MemberIndex = props => {
   const renderMembers = () => members.map((member, index) =>
     <TeamList key={`member-${index}`}>
       <span>{member}</span>
-      <Button title='remove member' className='button' onClick={submitRemoveMember}>Remove</Button>
+      <button title='remove member' className='button' onClick={submitRemoveMember}>Remove</button>
     </TeamList>
   )
 
-  return[
+  return(
     <div className={detailsActive ? 'modal-screen active' : 'modal-screen'}>
       <div className={detailsActive ? 'modal-content active' : 'modal-screen'}>
-        <Scrollbars
-          autoHeight
-          autoHeightMin={0}
-          autoHeightMax={400}
-          hideTracksWhenNotNeeded={true}
-          key='card-scroll'
-        >
-          <h3>
-            <span>{title} members</span>
-          </h3>
-          <button 
-            title='Close screen' 
-            className='button modal' 
-            onClick={closeModal}>x</button>
-          <ul>
-            {renderMembers()}
-          </ul>
-        </Scrollbars>
-        <MemberFormContainer key='member-form' />
+        <section className='modal-details'>
+          <Scrollbars
+            autoHeight
+            autoHeightMin={0}
+            autoHeightMax={400}
+            hideTracksWhenNotNeeded={true}
+            key='card-scroll'
+          >
+            <h3>
+              <span>{title} members</span>
+            </h3>
+            <a className='button modal' onClick={closeModal}>x</a>
+            <ul>
+              {renderMembers()}
+            </ul>
+          </Scrollbars>
+          <MemberFormContainer collectionId={collectionId} key='member-form' />
+        </section>
       </div>
     </div>
-  ]
+  )
 };
 
 export default MemberIndex;

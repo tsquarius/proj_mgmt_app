@@ -19,22 +19,16 @@ import {
 const BoardColumnsShow = props => {
 
   const { destroyBoardColumn, boardColumn, 
-    updateBoardColumn, activeForm, newCard, bcId } = props;
+    updateBoardColumn, activeForm, newCard, bcId, filter } = props;
 
   const [title, setTitle] = useState('');
-  const [focused, setFocused] = useState(false);
 
-  
   useEffect(() => {
     if (boardColumn) {
       setTitle(boardColumn.title);
     }
   }, [boardColumn ? boardColumn.title : ''] );
 
-  const toggleFocus = e => {
-    e.preventDefault();
-    setFocused(true);
-  };
 
   const handleTitleChange = e => {
     e.preventDefault();
@@ -44,7 +38,6 @@ const BoardColumnsShow = props => {
   const handleSubmitTitle = e => {
     e.preventDefault();
     updateBoardColumn(boardColumn.id, {title: title});
-    setFocused(false);
   };
 
   const removeColumn = e => {
@@ -59,6 +52,16 @@ const BoardColumnsShow = props => {
     newCard(boardColumn.id);
   };
 
+  const applyCardFilters = () => {
+    if (!filter) {
+      return boardColumn.cards;
+    } else {
+      return boardColumn.cards.filter(cardId => 
+        filter.includes(cardId)
+      );
+    }
+  };
+
   const renderCards = () => {
     return (
       <Droppable droppableId={bcId} type='card'>
@@ -68,7 +71,8 @@ const BoardColumnsShow = props => {
             {...provided.droppableProps}
             isDraggingOver={snapshot.isDraggingOver}
           >
-            {boardColumn.cards.map((cardId,index) => 
+   
+            {applyCardFilters().map((cardId,index) => 
               <CardsIndexContainer cardId={cardId} key={cardId} index={index} />)}
             
             <div className={activeForm.bcId === boardColumn.id ? 'hide' : 'card-placeholder'}>
@@ -91,7 +95,6 @@ const BoardColumnsShow = props => {
       <Column className='board-column'>
         <h3>
           <input title='Click to edit column title' 
-            onFocus={toggleFocus} 
             type='text' 
             value={title} 
             onChange={handleTitleChange} />

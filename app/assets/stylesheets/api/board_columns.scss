@@ -7,7 +7,7 @@
   border-radius: 5px;
 }
 
-.board-column h3 {
+.board-column > h3 {
   background: $gray-dark;
   height: 45px;
   margin:0 0 3px;
@@ -16,10 +16,12 @@
   font-size: 16px;
 }
 
-.board-column h3 > input {
-  margin: 0.5em 0;
+.board-column h3 > input, 
+.board-column h3 > span {
+  margin: 0.25em 0;
   padding-left: 10px;
   width: 70%;
+  text-align: left;
 }
 
 .board-column h3 > div {
