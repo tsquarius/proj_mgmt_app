@@ -23,6 +23,14 @@
   transition: background-color 0.3s linear;
 }
 
+.card p:first-of-type {
+  width: 40%
+}
+
+.card p:last-of-type {
+  width: 60%;
+}
+
 
 @media (min-width: 700px) {
   .card {
