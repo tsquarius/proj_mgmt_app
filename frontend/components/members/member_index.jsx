@@ -1,15 +1,22 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import MemberFormContainer from './member_form_container';
-import { Title } from '../../styled_components/modal_styles';
+import styled from 'styled-components';
 
-import {
-  ToggleMembers,  
-  Button, 
-  TeamList} from '../../styled_components/member_styles';
+const TeamList = styled.li`
+  display:flex;
+  font-size: 15px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  span {
+    font-size: 20px;
+  }
+`;
 
 const MemberIndex = props => {
-  const { members, removeMember, collectionId, title, detailsActive, closeDetails } = props;
+  const { members, removeMember, 
+    collectionId, title, 
+    detailsActive, closeDetails } = props;
 
   const submitRemoveMember = username => e => {
     e.preventDefault();
@@ -24,7 +31,10 @@ const MemberIndex = props => {
   const renderMembers = () => members.map((member, index) =>
     <TeamList key={`member-${index}`}>
       <span>{member}</span>
-      <button title='remove member' className='button' onClick={submitRemoveMember}>Remove</button>
+      <button 
+        title='remove member' 
+        className='button' 
+        onClick={submitRemoveMember}>Remove</button>
     </TeamList>
   )
 

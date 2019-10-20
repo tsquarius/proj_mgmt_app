@@ -2,8 +2,6 @@ import React from 'react';
 import TagIndexItemContainer from './tag_index_item_container';
 import TagsFormContainer from '../tags/tags_form_container';
 
-import { TagsList } from '../../styled_components/modal_styles';
-
 const TagsIndex = ({tagsArray, cardId, boardView}) => {
   const renderTags = () => tagsArray.map(tagId =>
     <TagIndexItemContainer 

@@ -71,13 +71,14 @@ a.button.modal {
 
 
 .modal-details nav {
-  // margin: 10px 0;
   display: flex;
   padding-bottom: 5px;
   border-bottom: 1px dashed white;
 }
 
-
+.tag-nav .button {
+  margin: 0 0 0 2px;
+}
 
 
 

@@ -1,26 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import BoardColumnsContainer from '../board_columns/board_columns_show_container';
 import Loading from '../loading';
-import {
-  BoardDiv,
-  HeaderSection,
-  ColumnsSection,
-  PseudoColumn,
-  ButtonToggle,
-  FocusButton
-} from '../../styled_components/board_styles';
-
 
 const BoardShow = props => {
 
   const {deleteBoard, board, updateBoard, boardId, loading, createColumn} = props;
   const [title, setTitle] = useState(''); 
-  const [focused, setFocused] = useState(false);
-
-  const toggleFocus = e => {
-    e.preventDefault();
-    setFocused(true);
-  };
 
   useEffect(() => { 
     if (board) {setTitle(board.title);} 
@@ -44,7 +29,6 @@ const BoardShow = props => {
     return e => {
       e.preventDefault();
       updateBoard(boardId, {title: title});
-      setFocused(false);
     };
   };
 
@@ -73,7 +57,6 @@ const BoardShow = props => {
           title='Click to edit the Board name'
           type='text' 
           value={title} 
-          onFocus={toggleFocus}
           onChange={handleTitleChange} />
         <div className='dropdown'>
           <button className='drop-button'>...</button>

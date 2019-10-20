@@ -2,14 +2,6 @@ import React, { useState } from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import CommentShowContainer from '../comments/comment_show_container';
 
-import { ButtonContainer } from '../../styled_components/modal_styles';
-
-import {
-  AddComment,
-  TextBox,
-  Button
-} from '../../styled_components/comment_styles';
-
 const CommentIndex = props => {
   const { commentsArr, postComment, cardId } = props;
 

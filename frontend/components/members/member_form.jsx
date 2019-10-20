@@ -18,7 +18,7 @@ const MemberForm = props => {
 
   const [member, setMember] = useState('');
   const [memberParam, setMemberParam] = useState('username');
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
 
   const memberObj = { [memberParam]: member };
 

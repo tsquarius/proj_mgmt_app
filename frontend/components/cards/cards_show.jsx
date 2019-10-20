@@ -7,12 +7,6 @@ import Loading from '../loading';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import {
-  Title,
-  CardFormItems,
-  ButtonContainer,
-} from '../../styled_components/modal_styles';
-
 const CardsShow = props => {
   const {card, closeCardDetails, patchCard, deleteCard} = props;  
 

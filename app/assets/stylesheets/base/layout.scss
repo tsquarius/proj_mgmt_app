@@ -166,7 +166,7 @@ h1 {
 .bg-image {
   position: absolute;
   background: #333
-    url(splash.jpg);
+    image_url('splash.jpg');
   background-position: 0 100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -190,7 +190,6 @@ h1 {
 }
 
 .button.welcome:hover {
-  // color: $dark-orange;
   background: orange;
   transition: 0.3s linear;
 }
@@ -257,6 +256,10 @@ h1 {
     grid-row: 3 / 5;
     text-align: left;
     margin-left: 20px;
+  }
+
+  .welcome.button {
+    margin-left: 0;
   }
   
   .side {

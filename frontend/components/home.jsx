@@ -5,11 +5,8 @@ import { dateConverter, daysDifference, objLength } from '../util/helper_util';
 
 import { 
   Column, 
-  HeaderSection, 
   CardsSection 
 } from '../styled_components/board_column_styles';
-
-import { ColumnsSection } from '../styled_components/board_styles';
 
 const Home = props => {
   const {collections, postCollection, 

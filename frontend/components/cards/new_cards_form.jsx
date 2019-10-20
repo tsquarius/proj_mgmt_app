@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Form, TextBox } from '../../styled_components/card_styles';
 
 const CardsForm = props => {
 
@@ -27,7 +26,11 @@ const CardsForm = props => {
   };
 
   return[
-      <textarea className='textbox' key='addcard-textbox' onChange={handleChange} value={title} />,
+      <textarea 
+        className='textbox' 
+        key='addcard-textbox' 
+        onChange={handleChange} 
+        value={title} />,
       <nav className='icon-nav' key='addcard icons'>
         <FontAwesomeIcon
           className='button'

@@ -1094,7 +1094,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _board_columns_board_columns_show_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../board_columns/board_columns_show_container */ "./frontend/components/board_columns/board_columns_show_container.js");
 /* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
-/* harmony import */ var _styled_components_board_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled_components/board_styles */ "./frontend/styled_components/board_styles.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -1102,7 +1101,6 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -1120,16 +1118,6 @@ var BoardShow = function BoardShow(props) {
       _useState2 = _slicedToArray(_useState, 2),
       title = _useState2[0],
       setTitle = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      focused = _useState4[0],
-      setFocused = _useState4[1];
-
-  var toggleFocus = function toggleFocus(e) {
-    e.preventDefault();
-    setFocused(true);
-  };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (board) {
@@ -1157,7 +1145,6 @@ var BoardShow = function BoardShow(props) {
       updateBoard(boardId, {
         title: title
       });
-      setFocused(false);
     };
   };
 
@@ -1192,7 +1179,6 @@ var BoardShow = function BoardShow(props) {
       title: "Click to edit the Board name",
       type: "text",
       value: title,
-      onFocus: toggleFocus,
       onChange: handleTitleChange
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "dropdown"
@@ -1257,9 +1243,6 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     updateBoard: function updateBoard(boardId, board) {
       return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["updateBoard"])(boardId, board));
     },
-    fetchBoard: function fetchBoard(boardId) {
-      return dispatch(Object(_actions_board_actions__WEBPACK_IMPORTED_MODULE_1__["fetchBoard"])(boardId));
-    },
     createColumn: function createColumn(boardId, boardColumn) {
       return dispatch(Object(_actions_board_column_actions__WEBPACK_IMPORTED_MODULE_2__["createBoardColumn"])(boardId, boardColumn));
     }
@@ -1281,16 +1264,13 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
-/* harmony import */ var _cards_show_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./cards_show_container */ "./frontend/components/cards/cards_show_container.js");
-/* harmony import */ var _tags_tags_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../tags/tags_index */ "./frontend/components/tags/tags_index.jsx");
-/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
-/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _styled_components_card_styles__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../styled_components/card_styles */ "./frontend/styled_components/card_styles.jsx");
+/* harmony import */ var react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-beautiful-dnd */ "./node_modules/react-beautiful-dnd/dist/react-beautiful-dnd.esm.js");
+/* harmony import */ var _cards_show_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cards_show_container */ "./frontend/components/cards/cards_show_container.js");
+/* harmony import */ var _tags_tags_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../tags/tags_index */ "./frontend/components/tags/tags_index.jsx");
+/* harmony import */ var _loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../loading */ "./frontend/components/loading.jsx");
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _styled_components_card_styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../styled_components/card_styles */ "./frontend/styled_components/card_styles.jsx");
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
- //Testing
 
 
 
@@ -1317,17 +1297,17 @@ var CardsIndex = function CardsIndex(props) {
       className: activeForm.id === card.id ? 'modal-screen active' : 'modal-screen'
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: activeForm.id === card.id ? 'modal-content active' : 'modal-content'
-    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_show_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_cards_show_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
       card: card
     })));
   };
 
   if (!card) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_5__["default"], null);
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_loading__WEBPACK_IMPORTED_MODULE_4__["default"], null);
   }
 
   if (home) {
-    return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_7__["Card"], {
+    return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_6__["Card"], {
       className: "card",
       onClick: toggleActive,
       key: card.id
@@ -1335,28 +1315,28 @@ var CardsIndex = function CardsIndex(props) {
       key: "modal"
     }, cardModal())];
   } else {
-    return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_2__["Draggable"], {
+    return [react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_beautiful_dnd__WEBPACK_IMPORTED_MODULE_1__["Draggable"], {
       draggableId: card.id,
       index: index,
       type: "card",
       key: "card-".concat(card.id)
     }, function (provided, snapshot) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_7__["Card"], _extends({
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_6__["Card"], _extends({
         className: "card"
       }, provided.draggableProps, provided.dragHandleProps, {
         ref: provided.innerRef,
         isDragging: snapshot.isDragging
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_7__["CardName"], {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         onClick: toggleActive
       }, card.title, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-tags"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tags_tags_index__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_tags_tags_index__WEBPACK_IMPORTED_MODULE_3__["default"], {
         tagsArray: card.tags,
         cardId: card.id,
         boardView: true
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_7__["CommentIcon"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_card_styles__WEBPACK_IMPORTED_MODULE_6__["CommentIcon"], {
         active: card.comments.length > 0
-      }, card.comments.length, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_6__["FontAwesomeIcon"], {
+      }, card.comments.length, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__["FontAwesomeIcon"], {
         className: "comment-icon",
         onClick: toggleActive,
         icon: ['far', 'comment']
@@ -1431,7 +1411,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-custom-scrollbars */ "./node_modules/react-custom-scrollbars/lib/index.js");
 /* harmony import */ var react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _styled_components_modal_styles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../styled_components/modal_styles */ "./frontend/styled_components/modal_styles.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -1439,7 +1418,6 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -1617,7 +1595,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
-/* harmony import */ var _styled_components_card_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../styled_components/card_styles */ "./frontend/styled_components/card_styles.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -1625,7 +1602,6 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -1775,8 +1751,7 @@ var CollectionIndex = function CollectionIndex(props) {
     postCollection({
       title: 'New Collection'
     });
-  }; // consider adding the "active" class for this link, trigger onClick
-
+  };
 
   var renderCollections = function renderCollections() {
     var collectionArray = collections.map(function (col) {
@@ -1910,11 +1885,6 @@ var CollectionShow = function CollectionShow(props) {
       _useState2 = _slicedToArray(_useState, 2),
       title = _useState2[0],
       setTitle = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState4 = _slicedToArray(_useState3, 2),
-      active = _useState4[0],
-      setActive = _useState4[1];
 
   var openCollectionDetails = function openCollectionDetails(e) {
     e.preventDefault();
@@ -2150,8 +2120,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-custom-scrollbars */ "./node_modules/react-custom-scrollbars/lib/index.js");
 /* harmony import */ var react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _comments_comment_show_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../comments/comment_show_container */ "./frontend/components/comments/comment_show_container.js");
-/* harmony import */ var _styled_components_modal_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled_components/modal_styles */ "./frontend/styled_components/modal_styles.jsx");
-/* harmony import */ var _styled_components_comment_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../styled_components/comment_styles */ "./frontend/styled_components/comment_styles.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -2159,8 +2127,6 @@ function _nonIterableRest() { throw new TypeError("Invalid attempt to destructur
 function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -2378,8 +2344,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cards_cards_index_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cards/cards_index_container */ "./frontend/components/cards/cards_index_container.js");
 /* harmony import */ var _util_helper_util__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/helper_util */ "./frontend/util/helper_util.js");
 /* harmony import */ var _styled_components_board_column_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../styled_components/board_column_styles */ "./frontend/styled_components/board_column_styles.jsx");
-/* harmony import */ var _styled_components_board_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styled_components/board_styles */ "./frontend/styled_components/board_styles.jsx");
-
 
 
 
@@ -2724,13 +2688,24 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-custom-scrollbars */ "./node_modules/react-custom-scrollbars/lib/index.js");
 /* harmony import */ var react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_custom_scrollbars__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _member_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./member_form_container */ "./frontend/components/members/member_form_container.js");
-/* harmony import */ var _styled_components_modal_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled_components/modal_styles */ "./frontend/styled_components/modal_styles.jsx");
-/* harmony import */ var _styled_components_member_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../styled_components/member_styles */ "./frontend/styled_components/member_styles.jsx");
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  display:flex;\n  font-size: 15px;\n  justify-content: space-between;\n  margin-bottom: 5px;\n  span {\n    font-size: 20px;\n  }\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 
 
 
 
+var TeamList = styled_components__WEBPACK_IMPORTED_MODULE_3__["default"].li(_templateObject());
 
 var MemberIndex = function MemberIndex(props) {
   var members = props.members,
@@ -2756,7 +2731,7 @@ var MemberIndex = function MemberIndex(props) {
 
   var renderMembers = function renderMembers() {
     return members.map(function (member, index) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styled_components_member_styles__WEBPACK_IMPORTED_MODULE_4__["TeamList"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(TeamList, {
         key: "member-".concat(index)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, member), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         title: "remove member",
@@ -3104,6 +3079,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     submit: function submit(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["login"])(user));
+    },
+    login: function login(user) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["login"])(user));
     }
   };
 };
@@ -3136,7 +3114,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var SessionForm = function SessionForm(props) {
   var submit = props.submit,
       errors = props.errors,
-      type = props.type;
+      type = props.type,
+      login = props.login;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState2 = _slicedToArray(_useState, 2),
@@ -3176,7 +3155,7 @@ var SessionForm = function SessionForm(props) {
 
   var demoLogin = function demoLogin(e) {
     e.preventDefault();
-    submit({
+    login({
       username: 'demo',
       password: 'password'
     });
@@ -3287,6 +3266,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     submit: function submit(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["signup"])(user));
+    },
+    login: function login(user) {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["login"])(user));
     }
   };
 };
@@ -3432,7 +3414,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-/* harmony import */ var _styled_components_modal_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled_components/modal_styles */ "./frontend/styled_components/modal_styles.jsx");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -3462,7 +3443,6 @@ function _templateObject() {
 }
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
 
 
 
@@ -3566,6 +3546,7 @@ var TagsForm = function TagsForm(props) {
     },
     icon: "circle"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
+    className: "tag-nav",
     key: "tag-nav"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "button",
@@ -3627,8 +3608,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _tag_index_item_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./tag_index_item_container */ "./frontend/components/tags/tag_index_item_container.js");
 /* harmony import */ var _tags_tags_form_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tags/tags_form_container */ "./frontend/components/tags/tags_form_container.js");
-/* harmony import */ var _styled_components_modal_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styled_components/modal_styles */ "./frontend/styled_components/modal_styles.jsx");
-
 
 
 
@@ -4683,72 +4662,17 @@ var configureStore = function configureStore() {
 /*!************************************************************!*\
   !*** ./frontend/styled_components/board_column_styles.jsx ***!
   \************************************************************/
-/*! exports provided: Column, HeaderSection, ToggleNav, HiddenButton, CardsSection, PseudoCard, CardButton, Form */
+/*! exports provided: Column, CardsSection, CardButton */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Column", function() { return Column; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeaderSection", function() { return HeaderSection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToggleNav", function() { return ToggleNav; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HiddenButton", function() { return HiddenButton; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardsSection", function() { return CardsSection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PseudoCard", function() { return PseudoCard; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardButton", function() { return CardButton; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return Form; });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  padding: 10px;\n"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n  visibility: hidden;\n  opacity: 0;\n  ", ":hover & {\n    visibility: visible;\n    opacity: 1;\n    transition: opacity 0.3s linear;\n  }\n"]);
-
-  _templateObject7 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  min-height: 30px;\n"]);
-
-  _templateObject6 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  border: ", ";\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  visibility: hidden;\n  opacity: 0;\n  ", ":hover & {\n    visibility: visible;\n    opacity: 1;\n    transition: opacity 0.2s linear;\n    padding-top: 7px;\n  }\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  overflow-x: wrap;\n  width: 20px;\n  font-size: 12px;\n"]);
+  var data = _taggedTemplateLiteral(["\n  visibility: hidden;\n  opacity: 0;\n  ", ":hover & {\n    visibility: visible;\n    opacity: 1;\n    transition: opacity 0.3s linear;\n  }\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -4758,7 +4682,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\nbackground: rgba(255,255,255,0.4);\nwidth: 220px;\nmin-height: 45px;\nmargin-left: 10px;\nflex-direction: row;\n  input, h4 {\n    background: none;\n    font-size: 15px;\n    font-weight: bold;\n    padding: 10px;\n    width: 70%;\n    :focus {\n      text-decoration: underline;\n    }\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n  border: ", ";\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -4781,108 +4705,13 @@ function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(
 
  // keep
 
-var Column = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].ul(_templateObject());
-var HeaderSection = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].header(_templateObject2());
-var ToggleNav = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].nav(_templateObject3());
-var HiddenButton = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject4(), HeaderSection); // keep
+var Column = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].ul(_templateObject()); // keep
 
-var CardsSection = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5(), function (props) {
+var CardsSection = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2(), function (props) {
   return props.isDraggingOver ? '1px dashed orange' : 'none';
-});
-var PseudoCard = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject6()); // keep
+}); // keep
 
-var CardButton = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject7(), Column);
-var Form = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject8());
-
-/***/ }),
-
-/***/ "./frontend/styled_components/board_styles.jsx":
-/*!*****************************************************!*\
-  !*** ./frontend/styled_components/board_styles.jsx ***!
-  \*****************************************************/
-/*! exports provided: BoardDiv, HeaderSection, ColumnsSection, PseudoColumn, ButtonToggle, FocusButton */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BoardDiv", function() { return BoardDiv; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HeaderSection", function() { return HeaderSection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ColumnsSection", function() { return ColumnsSection; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PseudoColumn", function() { return PseudoColumn; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonToggle", function() { return ButtonToggle; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FocusButton", function() { return FocusButton; });
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  visibility: ", ";\n  margin-top: 5px\n  font-size: 12px;\n"]);
-
-  _templateObject6 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  visibility: hidden;\n  opacity: 0;\n  margin-top: 5px;\n  font-size: 12px;\n  ", ":hover & {\n    visibility: visible;\n    display: block;\n    opacity: 1;\n    transition: opacity 0.3s linear;\n  }\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  width: 200px;\n  margin-right: 10px;\n  }\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  min-width: 1100px;\n  min-height: 200px;\n  display: flex;\n  flex-direction: row;\n  margin: 10px 0;\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  width: 35%;\n  margin-left: 10px;\n  input {\n    padding: 6px 0;\n    width: 50%;\n    font-size: 20px;\n    margin: 5px 5px 0 0;\n    :focus {\n      border-radius: 5px;\n      background: rgba(255,255,255,0.4);\n    }\n  }\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: block\n  padding-left: 12px;\n  border-bottom: 2px dashed gray;\n  width: 90%;\n  margin-left: 10px;\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-var BoardDiv = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject());
-var HeaderSection = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].header(_templateObject2());
-var ColumnsSection = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].section(_templateObject3());
-var PseudoColumn = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4());
-var ButtonToggle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject5(), HeaderSection);
-var FocusButton = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject6(), function (props) {
-  return props.focused ? 'visible' : 'hidden';
-});
+var CardButton = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject3(), Column);
 
 /***/ }),
 
@@ -4890,50 +4719,17 @@ var FocusButton = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].butt
 /*!****************************************************!*\
   !*** ./frontend/styled_components/card_styles.jsx ***!
   \****************************************************/
-/*! exports provided: CardName, ToggleCardDetails, Card, CommentIcon, TextBox, Form */
+/*! exports provided: Card, CommentIcon, ToggleCardDetails */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardName", function() { return CardName; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToggleCardDetails", function() { return ToggleCardDetails; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Card", function() { return Card; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommentIcon", function() { return CommentIcon; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TextBox", function() { return TextBox; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Form", function() { return Form; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToggleCardDetails", function() { return ToggleCardDetails; });
 /* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  padding: 0;\n  width: 210px;\n  nav {\n    margin-top: 2px;\n  }\n"]);
-
-  _templateObject6 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  border-radius: 5px;\n  padding: 5px;\n  background: rgba(255, 255, 255, .6);\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  display: ", ";\n  font-size: 12px;\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
 function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  ", ";\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: ", "\n"]);
 
   _templateObject3 = function _templateObject3() {
     return data;
@@ -4943,7 +4739,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: ", "\n"]);
+  var data = _taggedTemplateLiteral(["\n  display: ", ";\n  font-size: 12px;\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -4953,7 +4749,7 @@ function _templateObject2() {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: column;\n  width: 85%;\n"]);
+  var data = _taggedTemplateLiteral(["\n  cursor: pointer;\n  ", ";\n"]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -4964,339 +4760,18 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+ //keep
 
-var CardName = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].span(_templateObject());
-var ToggleCardDetails = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2(), function (props) {
-  return props.active.id === props.cardId ? 'flex' : 'none';
-}); //keep
-
-var Card = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject3(), function (props) {
+var Card = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject(), function (props) {
   return props.isDragging ? 'background: orange; color: white' : '';
 }); //keep
 
-var CommentIcon = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject4(), function (props) {
+var CommentIcon = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2(), function (props) {
   return props.active ? 'flex' : 'none';
 });
-var TextBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].textarea(_templateObject5());
-var Form = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject6());
-
-/***/ }),
-
-/***/ "./frontend/styled_components/comment_styles.jsx":
-/*!*******************************************************!*\
-  !*** ./frontend/styled_components/comment_styles.jsx ***!
-  \*******************************************************/
-/*! exports provided: Comment, CommentHeader, Author, DateTag, AddComment, TextBox, Button */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Comment", function() { return Comment; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CommentHeader", function() { return CommentHeader; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Author", function() { return Author; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DateTag", function() { return DateTag; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddComment", function() { return AddComment; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TextBox", function() { return TextBox; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return Button; });
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 15px;\n  text-align: left;\n  :hover {\n    color: black;\n    transition: color 0.3s;\n    text-decoration: none;\n  }\n"]);
-
-  _templateObject7 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  border-radius: 5px;\n  padding: 5px;\n"]);
-
-  _templateObject6 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  display: ", "\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 10px;\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 10px\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  justify-content: space-between;\n  margin-top: 10px;\n  padding: 0 5px;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  background: ", ";\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-var Comment = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject(), function (props) {
-  return props.index % 2 === 0 ? 'white' : 'rgb(226, 226, 226)';
+var ToggleCardDetails = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3(), function (props) {
+  return props.active.id === props.cardId ? 'flex' : 'none';
 });
-var CommentHeader = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2());
-var Author = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].span(_templateObject3());
-var DateTag = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].span(_templateObject4());
-var AddComment = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5(), function (props) {
-  return props.active ? 'flex' : 'none';
-});
-var TextBox = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].textarea(_templateObject6());
-var Button = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject7());
-
-/***/ }),
-
-/***/ "./frontend/styled_components/member_styles.jsx":
-/*!******************************************************!*\
-  !*** ./frontend/styled_components/member_styles.jsx ***!
-  \******************************************************/
-/*! exports provided: ToggleMembers, Button, TeamList, ToggleForm, ButtonContainer */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToggleMembers", function() { return ToggleMembers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Button", function() { return Button; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TeamList", function() { return TeamList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ToggleForm", function() { return ToggleForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonContainer", function() { return ButtonContainer; });
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  margin: 10px 0;\n  font-size: 15px;\n  display: flex;\n  padding-top: 10px;\n  border-top: 1px dashed white;\n  button {\n    font-weight: 300;\n    :hover {\n      text-decoration: none;\n      color: black;\n      transition: color 0.3s;\n    }\n  }\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 15px;\n  width: 250px;\n  font-weight: 300;\n  display: ", ";\n  flex-direction: column;\n  button {\n    text-align: left;\n    width: 50px;\n    :hover {\n      text-decoration: none;\n      color: black;\n      transition: color 0.3s;\n    }\n  }\n  input {\n    background: white;\n    border-radius: 5px;\n    color: black;\n  }\n  \n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  display:flex;\n  font-size: 15px;\n  justify-content: space-between;\n  margin-bottom: 5px;\n  span {\n    font-size: 20px;\n  }\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  visibility: visible;\n  font-weight: 300;\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  display: ", "\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-
-var ToggleMembers = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject(), function (props) {
-  return props.active ? '' : 'none';
-});
-var Button = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].button(_templateObject2());
-var TeamList = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject3());
-var ToggleForm = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].form(_templateObject4(), function (props) {
-  return props.active ? 'flex' : 'none';
-});
-var ButtonContainer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].nav(_templateObject5());
-
-/***/ }),
-
-/***/ "./frontend/styled_components/modal_styles.jsx":
-/*!*****************************************************!*\
-  !*** ./frontend/styled_components/modal_styles.jsx ***!
-  \*****************************************************/
-/*! exports provided: Title, CardFormItems, ButtonContainer, TagsList, AddTag, TagFormItems, TagSelector, TagNav, TagButtonContainer */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Title", function() { return Title; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CardFormItems", function() { return CardFormItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ButtonContainer", function() { return ButtonContainer; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TagsList", function() { return TagsList; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AddTag", function() { return AddTag; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TagFormItems", function() { return TagFormItems; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TagSelector", function() { return TagSelector; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TagNav", function() { return TagNav; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TagButtonContainer", function() { return TagButtonContainer; });
-/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
-function _templateObject9() {
-  var data = _taggedTemplateLiteral(["\n  margin-left: 2px;\n  padding-bottom: ", ";\n  border-bottom: 1px dashed white;\n  justify-content: space-between;\n  display: flex;\n  button {\n    display: ", ";\n    text-align: left;\n    font-size: 12px;\n  }\n  margin-top: ", ";\n"]);
-
-  _templateObject9 = function _templateObject9() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject8() {
-  var data = _taggedTemplateLiteral(["\n  margin-left: 2px;\n  padding-bottom: 10px;\n  justify-content: space-between;\n  display: flex;\n  button {\n    font-size: 12px;\n    margin-left: 10px;\n  }\n"]);
-
-  _templateObject8 = function _templateObject8() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject7() {
-  var data = _taggedTemplateLiteral(["\n  margin-left: 2px;\n"]);
-
-  _templateObject7 = function _templateObject7() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject6() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  flex-direction: row;\n  width: 105px;\n  margin: 0 5px 10px 0;\n  color: black;\n  background: white;\n  border-radius: 5px;\n  span {\n    font-weight: 700;\n    padding: 2px 0 0 2px;\n  }\n  input {\n    margin-left: 5px;\n  }\n"]);
-
-  _templateObject6 = function _templateObject6() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject5() {
-  var data = _taggedTemplateLiteral(["\n  display: ", "\n  font-size: 12px;\n  flex-direction: row;\n  margin-top: 10px;\n"]);
-
-  _templateObject5 = function _templateObject5() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject4() {
-  var data = _taggedTemplateLiteral(["\n  display: flex;\n  max-height: 60px\n  flex-wrap: wrap;\n"]);
-
-  _templateObject4 = function _templateObject4() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject3() {
-  var data = _taggedTemplateLiteral(["\n  margin: 10px 0;\n  display: flex;\n  padding-bottom: 10px;\n  border-bottom: 1px dashed white;\n  }\n"]);
-
-  _templateObject3 = function _templateObject3() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject2() {
-  var data = _taggedTemplateLiteral(["\n  font-size: 15px;\n  color: black;\n  background: white;\n  border-radius: 5px;\n  padding: 5px;\n  margin-bottom: 10px;\n  span {\n    font-weight: 700;\n  }\n  input {\n    margin-left: 5px;\n  }\n  textarea {\n    font-size: 13px;\n    padding: 5px 0 ;\n    margin-bottom: 5px;\n    width: 90%;\n  }\n"]);
-
-  _templateObject2 = function _templateObject2() {
-    return data;
-  };
-
-  return data;
-}
-
-function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n  input {\n    width: 70%;\n  }\n  padding-bottom: 5px;\n  border-bottom: 2px solid white;\n  margin-bottom: 20px;\n  font-weight: 300;\n"]);
-
-  _templateObject = function _templateObject() {
-    return data;
-  };
-
-  return data;
-}
-
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
- //card section
-
-var Title = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].h3(_templateObject());
-var CardFormItems = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject2());
-var ButtonContainer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].nav(_templateObject3()); //Tags
-
-var TagsList = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].ul(_templateObject4());
-var AddTag = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject5(), function (props) {
-  return props.active ? 'flex' : 'none';
-});
-var TagFormItems = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].li(_templateObject6());
-var TagSelector = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].select(_templateObject7());
-var TagNav = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].nav(_templateObject8());
-var TagButtonContainer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].nav(_templateObject9(), function (props) {
-  return props.active ? '0px' : '10px';
-}, function (props) {
-  return props.active ? 'none' : 'inherit';
-}, function (props) {
-  return props.active ? '0px' : '10px';
-}); ///
 
 /***/ }),
 

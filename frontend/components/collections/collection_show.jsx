@@ -14,8 +14,6 @@ const CollectionShow = props => {
     openDetails } = props;
 
   const [title, setTitle] = useState(collection ? collection.title : '');
-
-  const [active, setActive] = useState(false);
   
   const openCollectionDetails = e => {
     e.preventDefault();

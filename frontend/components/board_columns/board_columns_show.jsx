@@ -7,13 +7,8 @@ import NewCardsFormContainer from '../cards/new_cards_form_container';
 
 import {
   Column,
-  HeaderSection,
-  ToggleNav,
   CardsSection,
-  PseudoCard,
   CardButton,
-  Form,
-  HiddenButton
 } from '../../styled_components/board_column_styles';
 
 const BoardColumnsShow = props => {

@@ -32,7 +32,6 @@ const CollectionIndex = props => {
     postCollection({title: 'New Collection'});
   };
 
-  // consider adding the "active" class for this link, trigger onClick
   const renderCollections = () => {
     const collectionArray = collections.map(col =>
       <li 

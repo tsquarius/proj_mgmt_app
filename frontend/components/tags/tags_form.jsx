@@ -2,12 +2,6 @@ import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styled from 'styled-components';
 
-import {
-  TagSelector,
-  TagFormItems,
-  TagNav
-} from '../../styled_components/modal_styles';
-
 const AddTag = styled.div`
   display: ${props => props.active ? 'flex' : 'none'}
 `;
@@ -89,7 +83,7 @@ const TagsForm = props => {
         style={{ color: color, margin: '4px 4px 0', background: 'black' }}
         icon='circle' />
 
-      <nav key='tag-nav'>
+      <nav className='tag-nav' key='tag-nav'>
         <button 
           className='button' 
           onClick={submitTag} >

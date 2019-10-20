@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const SessionForm = props => {
 
-  const { submit, errors, type } = props;
+  const { submit, errors, type, login } = props;
 
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -28,7 +28,7 @@ const SessionForm = props => {
 
   const demoLogin = e => {
     e.preventDefault();
-    submit({username: 'demo', password: 'password'});
+    login({username: 'demo', password: 'password'});
   };
 
   const handleUsernameChange = e => {

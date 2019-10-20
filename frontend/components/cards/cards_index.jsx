@@ -1,9 +1,5 @@
 import React from 'react';
 
-//Testing
-import { Link, withRouter} from 'react-router-dom';
-
-
 import { Draggable } from 'react-beautiful-dnd';
 import CardsShowContainer from './cards_show_container';
 import TagsIndex from '../tags/tags_index';
@@ -11,8 +7,6 @@ import Loading from '../loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
-  CardName,
-  ToggleCardDetails,
   Card,
   CommentIcon
 } from '../../styled_components/card_styles';
@@ -59,13 +53,13 @@ const CardsIndex = props => {
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
           >
-            <CardName onClick={toggleActive} >
+            <span onClick={toggleActive} >
               {card.title} 
 
               <div className='card-tags'>
                 <TagsIndex tagsArray={card.tags} cardId={card.id} boardView={true} />
               </div>
-            </CardName>
+            </span>
 
             <CommentIcon active={card.comments.length > 0}>
               {card.comments.length}
