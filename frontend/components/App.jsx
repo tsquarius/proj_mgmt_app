@@ -15,10 +15,8 @@ import CardShowContainer from './cards/cards_show_container';
 const App = () => [
   <UserNavContainer key='main-nav' />,
   <header className='main-head' key='header'>
-    <h1> DASH. </h1>
+    <h1><Link to='/'>DASH.</Link> </h1>
   </header>,
-
-  
 
   <React.Fragment key='fragment'>
     <Switch>

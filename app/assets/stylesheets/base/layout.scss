@@ -16,6 +16,11 @@ h1 {
   margin: 0;
 }
 
+h1 a:hover {
+  color: $lightblue;
+  transition: 0.3s;
+}
+
 .main-head {
   background: $orange-dark;
     border-bottom: $lightblue 5px solid;
@@ -165,7 +170,7 @@ h1 {
 
 .bg-image {
   position: absolute;
-  background: #333
+  background: $gray-light
     image_url('splash.jpg');
   background-position: 0 100%;
   background-repeat: no-repeat;

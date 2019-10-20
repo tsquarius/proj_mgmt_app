@@ -9,7 +9,7 @@
   left: 0;
   background-color: $lightblue;
   overflow-x: hidden;
-  padding-top: 60px;
+  padding-top: 40px;
   transition: 0.5s;
   border: 0;
   text-align: left;
@@ -21,6 +21,10 @@
 
 .side ul li {
   width: 80%;
+}
+
+.side ul a:hover {
+  text-decoration: underline;
 }
 
 .side.active {
@@ -60,7 +64,8 @@
 }
 
 li.highlight {
-  background: $gray-dark;
+  background: $orange-darker;
+  color: white;
 }
 
 
