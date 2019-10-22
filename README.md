@@ -49,9 +49,10 @@ via drag & drop. To make this work properly, I had to
 * with the help of Redux, I created the search action by asynchronously filtering the data already loaded into the state.
 Using the search parameters in combination with a Selector function, I was able to control what the React Component renders.
 
-3. **Tags & Comments** - Each card has the functionality to add tags as well as comments to improve the user experience
+3. **Mobile** - ensured that this app was not only accessible via Desktop, but also mobile. 
+* one of the difficulties of this was that there can be large amounts of board columns and cards, which will inevitably go off screen. My solution for this was to create a layout with a "Netflix" feel. With the help of grids, I implemented side scrolling of columns and minimized the level of details shown on the cards. This provided for a cleaner feel.
 
-4. **Membership** - Owners of collections are able to add and remove members. Adding members can be done via username or email.
+4. **Tags & Comments** - Each card has the functionality to add tags as well as comments to improve the user experience
 
 ### Tags/Comments/Drag Drop
 ![Features1](https://github.com/tsquarius/proj_mgmt_app/blob/master/Features.gif)
